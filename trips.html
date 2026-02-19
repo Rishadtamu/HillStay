@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HillStay - My Trips</title>
+    <link rel="stylesheet" href="hillstay.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="main-header scrolled" style="position: sticky; background: #003580;">
+        <a href="index.html" class="logo">
+            <img src="logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+        </a>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav class="nav-links">
+            <a href="reviews.html">Review</a>
+            <a href="trips.html" style="color:var(--secondary);">Trips</a>
+            <a href="alerts.html">Alerts</a>
+        </nav>
+        <div class="header-actions">
+            <a href="#" class="btn-signin">Sign In</a>
+        </div>
+    </header>
+
+    <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem; min-height: 60vh;">
+        <h1 style="color: var(--primary); margin-bottom: 0.5rem;">My Trips</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Manage your upcoming and past bookings.</p>
+
+        <div id="trips-container">
+            <!-- Logic handled by JS -->
+            <div style="text-align: center; padding: 4rem; color: #666; background: #f9f9f9; border-radius: 12px;">
+                <i class="fa-solid fa-suitcase-rolling" style="font-size: 3rem; margin-bottom: 1rem; color: #ccc;"></i>
+                <p>You haven't booked any trips yet.</p>
+                <a href="index.html"
+                    style="display: inline-block; margin-top: 1rem; color: var(--primary); font-weight: 600;">Start
+                    Exploring &rarr;</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>About HillStay</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#">Read Reviews</a></li>
+                    <li><a href="#">Add a Place</a></li>
+                    <li><a href="#">Join</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">
+            &copy; 2026 HillStay LLC All rights reserved.
+        </div>
+    </footer>
+
+    <script src="hillstay.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            updateAuthUI();
+            renderTrips();
+        });
+
+        function renderTrips() {
+            const trips = JSON.parse(localStorage.getItem("hillstayTrips")) || [];
+            const container = document.getElementById("trips-container");
+
+            if (trips.length > 0) {
+                container.innerHTML = trips.map((trip, index) => `
+          <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 style="margin-bottom: 0.5rem;">${trip.title}</h3>
+              <p style="color: #666;"><i class="fa-regular fa-calendar"></i> Booked on: ${trip.date}</p>
+            </div>
+            <div>
+              <span style="background: #e6f4ea; color: #1e8e3e; padding: 4px 10px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;">Confirmed</span>
+            </div>
+          </div>
+        `).join("");
+
+                // Add a clear button for demo purposes
+                const clearBtn = document.createElement("button");
+                clearBtn.innerText = "Clear History";
+                clearBtn.style.cssText = "margin-top: 2rem; padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 6px; cursor: pointer; color: #666;";
+                clearBtn.onclick = () => {
+                    if (confirm("Clear trip history?")) {
+                        localStorage.removeItem("hillstayTrips");
+                        location.reload();
+                    }
+                };
+                container.appendChild(clearBtn);
+            }
+        }
+    </script>
+</body>
+
+</html>

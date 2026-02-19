@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HillStay - Adventure & Trekking Trails</title>
+    <link rel="stylesheet" href="hillstay.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="main-header scrolled" style="position: sticky; background: var(--primary);">
+        <a href="index.html" class="logo">
+            <img src="logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+        </a>
+        <nav class="nav-links">
+            <a href="reviews.html">Review</a>
+            <a href="trips.html">Trips</a>
+            <a href="alerts.html">Alerts</a>
+        </nav>
+        <div class="header-actions">
+            <a href="#" class="btn-signin">Sign In</a>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="height: 40vh; min-height: 400px; background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b'); background-size: cover; background-position: center;">
+        <div class="hero-content">
+            <h1 style="font-size: 3.5rem;">Trek the Unseen</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">From the rhododendron forests of Sikkim to
+                the rolling mounds of Dzukou, find your next trail.</p>
+        </div>
+    </section>
+
+    <div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+        <h2 class="section-title">Popular Trails</h2>
+        <div class="listing-grid">
+            <!-- Dzukou Valley -->
+            <div class="listing-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1504280595-349f257a5360?q=80&w=800&auto=format&fit=crop"
+                        alt="Dzukou Valley">
+                    <div class="card-badge">Bestseller</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Dzukou Valley Trek</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Nagaland - Manipur Border</div>
+                    <div
+                        style="display: flex; gap: 1rem; margin: 1rem 0; font-size: 0.85rem; color: var(--text-muted);">
+                        <span><i class="fa-solid fa-clock"></i> 2-3 Days</span>
+                        <span><i class="fa-solid fa-gauge-high"></i> Moderate</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Walk through the valley of flowers
+                        and experience the unique topography of Nagaland.</p>
+                    <button class="btn-book" style="width: 100%;">Book Guide</button>
+                </div>
+            </div>
+
+            <!-- Sandakphu -->
+            <div class="listing-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=800&auto=format&fit=crop"
+                        alt="Sandakphu">
+                    <div class="card-badge">Premium</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Sandakphu Phalut Trek</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Darjeeling, West Bengal</div>
+                    <div
+                        style="display: flex; gap: 1rem; margin: 1rem 0; font-size: 0.85rem; color: var(--text-muted);">
+                        <span><i class="fa-solid fa-clock"></i> 5-6 Days</span>
+                        <span><i class="fa-solid fa-gauge-high"></i> Challenging</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">The "Trek of the Greats" offering
+                        views of Everest, Kanchenjunga, Lhotse, and Makalu.</p>
+                    <button class="btn-book" style="width: 100%;">View Itinerary</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trail Equipment Section -->
+    <section style="background: #003580; color: white; padding: 6rem 0;">
+        <div style="max-width: 1000px; margin: 0 auto; padding: 0 2rem; text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Essential Gear Checklist</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
+                <div><i class="fa-solid fa-boot-heeled" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Waterproof Trekking Boots</p>
+                </div>
+                <div><i class="fa-solid fa-person-shelter" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>High Altitude Tents</p>
+                </div>
+                <div><i class="fa-solid fa-flashlight" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Headlamps & Batteries</p>
+                </div>
+                <div><i class="fa-solid fa-kit-medical" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Personal First Aid</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div style="text-align: center; color: #ccc; padding: 2rem;">&copy; 2026 HillStay - Explore the Unseen</div>
+    </footer>
+
+    <script src="hillstay.js"></script>
+</body>
+
+</html>

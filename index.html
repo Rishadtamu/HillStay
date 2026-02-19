@@ -1,68 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HillStay</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-}
-
-header {
-    background: #2c3e50;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-.hero {
-    background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470") no-repeat center/cover;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.section {
-    padding: 40px;
-    text-align: center;
-}
-
-footer {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 15px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HillStay - Explore the Unseen</title>
+  <link rel="stylesheet" href="hillstay.css">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
-<header>
-<h1>HillStay</h1>
-<p>Discover Beautiful Homestays in the Hills</p>
-</header>
+  <!-- Header -->
+  <header class="main-header">
+    <a href="#" class="logo">
+      <img src="logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+    </a>
+    <div class="header-nav-desktop">
+      <a href="trips.html" class="nav-item">Trips</a>
+      <a href="alerts.html" class="nav-item">Alerts</a>
+      <a href="review.html" class="nav-item">Review</a>
+      <a href="support.html" class="nav-item contact-sign" title="Contact Support"><i
+          class="fa-solid fa-headset"></i></a>
+      <div class="header-lang-switcher">
+        <i class="fa-solid fa-globe"></i>
+        <span class="current-lang">EN</span>
+        <div class="lang-dropdown">
+          <span class="lang-opt" data-lang="en">English</span>
+          <span class="lang-opt" data-lang="hi">Hindi</span>
+          <span class="lang-opt" data-lang="bn">Bengali</span>
+          <span class="lang-opt" data-lang="ne">Nepali</span>
+        </div>
+      </div>
+    </div>
 
-<div class="hero">
-Explore Nature With Comfort
-</div>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
-<div class="section">
-<h2>Welcome to HillStay</h2>
-<p>Find peaceful homestays and mountain views across Northeast India.</p>
-</div>
+    <!-- Navigation Links (Sidebar for Mobile) -->
+    <div class="nav-links">
+      <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+      <a href="index.html">Home</a>
+      <a href="review.html"><i class="fa-solid fa-pen-to-square"></i> Write a review</a>
+      <a href="photos.html"><i class="fa-solid fa-camera"></i> Add photos</a>
+      <a href="stories.html"><i class="fa-solid fa-book-open"></i> Travel stories</a>
+      <a href="trips.html">Trips</a>
+      <a href="alerts.html">Alerts</a>
+      <hr class="nav-divider">
+      <a href="support.html"><i class="fa-solid fa-headset"></i> Contact Support (24h)</a>
+      <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+      <a href="about.html">About Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+    <div class="header-actions">
+      <!-- Handle by hillstay.js updateAuthUI() -->
+    </div>
+  </header>
 
-<footer>
-<p>© 2026 HillStay</p>
-</footer>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-slider">
+      <!-- Slide 1 (main) -->
+      <div class="hero-slide active" data-title="Find your perfect escape."
+        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('hero-main.jpeg');">
+      </div>
+      <!-- Slide 2 (new-hero) -->
+      <div class="hero-slide" data-title="Discover hidden gems."
+        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('new-hero.jpeg');">
+      </div>
+      <!-- Slide 3 (hero-3) -->
+      <div class="hero-slide" data-title="Experience local culture."
+        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('hero-3.jpeg');">
+      </div>
+      <!-- Slide 4 (landscape) -->
+      <div class="hero-slide" data-title="Breath-taking landscapes."
+        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('67067778.jpg');">
+      </div>
+    </div>
 
+    <div class="hero-content">
+      <h1>Find your perfect escape.</h1>
+      <div class="search-widget">
+        <div class="search-tabs">
+          <span class="search-tab active">Stay</span>
+          <span class="search-tab">Activities</span>
+          <span class="search-tab">Food</span>
+          <span class="search-tab">Forums</span>
+        </div>
+        <div class="search-capsule">
+          <div class="search-segment">
+            <label><i class="fa-solid fa-location-dot"></i> Location</label>
+            <input type="text" placeholder="Where to go?" value="Darjeeling">
+          </div>
+          <div class="search-segment">
+            <label><i class="fa-solid fa-calendar-days"></i> Dates</label>
+            <div class="input-display">Add dates</div>
+            <input type="date" class="hidden-date-input">
+          </div>
+          <div class="search-segment">
+            <label><i class="fa-solid fa-user-group"></i> Travelers</label>
+            <div class="guest-control">
+              <button type="button" class="guest-btn minus" onclick="updateGuests(-1)"><i
+                  class="fa-solid fa-minus"></i></button>
+              <span id="guest-count">2</span>
+              <button type="button" class="guest-btn plus" onclick="updateGuests(1)"><i
+                  class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+          <button class="btn-search-main"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="search-suggestions"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Premium 4-Option Box -->
+  <section class="premium-option-box">
+    <div class="option-btn homestay" onclick="location.href='#homestays'">
+      <i class="fa-solid fa-house-chimney"></i>
+      <span>Homestay</span>
+    </div>
+    <div class="option-btn restaurant" onclick="location.href='restaurant.html'">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Restaurant</span>
+    </div>
+    <div class="option-btn trekking" onclick="location.href='trekking.html'">
+      <i class="fa-solid fa-person-hiking"></i>
+      <span>Trekking</span>
+    </div>
+    <div class="option-btn experience" onclick="location.href='experience.html'">
+      <i class="fa-solid fa-camera"></i>
+      <span>Experience</span>
+    </div>
+    <div class="option-btn things-to-do" onclick="location.href='activities.html'">
+      <i class="fa-solid fa-map-location-dot"></i>
+      <span>Things to do</span>
+    </div>
+    <div class="option-btn forums" onclick="location.href='forums.html'">
+      <i class="fa-solid fa-comments"></i>
+      <span>Forums</span>
+    </div>
+  </section>
+
+  <div class="gopod-wrapper">
+    <!-- Homestay Carousel Section -->
+    <section class="featured-section" id="homestays">
+      <h2 class="section-title">Premium Homestays</h2>
+      <div class="carousel-container">
+        <div class="carousel-track" id="homestay-carousel">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="carousel-btn next-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="gopod-wrapper">
+    <!-- Destinations Section -->
+    <section class="destinations-section">
+      <h2 class="section-title">Explore the Hills</h2>
+      <div class="destinations-grid">
+        <div class="destination-card">
+          <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=300&auto=format&fit=crop"
+            alt="Darjeeling">
+          <span>Darjeeling</span>
+        </div>
+        <div class="destination-card">
+          <img src="https://images.unsplash.com/photo-1571545625482-a7457d59996c?q=80&w=300&auto=format&fit=crop"
+            alt="Kalimpong">
+          <span>Kalimpong</span>
+        </div>
+        <div class="destination-card">
+          <img src="https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=300&auto=format&fit=crop"
+            alt="Gangtok">
+          <span>Gangtok</span>
+        </div>
+        <div class="destination-card">
+          <img src="https://images.unsplash.com/photo-1625299495147-9ac69c9b1386?q=80&w=300&auto=format&fit=crop"
+            alt="Pelling">
+          <span>Pelling</span>
+        </div>
+        <div class="destination-card">
+          <img src="https://images.unsplash.com/photo-1616421060627-c1d09ec95697?q=80&w=300&auto=format&fit=crop"
+            alt="Kohima">
+          <span>Kohima</span>
+        </div>
+        <div class="destination-card">
+          <img src="https://images.unsplash.com/photo-1504280595-349f257a5360?q=80&w=300&auto=format&fit=crop"
+            alt="Dzukou Valley">
+          <span>Dzukou</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="gopod-wrapper">
+    <!-- Advanced Story Section -->
+    <section class="adv-story-section">
+      <div class="adv-story-container">
+        <h2 class="section-title" style="margin-bottom: 4rem; text-align: center;">Travel Stories</h2>
+        <!-- Stories content... -->
+
+        <!-- Story 1: Sillery Gaon -->
+        <div class="adv-story-item">
+          <div class="adv-story-img">
+            <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9" alt="Sillery Gaon">
+          </div>
+          <div class="adv-story-content">
+            <h3>The Silence of Sillery Gaon</h3>
+            <p>In the quiet hamlet of Sillery, I learned that silence isn't empty—it's full of answers. Here, 'slow
+              living' isn't a trend; it's the breath of the mountains. Disconnecting from the digital noise allowed me
+              to
+              hear the whispering wind and the beating of my own heart. A lesson in finding home within oneself.</p>
+            <a href="experience.html" class="read-more-btn">Read the Journey &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Story 2: Kitchen Hearth -->
+        <div class="adv-story-item">
+          <div class="adv-story-img">
+            <img
+              src="/Users/rishadgurung/.gemini/antigravity/brain/082284c9-6efd-4f0a-8124-123e994d1dd6/kitchen_hearth_warmth_1771341243499.png"
+              alt="Kitchen Hearth">
+          </div>
+          <div class="adv-story-content">
+            <h3>A Seat at the Kitchen Hearth</h3>
+            <p>There is no warmth quite like the fire that keeps a mountain home alive. Sitting on a wooden stool,
+              sharing
+              steamed momos and stories with a local family, I realized that hospitality in the hills isn't a
+              service—it's
+              an ancient bond. It's the taste of love and the spice of shared laughter.</p>
+            <a href="experience.html" class="read-more-btn">Taste the Culture &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Story 3: Rishyap -->
+        <div class="adv-story-item">
+          <div class="adv-story-img">
+            <img
+              src="/Users/rishadgurung/.gemini/antigravity/brain/082284c9-6efd-4f0a-8124-123e994d1dd6/rishyap_misty_pines_1771341422150.png"
+              alt="Rishyap">
+          </div>
+          <div class="adv-story-content">
+            <h3>The Whispering Pines of Rishyap</h3>
+            <p>Walking through the misty pine forests of Rishyap, the world felt soft and forgiving. The trees carry the
+              weight of centuries, and in their presence, my worries felt small. I learned that nature doesn't just
+              heal; it reminds us of our place in the grand design. A pilgrimage of the soul.</p>
+            <a href="experience.html" class="read-more-btn">Find Peace &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Story 4: Teesta -->
+        <div class="adv-story-item">
+          <div class="adv-story-img">
+            <img
+              src="/Users/rishadgurung/.gemini/antigravity/brain/082284c9-6efd-4f0a-8124-123e994d1dd6/teesta_soul_river_1771341784824.png"
+              alt="Teesta River">
+          </div>
+          <div class="adv-story-content">
+            <h3>The Soul of the Teesta</h3>
+            <p>Watching the emerald waters of the Teesta carve through rocky canyons, I understood persistence. The
+              river
+              flows because it must, overcoming every boulder in its path. It taught me that life, much like the river,
+              finds its way home eventually, if only we trust the current.</p>
+            <a href="experience.html" class="read-more-btn">Follow the Flow &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#"><i class="fa-solid fa-headset"></i> Contact Support (24h)</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Referral Program</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="review.html">Write a review</a></li>
+          <li><a href="photos.html">Add photos</a></li>
+          <li><a href="stories.html">Travel stories</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 HillStay LLC All rights reserved.
+    </div>
+  </footer>
+
+  <script src="hillstay.js"></script>
 </body>
+
 </html>

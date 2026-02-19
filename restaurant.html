@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HillStay - Fine Dining & Local Flavors</title>
+    <link rel="stylesheet" href="hillstay.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="page-blue-theme">
+    <header class="main-header scrolled" style="position: sticky; background: var(--primary);">
+        <a href="index.html" class="logo">
+            <img src="logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+        </a>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav class="nav-links">
+            <a href="reviews.html">Review</a>
+            <a href="trips.html">Trips</a>
+            <a href="alerts.html">Alerts</a>
+        </nav>
+        <div class="header-actions">
+            <a href="#" class="btn-signin">Sign In</a>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="height: 40vh; min-height: 400px; background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5'); background-size: cover; background-position: center;">
+        <div class="hero-content">
+            <h1 style="font-size: 3.5rem;">Savor the Hills</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">From iconic bakeries to hidden mountain
+                cafes, discover the best culinary experiences.</p>
+        </div>
+    </section>
+
+    <div style="max-width: 1200px; margin: 4rem auto; padding: 0 1rem;">
+        <h2 class="section-title">Iconic Eateries</h2>
+        <div class="listing-grid">
+            <!-- Glenary's -->
+            <div class="listing-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop"
+                        alt="Glenary's">
+                    <div class="card-badge">Iconic</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Glenary's Bakery & Pub</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Mall Road, Darjeeling</div>
+                    <div class="card-rating">
+                        <div class="bubbles">
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                        </div>
+                        <span class="review-count">5,200 reviews</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Famous for its breakfast, pastries,
+                        and colonial ambiance with stunning views.</p>
+                    <button class="btn-book" style="width: 100%;">Reserve a Table</button>
+                </div>
+            </div>
+
+            <!-- Taste of Tibet -->
+            <div class="listing-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1544333333-899852230353?q=80&w=800&auto=format&fit=crop"
+                        alt="Taste of Tibet">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Taste of Tibet</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> MG Marg, Gangtok</div>
+                    <div class="card-rating">
+                        <div class="bubbles">
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle-half-stroke"></i>
+                        </div>
+                        <span class="review-count">3,120 reviews</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">The absolute best place for
+                        authentic momos and thukpa in the heart of Sikkim.</p>
+                    <button class="btn-book" style="width: 100%;">View Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Menu -->
+    <section style="background: #f8f9fa; padding: 6rem 0;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem; text-align: center;">
+            <h2 class="section-title">Chef's Recommendations</h2>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                    <img src="https://images.unsplash.com/photo-1626777555301-447a11d04426?q=80&w=300"
+                        style="border-radius: 50%; width: 150px; height: 150px; margin: 0 auto 1rem; object-fit: cover;">
+                    <h4>Naga Pork with Bamboo Shoot</h4>
+                    <p style="color: #666; font-size: 0.9rem;">A flavorful and smoky traditional Naga delicacy.</p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                    <img src="https://images.unsplash.com/photo-1625398407796-82650a8c135f?q=80&w=300"
+                        style="border-radius: 50%; width: 150px; height: 150px; margin: 0 auto 1rem; object-fit: cover;">
+                    <h4>Sikkimese Thali</h4>
+                    <p style="color: #666; font-size: 0.9rem;">A complete meal featuring local greens, dal, and rice.
+                    </p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                    <img src="https://images.unsplash.com/photo-1596791016022-ed706385764d?q=80&w=300"
+                        style="border-radius: 50%; width: 150px; height: 150px; margin: 0 auto 1rem; object-fit: cover;">
+                    <h4>Darjeeling Afternoon Tea</h4>
+                    <p style="color: #666; font-size: 0.9rem;">The finest first-flush tea served with scones and cream.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer"></footer> <!-- Same as index.html -->
+
+    <script src="hillstay.js"></script>
+</body>
+
+</html>
