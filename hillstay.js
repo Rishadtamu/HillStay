@@ -507,7 +507,11 @@ function getStarHTML(rating) {
 // Render Listings
 function renderListings(data) {
   const grid = document.querySelector(".listing-grid");
+  const listingSection = document.getElementById("all-stays-section");
   if (!grid) return;
+
+  if (listingSection) listingSection.style.display = "block";
+  grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   if (data.length === 0) {
     grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #666;">
@@ -694,10 +698,10 @@ function initAll() {
   renderListings(listings);
   setupSearch();
   updateAuthUI();
-  initHomestayCarousel();
   initStoryAnimations();
   highlightActiveNav();
   setupMobileMenu();
+  initDealsSlider();
 
   // Scroll listener for sticky header
   window.addEventListener("scroll", () => {
@@ -721,72 +725,57 @@ function highlightActiveNav() {
 
 // Auth Functions
 function updateAuthUI() {
-  const profileContainer = document.querySelector('.header-actions');
-  if (!profileContainer) return;
+  const desktopContainers = document.querySelectorAll('.header-actions');
+  const mobileContainers = document.querySelectorAll('.header-actions-mobile');
 
-  if (state.user) {
-    profileContainer.innerHTML = `
-      <div class="user-profile">
-        <div class="user-avatar" onclick="toggleUserMenu()">
-          <img src="${state.user.photo}" alt="${state.user.name}">
-        </div>
-        <div class="user-menu" id="user-menu">
-          <div class="user-menu-header">
-            <strong>${state.user.name}</strong>
-            <span>${state.user.email}</span>
+  const allContainers = [...desktopContainers, ...mobileContainers];
+  if (allContainers.length === 0) return;
+
+  allContainers.forEach(container => {
+    if (state.user) {
+      container.innerHTML = `
+        <div class="user-profile">
+          <div class="user-avatar" onclick="toggleUserMenu()">
+            <img src="${state.user.photo}" alt="${state.user.name}">
           </div>
-          <a href="#"><i class="fa-solid fa-user"></i> My Profile</a>
-          <a href="trips.html"><i class="fa-solid fa-suitcase"></i> My Trips</a>
-          <button onclick="logout()" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+          <div class="user-menu" id="user-menu">
+            <div class="user-menu-header">
+              <strong>${state.user.name}</strong>
+              <span>${state.user.email}</span>
+            </div>
+            <a href="#"><i class="fa-solid fa-user"></i> My Profile</a>
+            <a href="trips.html"><i class="fa-solid fa-suitcase"></i> My Trips</a>
+            <button onclick="logout()" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+          </div>
         </div>
-      </div>
-    `;
-  } else {
-    profileContainer.innerHTML = `
-      <button onclick="openLoginModal()" class="btn-signin">Sign In</button>
-    `;
-  }
+      `;
+    } else {
+      container.innerHTML = `
+        <div class="user-profile">
+          <button onclick="toggleLoginMenu()" class="btn-signin" style="background: transparent; border: none; padding: 0.5rem; font-size: 1.2rem; min-width: unset; height: auto;" aria-label="Sign In">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          
+          <div class="user-menu" id="login-menu">
+            <div class="user-menu-header">
+              <img src="logo_tent_transparent.png" alt="HillStay Logo" style="height: 40px; width: 40px; object-fit: contain; background: white; border-radius: 50%; padding: 5px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+              <strong>Sign In</strong>
+              <span>Explore mountain escapes</span>
+            </div>
+            <button class="btn-social google-btn" onclick="loginWithGoogle()" style="width: 100%; text-align: left; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: white; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+              <i class="fa-brands fa-google" style="color: #DB4437; font-size: 18px;"></i>
+              Continue with Google
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  });
 }
 
-function openLoginModal() {
-  const modalHTML = `
-    <div class="auth-modal-overlay" id="auth-modal">
-      <div class="auth-modal-content">
-        <button class="btn-close-modal" onclick="closeAuthModal()">&times;</button>
-        <div class="auth-modal-header">
-          <h2>Welcome to HillStay</h2>
-          <p>Sign in to explore your perfect mountain escape.</p>
-        </div>
-        
-        <button class="btn-social google-btn" onclick="loginWithGoogle()">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
-          Continue with Google
-        </button>
-        
-        <div class="auth-divider">or use email</div>
-        
-        <div class="auth-form">
-          <div class="auth-form-group">
-            <label>Email</label>
-            <input type="email" placeholder="Enter your email">
-          </div>
-          <div class="auth-form-group">
-            <label>Password</label>
-            <input type="password" placeholder="Enter your password">
-          </div>
-          <button class="btn-auth-submit" onclick="mockLogin()">Sign In</button>
-        </div>
-        
-        <p class="auth-footer">Don't have an account? <a href="#">Sign up</a></p>
-      </div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
-}
-
-function closeAuthModal() {
-  const modal = document.getElementById('auth-modal');
-  if (modal) modal.remove();
+function toggleLoginMenu() {
+  const menu = document.getElementById('login-menu');
+  if (menu) menu.classList.toggle('active');
 }
 
 function loginWithGoogle() {
@@ -801,7 +790,8 @@ function loginWithGoogle() {
       photo: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop"
     };
     localStorage.setItem("hillstayUser", JSON.stringify(state.user));
-    closeAuthModal();
+    const loginMenu = document.getElementById('login-menu');
+    if (loginMenu) loginMenu.classList.remove('active');
     updateAuthUI();
     alert("Logged in successfully with Gmail!");
   }, 1500);
@@ -823,75 +813,17 @@ function toggleUserMenu() {
   if (menu) menu.classList.toggle('active');
 }
 
-// Close User Menu on Outside Click
+// Close User/Login Menu on Outside Click
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.user-profile')) {
-    const menu = document.getElementById('user-menu');
-    if (menu) menu.classList.remove('active');
+    const userMenu = document.getElementById('user-menu');
+    const loginMenu = document.getElementById('login-menu');
+    if (userMenu) userMenu.classList.remove('active');
+    if (loginMenu) loginMenu.classList.remove('active');
   }
 });
 
 
-// Advanced Carousel Logic
-let carouselIndex = 0;
-function initHomestayCarousel() {
-  const track = document.getElementById("homestay-carousel");
-  if (!track) return;
-
-  const homestays = listings.filter(l => l.category === 'homestay');
-
-  track.innerHTML = homestays.map(item => `
-    <div class="carousel-card">
-      <div class="listing-card" onclick="openPropertyDetails(${item.id})">
-        <div class="card-img-container">
-          <img src="${item.image}" alt="${item.title}">
-          <div class="card-badge">${item.badge || 'Featured'}</div>
-          <button class="favorite-btn" onclick="event.stopPropagation(); saveToTrips(${item.id})">
-            <i class="fa-regular fa-heart"></i>
-          </button>
-        </div>
-        <div class="card-content">
-          <h3 class="card-title">${item.title}</h3>
-          <div class="card-location"><i class="fa-solid fa-location-dot"></i> ${item.location}</div>
-          <div class="card-rating">
-            <div class="bubbles">${getStarHTML(item.rating)}</div>
-            <span class="review-count">${item.reviews} reviews</span>
-          </div>
-          <div class="card-price">₹${item.price} <span>/ night</span></div>
-          
-          <div class="amenities-grid">
-            <div class="amenity-item"><i class="fa-solid fa-wifi"></i> Wifi</div>
-            <div class="amenity-item"><i class="fa-solid fa-mug-hot"></i> Breakfast</div>
-            <div class="amenity-item"><i class="fa-solid fa-mountain"></i> View</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join("");
-
-  const nextBtn = document.querySelector(".next-btn");
-  const prevBtn = document.querySelector(".prev-btn");
-
-  nextBtn?.addEventListener("click", () => {
-    const maxIndex = homestays.length - (window.innerWidth > 992 ? 3 : 1);
-    if (carouselIndex < maxIndex) {
-      carouselIndex++;
-      updateCarousel();
-    }
-  });
-
-  prevBtn?.addEventListener("click", () => {
-    if (carouselIndex > 0) {
-      carouselIndex--;
-      updateCarousel();
-    }
-  });
-
-  function updateCarousel() {
-    const cardWidth = document.querySelector(".carousel-card").offsetWidth + 32; // width + gap
-    track.style.transform = `translateX(-${carouselIndex * cardWidth}px)`;
-  }
-}
 
 // Story Scroll Animations (Intersection Observer)
 function initStoryAnimations() {
@@ -1098,17 +1030,17 @@ function setupMobileMenu() {
 
   // Use a named function to avoid duplicate listeners if called multiple times
   const handleToggle = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     const isOpen = navLinks.classList.toggle('active');
     backdrop.classList.toggle('active');
 
     // Change icon from bars to xmark
     const icon = menuToggle.querySelector('i');
     if (isOpen) {
-      icon.classList.replace('fa-bars', 'fa-xmark');
+      if (icon) icon.classList.replace('fa-bars', 'fa-xmark');
       document.body.style.overflow = 'hidden'; // Prevent scroll
     } else {
-      icon.classList.replace('fa-xmark', 'fa-bars');
+      if (icon) icon.classList.replace('fa-xmark', 'fa-bars');
       document.body.style.overflow = '';
     }
   };
@@ -1190,6 +1122,7 @@ function setupMobileMenu() {
 // Global Scroll Handler
 function handleScroll() {
   const header = document.querySelector('.main-header');
+  const stickySearch = document.getElementById('sticky-search');
   const menuToggle = document.querySelector('.menu-toggle');
   const langSwitcher = document.querySelector('.header-lang-switcher');
 
@@ -1203,6 +1136,15 @@ function handleScroll() {
     header.classList.remove('scrolled');
     if (menuToggle) menuToggle.classList.remove('scrolled');
     if (langSwitcher) langSwitcher.classList.remove('scrolled');
+  }
+
+  // Sticky Search Bar logic
+  if (stickySearch) {
+    if (window.scrollY > 400) { // Show after scrolling past hero
+      stickySearch.classList.add('active');
+    } else {
+      stickySearch.classList.remove('active');
+    }
   }
 }
 
@@ -1221,10 +1163,126 @@ function initLanguage() {
   });
 }
 
+// Destinations Carousel Setup
+function initDestinationCarousel() {
+  const track = document.getElementById('destinations-track');
+  const prevBtn = document.querySelector('.dest-prev');
+  const nextBtn = document.querySelector('.dest-next');
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: 300, behavior: 'smooth' }); // Scroll by card width + gap
+  });
+
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+}
+
 // Initialize all features
 document.addEventListener('DOMContentLoaded', () => {
   startHeroSlider();
   setupMobileMenu();
   initLanguage();
+  initDestinationCarousel();
   window.addEventListener('scroll', handleScroll);
 });
+
+// Etihad-style Deals Slider Logic
+function initDealsSlider() {
+  const track = document.querySelector('.deals-slider-track');
+  const cards = document.querySelectorAll('.deal-card');
+  const dots = document.querySelectorAll('.deals-pagination .dot');
+  const prevBtn = document.querySelector('.deals-nav-btn.prev');
+  const nextBtn = document.querySelector('.deals-nav-btn.next');
+
+  if (!track || cards.length === 0) return;
+
+  function updateActiveState() {
+    const trackRect = track.getBoundingClientRect();
+    const trackCenter = trackRect.left + trackRect.width / 2;
+
+    let closestCard = null;
+    let minDistance = Infinity;
+
+    cards.forEach((card, index) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const distance = Math.abs(trackCenter - cardCenter);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestCard = index;
+      }
+    });
+
+    // Update classes
+    cards.forEach((card, index) => {
+      if (index === closestCard) {
+        card.classList.add('active');
+        dots[index]?.classList.add('active');
+      } else {
+        card.classList.remove('active');
+        dots[index]?.classList.remove('active');
+      }
+    });
+  }
+
+  // Silky-smooth real-time scroll updates
+  let ticking = false;
+  track.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateActiveState();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Navigation Arrows
+  prevBtn?.addEventListener('click', () => {
+    const currentIndex = Array.from(cards).findIndex(c => c.classList.contains('active'));
+    const nextIndex = Math.max(0, currentIndex - 1);
+    scrollToCard(nextIndex);
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    const currentIndex = Array.from(cards).findIndex(c => c.classList.contains('active'));
+    const nextIndex = Math.min(cards.length - 1, currentIndex + 1);
+    scrollToCard(nextIndex);
+  });
+
+  // Pagination Dots
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const index = parseInt(e.target.dataset.index);
+      scrollToCard(index);
+    });
+  });
+
+  function scrollToCard(index) {
+    const card = cards[index];
+    if (!card) return;
+
+    const trackWidth = track.offsetWidth;
+    const cardWidth = card.offsetWidth;
+    const cardOffset = card.offsetLeft;
+
+    // Calculate scroll position to center the card
+    const scrollPos = cardOffset - (trackWidth / 2) + (cardWidth / 2);
+
+    track.scrollTo({
+      left: scrollPos,
+      behavior: 'smooth'
+    });
+
+    // Manually trigger update after scroll animation (approximate)
+    setTimeout(updateActiveState, 600);
+  }
+
+  // Initial call
+  updateActiveState();
+}
+

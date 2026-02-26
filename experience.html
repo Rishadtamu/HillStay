@@ -10,17 +10,58 @@
 </head>
 
 <body>
-    <header class="main-header scrolled" style="position: sticky; background: var(--primary);">
-        <a href="index.html" class="logo">
-            <img src="logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
-        </a>
-        <nav class="nav-links">
-            <a href="reviews.html">Review</a>
-            <a href="trips.html">Trips</a>
+    <!-- Header -->
+    <header class="main-header">
+        
+
+        <!-- Main Navigation Tier -->
+        <div class="header-main-tier">
+            <a href="index.html" class="logo">
+                <img src="logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+            </a>
+
+            <div class="header-nav-desktop">
+                <a href="index.html" class="nav-item">Book</a>
+                <a href="trips.html" class="nav-item">Manage Trips</a>
+                <a href="#destinations" class="nav-item">Destinations</a>
+                <a href="experience.html" class="nav-item">Experience</a>
+            </div>
+
+            <div class="header-main-right">
+                <div class="header-lang-switcher">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown">
+                        <span class="lang-opt" data-lang="en">EN</span>
+                        <span class="lang-opt" data-lang="hi">HI</span>
+                        <span class="lang-opt" data-lang="bn">BN</span>
+                        <span class="lang-opt" data-lang="ne">NE</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <!-- Auth Icon -->
+                </div>
+                <!-- Mobile Menu Toggle -->
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Links (Sidebar for Mobile) -->
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="index.html">Book</a>
+            <a href="trips.html">Manage Trips</a>
+            <a href="#destinations">Destinations</a>
+            <a href="experience.html">Experience</a>
+            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
             <a href="alerts.html">Alerts</a>
-        </nav>
-        <div class="header-actions">
-            <a href="#" class="btn-signin">Sign In</a>
+            <hr class="nav-divider">
+            
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;">
+                <!-- Mobile Auth handled via JS or specific class styling -->
+            </div>
         </div>
     </header>
 
