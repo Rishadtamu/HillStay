@@ -199,12 +199,14 @@
                 <img src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
             </a>
             <div class="header-nav-desktop">
-                <a href="index.html" class="nav-item">Book</a>
-                <a href="trips.html" class="nav-item">Manage Trips</a>
-                <a href="index.html#destinations" class="nav-item">Destinations</a>
-                <a href="experience.html" class="nav-item">Experience</a>
+                <a href="destination.html" class="nav-item">Destinations</a>
+                <a href="homestay.html" class="nav-item">Homestays</a>
+                <a href="restaurant.html" class="nav-item">Restaurants</a>
+                <a href="trekking.html" class="nav-item">Trekking Experiences</a>
+                <a href="experience.html" class="nav-item">Activities</a>
             </div>
             <div class="header-main-right">
+                <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <div class="header-lang-switcher">
                     <i class="fa-solid fa-globe"></i>
                     <div class="lang-dropdown">
@@ -220,12 +222,11 @@
         </div>
         <div class="nav-links">
             <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-            <a href="index.html">Book</a>
-            <a href="trips.html">Manage Trips</a>
-            <a href="index.html#destinations">Destinations</a>
-            <a href="experience.html">Experience</a>
-            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
-            <a href="alerts.html">Alerts</a>
+            <a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a>
+            <a href="restaurant.html">Restaurants</a>
+            <a href="trekking.html">Trekking Experiences</a>
+            <a href="experience.html">Activities</a>
             <hr class="nav-divider">
             <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
             <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
@@ -274,7 +275,7 @@
                     <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop"
                         alt="Glenary's">
                     <div class="card-badge">Iconic · Est. 1935</div>
-                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                 </div>
                 <div class="card-content">
                     <h3 class="card-title">Glenary's Bakery &amp; Pub</h3>
@@ -309,7 +310,7 @@
                     <img src="https://images.unsplash.com/photo-1544333333-899852230353?q=80&w=600&auto=format&fit=crop"
                         alt="Taste of Tibet">
                     <div class="card-badge">Local Favourite</div>
-                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                 </div>
                 <div class="card-content">
                     <h3 class="card-title">Taste of Tibet</h3>
@@ -340,7 +341,7 @@
                     <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop"
                         alt="Dzukou Café">
                     <div class="card-badge">Hidden Gem</div>
-                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                 </div>
                 <div class="card-content">
                     <h3 class="card-title">Dzükou Valley Café</h3>
@@ -372,7 +373,7 @@
                     <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop"
                         alt="Shangri-La">
                     <div class="card-badge">Fine Dining</div>
-                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                 </div>
                 <div class="card-content">
                     <h3 class="card-title">Shangri-La Restaurant</h3>
@@ -405,7 +406,7 @@
                     <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop"
                         alt="Chowk Bazaar">
                     <div class="card-badge">Street Food</div>
-                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                 </div>
                 <div class="card-content">
                     <h3 class="card-title">Chowk Bazaar Street Eats</h3>
@@ -436,7 +437,7 @@
                     <img src="https://images.unsplash.com/photo-1509483894071-6bc78c5ed33d?q=80&w=600&auto=format&fit=crop"
                         alt="Nathmulls">
                     <div class="card-badge">Heritage</div>
-                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                 </div>
                 <div class="card-content">
                     <h3 class="card-title">Nathmull's Tea Room</h3>
@@ -542,7 +543,8 @@
             <div class="footer-col">
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a></li>
                     <li><a href="restaurant.html">Restaurants</a></li>
                     <li><a href="trekking.html">Trekking</a></li>
                     <li><a href="experience.html">Experiences</a></li>

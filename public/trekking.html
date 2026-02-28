@@ -313,13 +313,14 @@
             <a href="index.html" class="logo" style="color:var(--text-main)!important"><img
                     src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay</a>
             <div class="header-nav-desktop">
-                <a href="index.html" class="nav-item" style="color:var(--text-main)!important">Book</a>
-                <a href="trips.html" class="nav-item" style="color:var(--text-main)!important">Manage Trips</a>
-                <a href="index.html#destinations" class="nav-item"
-                    style="color:var(--text-main)!important">Destinations</a>
-                <a href="experience.html" class="nav-item" style="color:var(--text-main)!important">Experience</a>
+                <a href="destination.html" class="nav-item">Destinations</a>
+                <a href="homestay.html" class="nav-item">Homestays</a>
+                <a href="restaurant.html" class="nav-item">Restaurants</a>
+                <a href="trekking.html" class="nav-item">Trekking Experiences</a>
+                <a href="experience.html" class="nav-item">Activities</a>
             </div>
             <div class="header-main-right">
+                <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <div class="header-lang-switcher" style="color:var(--text-main)"><i class="fa-solid fa-globe"></i>
                     <div class="lang-dropdown"><span class="lang-opt" data-lang="en">EN</span><span class="lang-opt"
                             data-lang="hi">HI</span><span class="lang-opt" data-lang="bn">BN</span><span
@@ -332,9 +333,11 @@
         </div>
         <div class="nav-links">
             <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-            <a href="index.html">Book</a><a href="trips.html">Manage Trips</a><a
-                href="index.html#destinations">Destinations</a><a href="experience.html">Experience</a>
-            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a><a href="alerts.html">Alerts</a>
+            <a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a>
+            <a href="restaurant.html">Restaurants</a>
+            <a href="trekking.html">Trekking Experiences</a>
+            <a href="experience.html">Activities</a>
             <hr class="nav-divider">
             <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
             <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem"></div>
@@ -406,7 +409,8 @@
             <div class="footer-col">
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a></li>
                     <li><a href="restaurant.html">Restaurants</a></li>
                     <li><a href="trekking.html">Trekking</a></li>
                     <li><a href="experience.html">Experiences</a></li>
@@ -453,7 +457,7 @@
                 <div class="trek-card-loc"><i class="fa-solid fa-location-dot"></i> ${t.location}</div>
                 <div class="trek-card-stats"><span><i class="fa-regular fa-clock"></i> ${t.duration}</span><span><i class="fa-solid fa-mountain"></i> ${t.altitude}</span><span><i class="fa-solid fa-gauge-high"></i> ${t.difficulty.charAt(0).toUpperCase() + t.difficulty.slice(1)}</span></div>
                 <p class="trek-card-desc">${t.desc}</p>
-                <div class="trek-card-bottom"><div class="trek-price">₹${t.price.toLocaleString()} <span>/ person</span></div><button class="btn-book" onclick="openBookingModal('${t.title}',${t.price})">Book Guide</button></div>
+                <div class="trek-card-bottom"><div class="trek-price">₹${t.price.toLocaleString()} <span>/ person</span></div><button class="btn-book" onclick="event.stopPropagation(); window.openBookingModal('${t.title}',${t.price})">Book Guide</button></div>
             </div>
         </div>`).join('');
         }

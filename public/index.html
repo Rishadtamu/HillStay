@@ -24,13 +24,16 @@
       </a>
 
       <div class="header-nav-desktop">
-        <a href="index.html" class="nav-item">Book</a>
-        <a href="trips.html" class="nav-item">Manage Trips</a>
-        <a href="#destinations" class="nav-item">Destinations</a>
-        <a href="experience.html" class="nav-item">Experience</a>
+                <a href="destination.html" class="nav-item">Destinations</a>
+                <a href="homestay.html" class="nav-item">Homestays</a>
+        <a href="restaurant.html" class="nav-item">Restaurants</a>
+        <a href="trekking.html" class="nav-item">Trekking Experiences</a>
+        <a href="experience.html" class="nav-item">Activities</a>
       </div>
 
       <div class="header-main-right">
+        <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i
+            class="fa-solid fa-magnifying-glass"></i></button>
         <div class="header-lang-switcher">
           <i class="fa-solid fa-globe"></i>
           <div class="lang-dropdown">
@@ -53,12 +56,11 @@
     <!-- Navigation Links (Sidebar for Mobile) -->
     <div class="nav-links">
       <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-      <a href="index.html">Book</a>
-      <a href="trips.html">Manage Trips</a>
-      <a href="#destinations">Destinations</a>
-      <a href="experience.html">Experience</a>
-      <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
-      <a href="alerts.html">Alerts</a>
+      <a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a>
+      <a href="restaurant.html">Restaurants</a>
+      <a href="trekking.html">Trekking Experiences</a>
+      <a href="experience.html">Activities</a>
       <hr class="nav-divider">
 
       <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
@@ -112,7 +114,7 @@
     <div class="hero-content">
       <div class="hero-card-layout">
         <h1 class="hero-title">Find your perfect escape.</h1>
-        <div class="search-widget">
+        <div class="search-widget" id="search">
           <div class="search-tabs">
             <button class="search-tab active" onclick="navigateTab('index.html')">Homestays</button>
             <button class="search-tab" onclick="navigateTab('restaurant.html')">Restaurants</button>
@@ -138,7 +140,13 @@
             <div class="search-segment">
               <label><i class="fa-solid fa-users"></i> Guests</label>
               <div class="guest-control">
-                <span id="guest-count">2 Adults, 1 Room</span>
+                <select id="guest-count" onchange="updateGuests(this)" style="background:transparent; border:none; outline:none; font-family:'Outfit', sans-serif; font-weight:600; font-size:0.95rem; color:var(--text-main); cursor:pointer; width:100%;">
+                    <option value="1 Adult, 1 Room">1 Adult, 1 Room</option>
+                    <option value="2 Adults, 1 Room" selected>2 Adults, 1 Room</option>
+                    <option value="3 Adults, 1 Room">3 Adults, 1 Room</option>
+                    <option value="4 Adults, 2 Rooms">4 Adults, 2 Rooms</option>
+                    <option value="5+ Adults">5+ Adults</option>
+                </select>
               </div>
             </div>
             <button class="btn-search-main">Search</button>

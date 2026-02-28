@@ -456,13 +456,14 @@
                 HillStay
             </a>
             <div class="header-nav-desktop">
-                <a href="index.html" class="nav-item" style="color: var(--text-main) !important;">Book</a>
-                <a href="trips.html" class="nav-item" style="color: var(--text-main) !important;">Manage Trips</a>
-                <a href="index.html#destinations" class="nav-item"
-                    style="color: var(--text-main) !important;">Destinations</a>
-                <a href="experience.html" class="nav-item" style="color: var(--text-main) !important;">Experience</a>
+                <a href="destination.html" class="nav-item">Destinations</a>
+                <a href="homestay.html" class="nav-item">Homestays</a>
+                <a href="restaurant.html" class="nav-item">Restaurants</a>
+                <a href="trekking.html" class="nav-item">Trekking Experiences</a>
+                <a href="experience.html" class="nav-item">Activities</a>
             </div>
             <div class="header-main-right">
+                <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <div class="header-lang-switcher" style="color: var(--text-main);">
                     <i class="fa-solid fa-globe"></i>
                     <div class="lang-dropdown">
@@ -481,12 +482,11 @@
         <!-- Mobile Sidebar -->
         <div class="nav-links">
             <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-            <a href="index.html">Book</a>
-            <a href="trips.html">Manage Trips</a>
-            <a href="index.html#destinations">Destinations</a>
-            <a href="experience.html">Experience</a>
-            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
-            <a href="alerts.html">Alerts</a>
+            <a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a>
+            <a href="restaurant.html">Restaurants</a>
+            <a href="trekking.html">Trekking Experiences</a>
+            <a href="experience.html">Activities</a>
             <hr class="nav-divider">
             <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
             <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
@@ -527,7 +527,7 @@
         <div style="margin-left:auto; display:flex; align-items:center; gap:0.5rem;">
             <label style="font-size:0.82rem; color:var(--text-muted);">Sort by:</label>
             <select id="sort-select" onchange="sortStays(this.value)"
-                style="border:1.5px solid #e0e0e0; border-radius:8px; padding:0.4rem 0.8rem; font-family:'Etihad Altis',sans-serif; font-size:0.85rem; outline:none; color:var(--text-main);">
+                style="border:1.5px solid #e0e0e0; border-radius:8px; padding:0.4rem 0.8rem; font-family:'Outfit',sans-serif; font-size:0.85rem; outline:none; color:var(--text-main);">
                 <option value="default">Recommended</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -571,7 +571,7 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.9 (312 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="openBookingModal('Makaibari Tea Bungalow', 4500)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Makaibari Tea Bungalow', 4500)">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -588,7 +588,7 @@
                         <div class="price">₹5,200 <span>/ night</span></div>
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.8 (187 reviews)</div>
-                            <button class="btn-prem-book" onclick="openBookingModal('Hidden Forest Retreat', 5200)">Book
+                            <button class="btn-prem-book" onclick="event.stopPropagation(); window.openBookingModal('Hidden Forest Retreat', 5200)">Book
                                 Now</button>
                         </div>
                     </div>
@@ -607,7 +607,7 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.95 (94 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="openBookingModal('Naga Heritage Longhouse', 3800)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Naga Heritage Longhouse', 3800)">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -625,7 +625,7 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.7 (256 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="openBookingModal('Kanchenjunga View Villa', 6000)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Kanchenjunga View Villa', 6000)">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -643,7 +643,7 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.6 (145 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="openBookingModal('Mirik Lakeside Bungalow', 3200)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Mirik Lakeside Bungalow', 3200)">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -709,7 +709,8 @@
             <div class="footer-col">
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a></li>
                     <li><a href="restaurant.html">Restaurants</a></li>
                     <li><a href="trekking.html">Trekking</a></li>
                     <li><a href="experience.html">Experiences</a></li>
@@ -813,7 +814,7 @@
                     <div class="card-img-container">
                         <img src="${item.image}" alt="${item.title}" loading="lazy">
                         <div class="card-badge">${item.badge || 'Stay'}</div>
-                        <button class="favorite-btn" title="Save to wishlist"><i class="fa-regular fa-heart"></i></button>
+                        <button class="favorite-btn" title="Save to wishlist"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">${item.title}</h3>
@@ -824,7 +825,7 @@
                             <span class="review-count">(${item.reviews} reviews)</span>
                         </div>
                         <div class="card-price">₹${item.price.toLocaleString()} <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">/ night</span></div>
-                        <button class="btn-book" style="width:100%; margin-top:0.8rem;" onclick="openBookingModal('${item.title}', ${item.price})">Book Now</button>
+                        <button class="btn-book" style="width:100%; margin-top:0.8rem;" onclick="event.stopPropagation(); window.openBookingModal('${item.title}', ${item.price})">Book Now</button>
                     </div>
                 </div>
             `).join('');

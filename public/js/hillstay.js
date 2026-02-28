@@ -200,7 +200,7 @@ function renderSuggestions(data, container) {
         let icon = "fa-location-dot";
         if (type === "Homestay") icon = "fa-bed";
         if (type === "Restaurant") icon = "fa-utensils";
-        if (type === "Things to do") icon = "fa-person-hiking";
+        if (type === "Things to do") icon = "fa-person-walking";
 
         html += `
           <div class="suggestion-item" onclick="selectSuggestion('${item.name}')">
@@ -284,8 +284,8 @@ function updateAuthUI() {
     } else {
       container.innerHTML = `
         <div class="user-profile">
-          <button onclick="toggleLoginMenu()" class="btn-signin" style="background: transparent; border: none; padding: 0.5rem; font-size: 1.2rem; min-width: unset; height: auto;" aria-label="Sign In">
-            <i class="fa-solid fa-user"></i>
+          <button onclick="toggleLoginMenu()" class="btn-signin" aria-label="Sign In">
+            <i class="fa-solid fa-user"></i> <span class="signin-text">Sign In / Profile</span>
           </button>
           
           <div class="user-menu" id="login-menu">
@@ -534,15 +534,6 @@ function startHeroSlider() {
   }, 5000);
 }
 
-// Guest Counter
-function updateGuests(change) {
-  const countSpan = document.getElementById('guest-count');
-  if (!countSpan) return;
-
-  let current = parseInt(countSpan.textContent);
-  let newVal = Math.max(1, Math.min(10, current + change));
-  countSpan.textContent = newVal;
-}
 
 // Mobile Menu
 function setupMobileMenu() {

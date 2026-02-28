@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations – HillStay</title>
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/logo_tent_transparent.png">
+    <style>
+        .dest-hero {
+            padding-top: 120px;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, #1a2a35 0%, #263A46 60%, #2E4755 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dest-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            opacity: 0.15;
+        }
+
+        .dest-hero .inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dest-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 300;
+            color: #FFFFFF;
+            margin-bottom: 0.8rem;
+        }
+
+        .dest-hero h1 span {
+            color: var(--accent);
+        }
+
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .dest-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .dest-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .dest-img {
+            height: 240px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .dest-content {
+            padding: 1.5rem;
+        }
+
+        .dest-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .dest-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .dest-highlights {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-tag {
+            background: rgba(176, 135, 71, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-explore {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-explore:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header scrolled">
+        <div class="header-main-tier">
+            <a href="index.html" class="logo" style="color: var(--text-main) !important;">
+                <img src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+            </a>
+            <div class="header-nav-desktop">
+                <a href="destination.html" class="nav-item">Destinations</a>
+                <a href="homestay.html" class="nav-item">Homestays</a>
+                <a href="restaurant.html" class="nav-item">Restaurants</a>
+                <a href="trekking.html" class="nav-item">Trekking Experiences</a>
+                <a href="experience.html" class="nav-item">Activities</a>
+            </div>
+            <div class="header-main-right">
+                <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"
+                    style="color: var(--text-main);"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div class="header-lang-switcher" style="color: var(--text-main);">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown">
+                        <span class="lang-opt" data-lang="en">EN</span>
+                        <span class="lang-opt" data-lang="hi">HI</span>
+                        <span class="lang-opt" data-lang="bn">BN</span>
+                        <span class="lang-opt" data-lang="ne">NE</span>
+                    </div>
+                </div>
+                <div class="header-actions"></div>
+                <button class="menu-toggle" aria-label="Toggle navigation" style="color: var(--text-main);">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="destination.html">Destinations</a>
+            <a href="homestay.html">Homestays</a>
+            <a href="restaurant.html">Restaurants</a>
+            <a href="trekking.html">Trekking Experiences</a>
+            <a href="experience.html">Activities</a>
+            <hr class="nav-divider">
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
+        </div>
+    </header>
+
+    <div class="dest-hero">
+        <div class="inner">
+            <h1>Explore Our <span>Destinations</span></h1>
+            <p style="color: rgba(255, 255, 255, 0.75); max-width: 600px; margin: 0 auto;">Discover the unique charm of
+                Darjeeling, Sikkim, and Nagaland. Every place tells a story.</p>
+        </div>
+    </div>
+
+    <div class="dest-grid">
+        <!-- Darjeeling -->
+        <div class="dest-card">
+            <img class="dest-img"
+                src="https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=600&auto=format&fit=crop"
+                alt="Darjeeling">
+            <div class="dest-content">
+                <h3>Darjeeling</h3>
+                <p>The Queen of the Hills. Famous for its sweeping tea estates, the majestic Kanchenjunga, and colonial
+                    charm.</p>
+                <div class="dest-highlights">
+                    <span class="highlight-tag">Tea Gardens</span>
+                    <span class="highlight-tag">Toy Train</span>
+                    <span class="highlight-tag">Views</span>
+                </div>
+                <a href="homestay.html" class="btn-explore">Explore Darjeeling</a>
+            </div>
+        </div>
+
+        <!-- Sikkim -->
+        <div class="dest-card">
+            <img class="dest-img"
+                src="https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=600&auto=format&fit=crop"
+                alt="Sikkim">
+            <div class="dest-content">
+                <h3>Sikkim</h3>
+                <p>A paradise for nature lovers, offering crystal-clear lakes, pristine monasteries, and challenging
+                    Himalayan treks.</p>
+                <div class="dest-highlights">
+                    <span class="highlight-tag">Monasteries</span>
+                    <span class="highlight-tag">High Altitude</span>
+                    <span class="highlight-tag">Serenity</span>
+                </div>
+                <a href="trekking.html" class="btn-explore">Explore Sikkim</a>
+            </div>
+        </div>
+
+        <!-- Nagaland -->
+        <div class="dest-card">
+            <img class="dest-img"
+                src="https://images.unsplash.com/photo-1625299495147-9ac69c9b1386?q=80&w=600&auto=format&fit=crop"
+                alt="Nagaland">
+            <div class="dest-content">
+                <h3>Nagaland</h3>
+                <p>Dive deep into untouched tribal heritage and rich local cultures surrounded by dramatic rolling
+                    hills.</p>
+                <div class="dest-highlights">
+                    <span class="highlight-tag">Tribal Heritage</span>
+                    <span class="highlight-tag">Festivals</span>
+                    <span class="highlight-tag">Lush Valleys</span>
+                </div>
+                <a href="experience.html" class="btn-explore">Explore Nagaland</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reviews.html">Write a review</a></li>
+                    <li><a href="photos.html">Add photos</a></li>
+                    <li><a href="stories.html">Travel stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="referral.html">Referral Program</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <img src="images/logo_tent_transparent.png" alt="HillStay Logo">
+            </div>
+            &copy; 2026 HillStay LLC All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/hillstay.js"></script>
+</body>
+
+</html>
