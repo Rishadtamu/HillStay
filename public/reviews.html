@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HillStay - Reviews</title>
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        
+
+        <!-- Main Navigation Tier -->
+        <div class="header-main-tier">
+            <a href="index.html" class="logo">
+                <img src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+            </a>
+
+            <div class="header-nav-desktop">
+                <a href="index.html" class="nav-item">Book</a>
+                <a href="trips.html" class="nav-item">Manage Trips</a>
+                <a href="#destinations" class="nav-item">Destinations</a>
+                <a href="experience.html" class="nav-item">Experience</a>
+            </div>
+
+            <div class="header-main-right">
+                <div class="header-lang-switcher">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown">
+                        <span class="lang-opt" data-lang="en">EN</span>
+                        <span class="lang-opt" data-lang="hi">HI</span>
+                        <span class="lang-opt" data-lang="bn">BN</span>
+                        <span class="lang-opt" data-lang="ne">NE</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <!-- Auth Icon -->
+                </div>
+                <!-- Mobile Menu Toggle -->
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Links (Sidebar for Mobile) -->
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="index.html">Book</a>
+            <a href="trips.html">Manage Trips</a>
+            <a href="#destinations">Destinations</a>
+            <a href="experience.html">Experience</a>
+            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
+            <a href="alerts.html">Alerts</a>
+            <hr class="nav-divider">
+            
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;">
+                <!-- Mobile Auth handled via JS or specific class styling -->
+            </div>
+        </div>
+    </header>
+
+    <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+        <h1 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Etihad Altis', sans-serif;">Share Your
+            Experience</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Help other travelers by finding the best stays in the
+            hills.</p>
+
+        <!-- Review Form -->
+        <div class="review-section" style="border-top: 4px solid var(--primary); border-radius: 12px;">
+            <h3 style="margin-bottom: 1.5rem; font-family: 'Etihad Altis', sans-serif;">Write a Review</h3>
+            <div class="review-form">
+                <input type="text" placeholder="Where did you stay? (e.g. Hotel name)" id="review-place">
+                <select id="review-rating" style="background: #f8f9fa;">
+                    <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                    <option value="4">⭐⭐⭐⭐ Great</option>
+                    <option value="3">⭐⭐⭐ Average</option>
+                    <option value="2">⭐⭐ Poor</option>
+                    <option value="1">⭐ Terrible</option>
+                </select>
+                <textarea rows="5" placeholder="Share your details of your own experience at this place"
+                    id="review-text"></textarea>
+
+                <!-- Photo Upload Advanced Mock -->
+                <div id="upload-area"
+                    style="border: 2px dashed var(--primary); padding: 3rem; text-align: center; border-radius: 12px; color: var(--primary); background: #f0f7ff; cursor: pointer; transition: 0.3s;"
+                    onmouseover="this.style.background='#e1f0ff'" onmouseout="this.style.background='#f0f7ff'"
+                    onclick="document.getElementById('file-input').click()">
+                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Upload Your Photos</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Drag and drop or click to browse</p>
+                    <input type="file" id="file-input" multiple style="display: none;"
+                        onchange="handleFileUpload(this)">
+                    <div id="preview-container"
+                        style="display: flex; gap: 10px; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+                    </div>
+                </div>
+
+                <button class="btn-submit" onclick="submitReview()"
+                    style="padding: 1.2rem; font-size: 1.1rem; border-radius: 8px;">Post Review</button>
+            </div>
+        </div>
+
+        <!-- Recent Reviews List -->
+        <div style="margin-top: 4rem;">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Recent Reviews</h3>
+
+            <!-- Review Item 1 -->
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <img src="https://ui-avatars.com/api/?name=Rishad+G&background=random"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <div>
+                            <div style="font-weight: 600;">Rishad G.</div>
+                            <div style="font-size: 0.8rem; color: #666;">Reviewed yesterday</div>
+                        </div>
+                    </div>
+                    <div style="color: var(--secondary);"><i class="fa-solid fa-circle"></i><i
+                            class="fa-solid fa-circle"></i><i class="fa-solid fa-circle"></i><i
+                            class="fa-solid fa-circle"></i><i class="fa-solid fa-circle"></i></div>
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Makaibari Tea Estate Bungalow</h4>
+                <p style="color: #444;">Absolutely stunning views of the tea gardens. The host was incredibly welcoming
+                    and the food was authentic local cuisine. Highly recommended for a peaceful getaway.</p>
+                <div style="margin-top: 1rem; display: flex; gap: 10px;">
+                    <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=100&h=100&auto=format&fit=crop"
+                        style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                </div>
+            </div>
+
+            <!-- Review Item 2 -->
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <img src="https://ui-avatars.com/api/?name=Anjali+S&background=random"
+                            style="width: 40px; height: 40px; border-radius: 50%;">
+                        <div>
+                            <div style="font-weight: 600;">Anjali S.</div>
+                            <div style="font-size: 0.8rem; color: #666;">Reviewed 3 days ago</div>
+                        </div>
+                    </div>
+                    <div style="color: var(--secondary);"><i class="fa-solid fa-circle"></i><i
+                            class="fa-solid fa-circle"></i><i class="fa-solid fa-circle"></i><i
+                            class="fa-solid fa-circle"></i><i class="fa-regular fa-circle"></i></div>
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Hidden Forest Retreat</h4>
+                <p style="color: #444;">Great location in Gangtok. The garden is beautiful. The room was clean but the
+                    wifi was a bit spotty.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>About HillStay</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#">Read Reviews</a></li>
+                    <li><a href="#">Add a Place</a></li>
+                    <li><a href="#">Join</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">
+            &copy; 2026 HillStay LLC All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/hillstay.js"></script>
+    <script>
+        function handleFileUpload(input) {
+            const container = document.getElementById('preview-container');
+            container.innerHTML = "";
+            if (input.files) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = document.createElement("img");
+                        img.src = e.target.result;
+                        img.style.cssText = "width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);";
+                        container.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        function submitReview() {
+            const place = document.getElementById('review-place').value;
+            if (place) {
+                alert("Thanks for your review of " + place + "! It will be posted after moderation.");
+                document.getElementById('review-place').value = "";
+                document.getElementById('review-text').value = "";
+            } else {
+                alert("Please enter a place name.");
+            }
+        }
+        // Auth UI update
+        document.addEventListener("DOMContentLoaded", () => {
+            updateAuthUI();
+        });
+    </script>
+</body>
+
+</html>

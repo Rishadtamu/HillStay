@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us – HillStay</title>
+    <meta name="description"
+        content="Born in the heart of the Himalayas, HillStay connects travellers with authentic homestays.">
+    <link rel="icon" type="image/png" href="images/logo_tent_transparent.png">
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .about-hero {
+            padding-top: 120px;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, #1a2a35 0%, #263A46 60%, #2E4755 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1544634076-a901606f43e9?w=1600&q=60') center/cover no-repeat;
+            opacity: .15
+        }
+
+        .about-hero .inner {
+            position: relative;
+            z-index: 2
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 300;
+            color: #FFF;
+            margin-bottom: .8rem
+        }
+
+        .about-hero h1 span {
+            color: var(--accent)
+        }
+
+        .about-hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, .75);
+            max-width: 560px;
+            margin: 0 auto
+        }
+
+        .about-story {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 5rem 2rem
+        }
+
+        .about-story h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--accent);
+            font-weight: 300;
+            margin-bottom: 1.5rem
+        }
+
+        .about-story p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 1.5rem
+        }
+
+        .stats-strip {
+            background: linear-gradient(135deg, #263A46, #1a2a35);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #fff
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .stat-num {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--accent);
+            font-family: 'Etihad Altis', 'Outfit', sans-serif
+        }
+
+        .stat-label {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .7);
+            text-transform: uppercase;
+            letter-spacing: 1px
+        }
+
+        .team-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            text-align: center
+        }
+
+        .team-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--accent);
+            font-weight: 300;
+            margin-bottom: .8rem
+        }
+
+        .team-section>p {
+            color: var(--text-muted);
+            margin-bottom: 3rem
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem
+        }
+
+        .team-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
+            border: 1px solid #f0f0f0;
+            transition: transform .3s
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px)
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 2rem;
+            margin: 0 auto 1rem
+        }
+
+        .team-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: .3rem
+        }
+
+        .team-card .role {
+            font-size: .82rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: .8rem
+        }
+
+        .team-card p {
+            font-size: .88rem;
+            color: #666;
+            line-height: 1.6
+        }
+
+        .values-section {
+            background: #f8f9fa;
+            padding: 5rem 2rem;
+            text-align: center
+        }
+
+        .values-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--accent);
+            font-weight: 300;
+            margin-bottom: 3rem
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto
+        }
+
+        .val-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .8rem
+        }
+
+        .val-item .v-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.3rem
+        }
+
+        .val-item h4 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem
+        }
+
+        .val-item p {
+            font-size: .85rem;
+            color: var(--text-muted);
+            margin: 0
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header scrolled">
+        <div class="header-main-tier">
+            <a href="index.html" class="logo" style="color:var(--text-main)!important"><img
+                    src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay</a>
+            <div class="header-nav-desktop">
+                <a href="index.html" class="nav-item" style="color:var(--text-main)!important">Book</a>
+                <a href="trips.html" class="nav-item" style="color:var(--text-main)!important">Manage Trips</a>
+                <a href="index.html#destinations" class="nav-item"
+                    style="color:var(--text-main)!important">Destinations</a>
+                <a href="experience.html" class="nav-item" style="color:var(--text-main)!important">Experience</a>
+            </div>
+            <div class="header-main-right">
+                <div class="header-lang-switcher" style="color:var(--text-main)"><i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown"><span class="lang-opt" data-lang="en">EN</span><span class="lang-opt"
+                            data-lang="hi">HI</span><span class="lang-opt" data-lang="bn">BN</span><span
+                            class="lang-opt" data-lang="ne">NE</span></div>
+                </div>
+                <div class="header-actions"></div>
+                <button class="menu-toggle" aria-label="Toggle navigation" style="color:var(--text-main)"><i
+                        class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="index.html">Book</a><a href="trips.html">Manage Trips</a><a
+                href="index.html#destinations">Destinations</a><a href="experience.html">Experience</a>
+            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a><a href="alerts.html">Alerts</a>
+            <hr class="nav-divider">
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem"></div>
+        </div>
+    </header>
+
+    <div class="about-hero">
+        <div class="inner">
+            <h1>About <span>HillStay</span></h1>
+            <p>Born in the heart of the Himalayas, dedicated to uncovering the most authentic stays in the mountains.
+            </p>
+        </div>
+    </div>
+
+    <div class="about-story">
+        <h2>Our Story</h2>
+        <p>HillStay was born from a simple belief: travel should be more than a place to sleep — it's about connection,
+            culture, and the unseen beauty of the hills. We started in Darjeeling, working directly with local families
+            who open their homes and hearts to travellers.</p>
+        <p>Today, we connect thousands of travellers with handpicked homestays across Darjeeling, Sikkim, and Nagaland.
+            Every stay on our platform is personally verified by our local team for authenticity, comfort, and that
+            irreplaceable warmth of mountain hospitality.</p>
+        <p>Our mission is to empower local hosts, preserve cultural heritage, and provide travellers with a "handy" tool
+            that makes exploring the Eastern Himalayas as easy as a mountain breeze.</p>
+    </div>
+
+    <section class="stats-strip">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-num">150+</div>
+                <div class="stat-label">Verified Homestays</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">12</div>
+                <div class="stat-label">Destinations</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">8,500+</div>
+                <div class="stat-label">Happy Travellers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">4.8★</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="team-section">
+        <h2>Meet the Team</h2>
+        <p>A small crew with a big love for the mountains.</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+                <h3>Rishad Gurung</h3>
+                <div class="role">Founder & CEO</div>
+                <p>Born and raised in the hills of Darjeeling, Rishad's vision is to make every homestay a bridge
+                    between cultures.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+                <h3>Tenzin Sherpa</h3>
+                <div class="role">Head of Operations</div>
+                <p>With 10+ years in hospitality, Tenzin ensures every host meets our quality standards.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+                <h3>Priya Rai</h3>
+                <div class="role">Community Lead</div>
+                <p>Priya works with local communities across Sikkim and Nagaland to onboard new hosts.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="values-section">
+        <h2>What We Stand For</h2>
+        <div class="values-grid">
+            <div class="val-item">
+                <div class="v-icon"><i class="fa-solid fa-heart"></i></div>
+                <h4>Authenticity</h4>
+                <p>Real homes, real people, real experiences.</p>
+            </div>
+            <div class="val-item">
+                <div class="v-icon"><i class="fa-solid fa-leaf"></i></div>
+                <h4>Sustainability</h4>
+                <p>Supporting local economies and preserving nature.</p>
+            </div>
+            <div class="val-item">
+                <div class="v-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4>Trust</h4>
+                <p>Every stay is personally verified by our team.</p>
+            </div>
+            <div class="val-item">
+                <div class="v-icon"><i class="fa-solid fa-globe"></i></div>
+                <h4>Inclusivity</h4>
+                <p>Open to all travellers from every background.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo"><img src="images/logo_tent_transparent.png" alt="HillStay Logo"></div>
+                <p style="font-size:.85rem;color:#bbb;line-height:1.6">Your gateway to authentic hill-country
+                    experiences.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="restaurant.html">Restaurants</a></li>
+                    <li><a href="trekking.html">Trekking</a></li>
+                    <li><a href="experience.html">Experiences</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="referral.html">Referral Program</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"
+            style="text-align:center;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);color:#888;font-size:.85rem">
+            &copy; 2026 HillStay LLC. All rights reserved.</div>
+    </footer>
+    <script src="js/hillstay.js"></script>
+</body>
+
+</html>

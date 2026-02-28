@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Dining & Local Flavors – HillStay</title>
+    <meta name="description"
+        content="Discover iconic eateries, hidden mountain cafés and local culinary experiences in Darjeeling, Sikkim and Nagaland.">
+    <link rel="icon" type="image/png" href="images/logo_tent_transparent.png">
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Restaurant Category Tabs ── */
+        .rest-tabs {
+            display: flex;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: white;
+            overflow-x: auto;
+            scrollbar-width: none;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 70px;
+            z-index: 800;
+            flex-wrap: nowrap;
+        }
+
+        .rest-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .rest-tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.5rem 1.4rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            background: #fafafa;
+            color: var(--text-main);
+            font-family: 'Etihad Altis', sans-serif;
+        }
+
+        .rest-tab:hover,
+        .rest-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* ── Chef Recommendation Cards ── */
+        .chef-card {
+            text-align: center;
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .chef-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .chef-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.2rem;
+            border: 4px solid var(--accent);
+        }
+
+        .chef-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+        }
+
+        .chef-card .cuisine-tag {
+            display: inline-block;
+            background: rgba(176, 135, 71, 0.12);
+            color: var(--accent);
+            border-radius: 50px;
+            padding: 3px 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .chef-card p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        /* ── Reservation Form ── */
+        .reservation-section {
+            background: linear-gradient(135deg, #263A46, #1a2a35);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .reservation-section h2 {
+            color: #FFFFFF !important;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            margin-bottom: 0.6rem;
+        }
+
+        .reservation-section h2 span {
+            color: var(--accent);
+        }
+
+        .reservation-section p {
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 2.5rem;
+        }
+
+        .res-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .res-form input,
+        .res-form select {
+            padding: 0.9rem 1.2rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Etihad Altis', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            transition: border-color 0.2s;
+        }
+
+        .res-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .res-form input:focus,
+        .res-form select:focus {
+            border-color: var(--accent);
+        }
+
+        .res-form select {
+            color: white;
+        }
+
+        .res-form select option {
+            color: var(--text-main);
+            background: white;
+        }
+
+        .btn-reserve {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Etihad Altis', sans-serif;
+            transition: filter 0.2s, transform 0.2s;
+            grid-column: 1 / -1;
+        }
+
+        .btn-reserve:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
+
+        /* ── Featured Restaurants Grid ── */
+        .rest-section-wrapper {
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ── Header ── -->
+    <header class="main-header">
+        <div class="header-main-tier">
+            <a href="index.html" class="logo">
+                <img src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+            </a>
+            <div class="header-nav-desktop">
+                <a href="index.html" class="nav-item">Book</a>
+                <a href="trips.html" class="nav-item">Manage Trips</a>
+                <a href="index.html#destinations" class="nav-item">Destinations</a>
+                <a href="experience.html" class="nav-item">Experience</a>
+            </div>
+            <div class="header-main-right">
+                <div class="header-lang-switcher">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown">
+                        <span class="lang-opt" data-lang="en">EN</span>
+                        <span class="lang-opt" data-lang="hi">HI</span>
+                        <span class="lang-opt" data-lang="bn">BN</span>
+                        <span class="lang-opt" data-lang="ne">NE</span>
+                    </div>
+                </div>
+                <div class="header-actions"><!-- Auth --></div>
+                <button class="menu-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="index.html">Book</a>
+            <a href="trips.html">Manage Trips</a>
+            <a href="index.html#destinations">Destinations</a>
+            <a href="experience.html">Experience</a>
+            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
+            <a href="alerts.html">Alerts</a>
+            <hr class="nav-divider">
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
+        </div>
+    </header>
+
+    <!-- ── Hero ── -->
+    <section class="hero" style="height: 50vh; min-height: 420px;
+        background-image: linear-gradient(160deg, rgba(38,58,70,0.85) 0%, rgba(0,0,0,0.4) 100%),
+        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=70');
+        background-size: cover; background-position: center;">
+        <div class="hero-content">
+            <h1 style="font-size: clamp(2.2rem,5vw,3.8rem); color:#fff; margin-bottom:1rem;">
+                Savor <span style="color:var(--accent);">the Hills</span>
+            </h1>
+            <p style="font-size:1.1rem; color:rgba(255,255,255,0.8); max-width:560px; margin:0 auto;">
+                From iconic bakeries on Mall Road to hidden mountain cafés — the best culinary journeys in Northeast
+                India.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Category Tabs ── -->
+    <div class="rest-tabs">
+        <button class="rest-tab active" onclick="filterRest('all', this)"><i class="fa-solid fa-utensils"></i>
+            All</button>
+        <button class="rest-tab" onclick="filterRest('bakery', this)"><i class="fa-solid fa-bread-slice"></i> Bakery &
+            Café</button>
+        <button class="rest-tab" onclick="filterRest('tibetan', this)"><i class="fa-solid fa-bowl-rice"></i> Tibetan /
+            Nepali</button>
+        <button class="rest-tab" onclick="filterRest('naga', this)"><i class="fa-solid fa-fire-burner"></i> Naga
+            Cuisine</button>
+        <button class="rest-tab" onclick="filterRest('finedining', this)"><i class="fa-solid fa-champagne-glasses"></i>
+            Fine Dining</button>
+        <button class="rest-tab" onclick="filterRest('streetfood', this)"><i class="fa-solid fa-hotdog"></i> Street
+            Food</button>
+    </div>
+
+    <!-- ── Iconic Eateries ── -->
+    <div class="rest-section-wrapper">
+        <h2 class="section-title">Iconic Eateries</h2>
+        <div class="listing-grid" id="rest-grid">
+            <!-- Glenary's -->
+            <div class="listing-card" data-type="bakery">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop"
+                        alt="Glenary's">
+                    <div class="card-badge">Iconic · Est. 1935</div>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Glenary's Bakery &amp; Pub</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Mall Road, Darjeeling</div>
+                    <div class="card-rating">
+                        <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                        <span style="font-weight:700;">4.8</span>
+                        <span class="review-count">(5,200 reviews)</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1rem;">Famous for its
+                        signature breakfast, fresh-baked pastries, and colonial ambiance with panoramic Himalayan views.
+                    </p>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🥐
+                            Bakery</span>
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🍺
+                            Pub</span>
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">☕
+                            Café</span>
+                    </div>
+                    <button class="btn-book" style="width:100%;" onclick="openTableBooking(\" Glenary's Bakery &
+                        Pub\")">Reserve a Table</button>
+                </div>
+            </div>
+
+            <!-- Taste of Tibet -->
+            <div class="listing-card" data-type="tibetan">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1544333333-899852230353?q=80&w=600&auto=format&fit=crop"
+                        alt="Taste of Tibet">
+                    <div class="card-badge">Local Favourite</div>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Taste of Tibet</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> MG Marg, Gangtok</div>
+                    <div class="card-rating">
+                        <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                        <span style="font-weight:700;">4.7</span>
+                        <span class="review-count">(3,120 reviews)</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1rem;">The absolute best place
+                        for authentic Momos, Thukpa, and Tingmo in the heart of Gangtok. Cosy interiors, warm hosts.</p>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🥟
+                            Momos</span>
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🍜
+                            Thukpa</span>
+                    </div>
+                    <button class="btn-book" style="width:100%;" onclick="openTableBooking('Taste of Tibet')">View
+                        Menu</button>
+                </div>
+            </div>
+
+            <!-- Dzükou Valley Café -->
+            <div class="listing-card" data-type="naga">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop"
+                        alt="Dzukou Café">
+                    <div class="card-badge">Hidden Gem</div>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Dzükou Valley Café</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Kohima, Nagaland</div>
+                    <div class="card-rating">
+                        <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                        <span style="font-weight:700;">4.9</span>
+                        <span class="review-count">(870 reviews)</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1rem;">Smoky Naga pork,
+                        fermented bamboo shoot, and fiery local rice beer — an unforgettable gateway into Nagaland's
+                        bold food culture.</p>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🔥
+                            Naga Cuisine</span>
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🍺
+                            Local Brew</span>
+                    </div>
+                    <button class="btn-book" style="width:100%;"
+                        onclick="openTableBooking('Dzükou Valley Café')">Reserve a Table</button>
+                </div>
+            </div>
+
+            <!-- Shangri-La -->
+            <div class="listing-card" data-type="finedining">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop"
+                        alt="Shangri-La">
+                    <div class="card-badge">Fine Dining</div>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Shangri-La Restaurant</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Observatory Hill, Darjeeling
+                    </div>
+                    <div class="card-rating">
+                        <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                        <span style="font-weight:700;">4.6</span>
+                        <span class="review-count">(1,450 reviews)</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1rem;">Multi-course Himalayan
+                        fine dining with curated Darjeeling tea pairings and panoramic views of the Kanchenjunga range.
+                    </p>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🍵
+                            Tea Pairing</span>
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🌄
+                            Mountain View</span>
+                    </div>
+                    <button class="btn-book" style="width:100%;"
+                        onclick="openTableBooking('Shangri-La Restaurant')">Reserve Table</button>
+                </div>
+            </div>
+
+            <!-- Street Food -->
+            <div class="listing-card" data-type="streetfood">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop"
+                        alt="Chowk Bazaar">
+                    <div class="card-badge">Street Food</div>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Chowk Bazaar Street Eats</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Darjeeling Town</div>
+                    <div class="card-rating">
+                        <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                        <span style="font-weight:700;">4.5</span>
+                        <span class="review-count">(2,100 reviews)</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1rem;">Sizzling sel roti, wai
+                        wai noodles, and masala chai — a real Darjeeling street food crawl with our local guide.</p>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🍜
+                            Noodles</span>
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">☕
+                            Chai</span>
+                    </div>
+                    <button class="btn-book" style="width:100%;"
+                        onclick="openTableBooking('Chowk Bazaar Street Eats')">Join Food Tour</button>
+                </div>
+            </div>
+
+            <!-- Bakery -->
+            <div class="listing-card" data-type="bakery">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1509483894071-6bc78c5ed33d?q=80&w=600&auto=format&fit=crop"
+                        alt="Nathmulls">
+                    <div class="card-badge">Heritage</div>
+                    <button class="favorite-btn" title="Save"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Nathmull's Tea Room</h3>
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Laden La Road, Darjeeling</div>
+                    <div class="card-rating">
+                        <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                        <span style="font-weight:700;">4.8</span>
+                        <span class="review-count">(3,800 reviews)</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1rem;">Over 75 years of
+                        serving the finest Darjeeling teas — experience a traditional afternoon tea tasting with
+                        first-flush and second-flush varieties.</p>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <span
+                            style="background:#f0f0f0; border-radius:50px; padding:3px 10px; font-size:0.78rem; color:var(--text-muted);">🍵
+                            Tea Tasting</span>
+                    </div>
+                    <button class="btn-book" style="width:100%;"
+                        onclick="openTableBooking('Nathmull\\'s Tea Room')">Book Tea Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Chef Recommendations ── -->
+    <section style="background: #f8f9fa; padding: 5rem 2rem;">
+        <div style="max-width:1200px; margin:0 auto;">
+            <h2 class="section-title" style="text-align:center; margin-bottom:0.5rem;">Chef's Recommendations</h2>
+            <p style="text-align:center; color:var(--text-muted); margin-bottom:3rem;">Signature dishes curated by our
+                partner chefs</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+                <div class="chef-card">
+                    <img src="https://images.unsplash.com/photo-1626777555301-447a11d04426?q=80&w=300" alt="Naga Pork">
+                    <div class="cuisine-tag">Naga Cuisine</div>
+                    <h4>Naga Pork with Bamboo Shoot</h4>
+                    <p>A flavourful and smoky traditional Naga delicacy slow-cooked with fermented bamboo shoots and
+                        ghost chilli.</p>
+                </div>
+                <div class="chef-card">
+                    <img src="https://images.unsplash.com/photo-1625398407796-82650a8c135f?q=80&w=300"
+                        alt="Sikkimese Thali">
+                    <div class="cuisine-tag">Sikkimese</div>
+                    <h4>Sikkimese Thali</h4>
+                    <p>A complete meal featuring local greens (gundruk &amp; kinema), lentil dal, steamed rice, and
+                        milk-based dessert.</p>
+                </div>
+                <div class="chef-card">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=300"
+                        alt="Darjeeling Tea">
+                    <div class="cuisine-tag">Heritage</div>
+                    <h4>Darjeeling Afternoon Tea</h4>
+                    <p>The finest first-flush Darjeeling served with fresh-baked scones, clotted cream, and seasonal
+                        preserves.</p>
+                </div>
+                <div class="chef-card">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=300" alt="Phagshapa">
+                    <div class="cuisine-tag">Tibetan</div>
+                    <h4>Phagshapa &amp; Steamed Momos</h4>
+                    <p>Strips of pork fat stir-fried with radish and dried chillies — paired with freshly hand-pleated
+                        steamed momos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Table Reservation ── -->
+    <section class="reservation-section">
+        <h2>Book a <span>Table</span></h2>
+        <p>Reserve your dining experience in advance — we'll confirm within 2 hours.</p>
+        <form class="res-form" id="reservation-form" onsubmit="submitReservation(event)">
+            <input type="text" id="res-name" placeholder="Your Full Name" required>
+            <input type="tel" id="res-phone" placeholder="Phone Number" required>
+            <input type="date" id="res-date" required>
+            <input type="time" id="res-time" required>
+            <select id="res-guests">
+                <option value="1">1 Guest</option>
+                <option value="2" selected>2 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="6">6 Guests</option>
+                <option value="8">8+ Guests</option>
+            </select>
+            <select id="res-restaurant">
+                <option value="">Select Restaurant</option>
+                <option value="glenaries">Glenary's Bakery &amp; Pub</option>
+                <option value="tibet">Taste of Tibet</option>
+                <option value="dzukou">Dzükou Valley Café</option>
+                <option value="shangri">Shangri-La Restaurant</option>
+                <option value="nathmull">Nathmull's Tea Room</option>
+            </select>
+            <button type="submit" class="btn-reserve"><i class="fa-solid fa-calendar-check"></i> Confirm
+                Reservation</button>
+        </form>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo"><img src="images/logo_tent_transparent.png" alt="HillStay Logo"></div>
+                <p style="font-size:0.85rem; color:#bbb; line-height:1.6;">Your gateway to authentic hill-country
+                    experiences in Northeast India.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="restaurant.html">Restaurants</a></li>
+                    <li><a href="trekking.html">Trekking</a></li>
+                    <li><a href="experience.html">Experiences</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"
+            style="text-align:center; margin-top:3rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.07); color:#888; font-size:0.85rem;">
+            &copy; 2026 HillStay LLC. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/hillstay.js"></script>
+    <script>
+        function filterRest(type, btn) {
+            document.querySelectorAll('.rest-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            const cards = document.querySelectorAll('#rest-grid .listing-card');
+            cards.forEach(card => {
+                card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
+            });
+        }
+
+        function openTableBooking(restaurant) {
+            const sel = document.getElementById('res-restaurant');
+            if (sel) sel.value = '';
+            // Try to match
+            const opts = sel ? Array.from(sel.options) : [];
+            opts.forEach(opt => {
+                if (restaurant.toLowerCase().includes(opt.text.toLowerCase().split(' ')[0].toLowerCase())) {
+                    sel.value = opt.value;
+                }
+            });
+            document.getElementById('reservation-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => document.getElementById('res-name').focus(), 600);
+        }
+
+        function submitReservation(e) {
+            e.preventDefault();
+            const name = document.getElementById('res-name').value;
+            const rest = document.getElementById('res-restaurant');
+            const restName = rest.options[rest.selectedIndex].text;
+            alert(`✅ Reservation confirmed!\n\nThank you, ${name}!\nYour table at "${restName}" has been requested. We'll confirm via SMS within 2 hours.`);
+            e.target.reset();
+        }
+
+        // Favorite toggle
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const icon = btn.querySelector('i');
+                icon.classList.toggle('fa-regular');
+                icon.classList.toggle('fa-solid');
+                icon.style.color = icon.classList.contains('fa-solid') ? '#e53935' : '';
+            });
+        });
+    </script>
+</body>
+
+</html>

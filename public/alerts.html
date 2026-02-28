@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HillStay - Alerts</title>
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        
+
+        <!-- Main Navigation Tier -->
+        <div class="header-main-tier">
+            <a href="index.html" class="logo">
+                <img src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+            </a>
+
+            <div class="header-nav-desktop">
+                <a href="index.html" class="nav-item">Book</a>
+                <a href="trips.html" class="nav-item">Manage Trips</a>
+                <a href="#destinations" class="nav-item">Destinations</a>
+                <a href="experience.html" class="nav-item">Experience</a>
+            </div>
+
+            <div class="header-main-right">
+                <div class="header-lang-switcher">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown">
+                        <span class="lang-opt" data-lang="en">EN</span>
+                        <span class="lang-opt" data-lang="hi">HI</span>
+                        <span class="lang-opt" data-lang="bn">BN</span>
+                        <span class="lang-opt" data-lang="ne">NE</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <!-- Auth Icon -->
+                </div>
+                <!-- Mobile Menu Toggle -->
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Links (Sidebar for Mobile) -->
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="index.html">Book</a>
+            <a href="trips.html">Manage Trips</a>
+            <a href="#destinations">Destinations</a>
+            <a href="experience.html">Experience</a>
+            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a>
+            <a href="alerts.html">Alerts</a>
+            <hr class="nav-divider">
+            
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;">
+                <!-- Mobile Auth handled via JS or specific class styling -->
+            </div>
+        </div>
+    </header>
+
+    <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem; min-height: 60vh;">
+        <h1 style="color: var(--primary); margin-bottom: 0.5rem;">Notifications & Alerts</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Stay updated on price drops and travel advisories.</p>
+
+        <div class="alerts-container">
+
+            <!-- Alert 1 -->
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1rem; border-left: 5px solid var(--accent);">
+                <div style="display: flex; gap: 1rem;">
+                    <div style="color: var(--accent); font-size: 1.5rem;"><i class="fa-solid fa-tag"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 0.2rem;">Price Drop Alert!</h4>
+                        <p style="color: #444; font-size: 0.95rem;">Prices for homestays in Darjeeling typically drop by
+                            15% next week. Plan your trip now!</p>
+                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #999;">2 hours ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert 2 -->
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1rem; border-left: 5px solid red;">
+                <div style="display: flex; gap: 1rem;">
+                    <div style="color: red; font-size: 1.5rem;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 0.2rem;">Weather Advisory: North Sikkim</h4>
+                        <p style="color: #444; font-size: 0.95rem;">Heavy snowfall expected in Lachen and Lachung.
+                            Permits may be temporarily suspended. Check with your host before traveling.</p>
+                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #999;">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert 3 -->
+            <div
+                style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1rem; border-left: 5px solid #2196F3;">
+                <div style="display: flex; gap: 1rem;">
+                    <div style="color: #2196F3; font-size: 1.5rem;"><i class="fa-solid fa-circle-info"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 0.2rem;">New Feature: WhatsApp Chat</h4>
+                        <p style="color: #444; font-size: 0.95rem;">You can now chat directly with hosts using WhatsApp!
+                            Look for the "Chat" button on listing cards.</p>
+                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #999;">3 days ago</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>About HillStay</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#">Read Reviews</a></li>
+                    <li><a href="#">Add a Place</a></li>
+                    <li><a href="#">Join</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">
+            &copy; 2026 HillStay LLC All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/hillstay.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            updateAuthUI();
+        });
+    </script>
+</body>
+
+</html>

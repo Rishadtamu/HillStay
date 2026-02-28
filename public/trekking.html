@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trekking Trails – HillStay</title>
+    <meta name="description" content="Discover the best trekking trails in Darjeeling, Sikkim & Nagaland.">
+    <link rel="icon" type="image/png" href="images/logo_tent_transparent.png">
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .trek-hero {
+            padding-top: 120px;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, #1a2a35 0%, #263A46 60%, #2E4755 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .trek-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=60') center/cover no-repeat;
+            opacity: .18
+        }
+
+        .trek-hero .inner {
+            position: relative;
+            z-index: 2
+        }
+
+        .trek-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 300;
+            color: #FFF;
+            margin-bottom: .8rem
+        }
+
+        .trek-hero h1 span {
+            color: var(--accent)
+        }
+
+        .trek-hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, .75);
+            max-width: 600px;
+            margin: 0 auto 2rem
+        }
+
+        .trek-filters {
+            display: flex;
+            justify-content: center;
+            gap: .8rem;
+            flex-wrap: wrap;
+            margin: -1.5rem 0 3rem;
+            position: relative;
+            z-index: 10;
+            padding: 0 1rem
+        }
+
+        .trek-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: .6rem 1.4rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: .85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s;
+            background: #fff;
+            color: var(--text-main);
+            font-family: 'Etihad Altis', 'Outfit', sans-serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .06)
+        }
+
+        .trek-filter-btn:hover,
+        .trek-filter-btn.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff
+        }
+
+        .trek-section {
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem
+        }
+
+        .trek-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--accent);
+            font-weight: 300;
+            margin-bottom: 2rem
+        }
+
+        .trek-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem
+        }
+
+        .trek-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .07);
+            transition: transform .3s, box-shadow .3s;
+            cursor: pointer;
+            border: 1px solid #f0f0f0
+        }
+
+        .trek-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .12)
+        }
+
+        .trek-card-img {
+            height: 220px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .trek-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s
+        }
+
+        .trek-card:hover .trek-card-img img {
+            transform: scale(1.06)
+        }
+
+        .trek-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: .72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .trek-diff-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase
+        }
+
+        .trek-diff-badge.easy {
+            background: #22c55e;
+            color: #fff
+        }
+
+        .trek-diff-badge.moderate {
+            background: #f59e0b;
+            color: #fff
+        }
+
+        .trek-diff-badge.challenging {
+            background: #ef4444;
+            color: #fff
+        }
+
+        .trek-card-body {
+            padding: 1.4rem
+        }
+
+        .trek-card-body h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: .4rem
+        }
+
+        .trek-card-loc {
+            color: var(--text-muted);
+            font-size: .82rem;
+            margin-bottom: .8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .trek-card-stats {
+            display: flex;
+            gap: 1.2rem;
+            font-size: .82rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            flex-wrap: wrap
+        }
+
+        .trek-card-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .trek-card-desc {
+            font-size: .88rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem
+        }
+
+        .trek-card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .trek-price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main)
+        }
+
+        .trek-price span {
+            font-size: .8rem;
+            font-weight: 400;
+            color: var(--text-muted)
+        }
+
+        .gear-section {
+            background: linear-gradient(135deg, #263A46, #1a2a35);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: #fff
+        }
+
+        .gear-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: #FFF;
+            font-weight: 300;
+            margin-bottom: .8rem
+        }
+
+        .gear-section h2 span {
+            color: var(--accent)
+        }
+
+        .gear-section>p {
+            color: rgba(255, 255, 255, .6);
+            margin-bottom: 3rem
+        }
+
+        .gear-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .gear-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .8rem
+        }
+
+        .gear-item .g-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--accent)
+        }
+
+        .gear-item h4 {
+            color: #FFF;
+            font-weight: 600;
+            font-size: .95rem
+        }
+
+        .gear-item p {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .55);
+            margin: 0
+        }
+
+        @media(max-width:600px) {
+            .trek-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header scrolled">
+        <div class="header-main-tier">
+            <a href="index.html" class="logo" style="color:var(--text-main)!important"><img
+                    src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay</a>
+            <div class="header-nav-desktop">
+                <a href="index.html" class="nav-item" style="color:var(--text-main)!important">Book</a>
+                <a href="trips.html" class="nav-item" style="color:var(--text-main)!important">Manage Trips</a>
+                <a href="index.html#destinations" class="nav-item"
+                    style="color:var(--text-main)!important">Destinations</a>
+                <a href="experience.html" class="nav-item" style="color:var(--text-main)!important">Experience</a>
+            </div>
+            <div class="header-main-right">
+                <div class="header-lang-switcher" style="color:var(--text-main)"><i class="fa-solid fa-globe"></i>
+                    <div class="lang-dropdown"><span class="lang-opt" data-lang="en">EN</span><span class="lang-opt"
+                            data-lang="hi">HI</span><span class="lang-opt" data-lang="bn">BN</span><span
+                            class="lang-opt" data-lang="ne">NE</span></div>
+                </div>
+                <div class="header-actions"></div>
+                <button class="menu-toggle" aria-label="Toggle navigation" style="color:var(--text-main)"><i
+                        class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="index.html">Book</a><a href="trips.html">Manage Trips</a><a
+                href="index.html#destinations">Destinations</a><a href="experience.html">Experience</a>
+            <a href="reviews.html"><i class="fa-solid fa-pen-to-square"></i> Review</a><a href="alerts.html">Alerts</a>
+            <hr class="nav-divider">
+            <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
+            <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem"></div>
+        </div>
+    </header>
+
+    <div class="trek-hero">
+        <div class="inner">
+            <h1>Trek the <span>Unseen</span></h1>
+            <p>From the rhododendron forests of Sikkim to the rolling mounds of Dzukou — find your next trail.</p>
+        </div>
+    </div>
+
+    <div class="trek-filters">
+        <button class="trek-filter-btn active" onclick="filterTreks('all',this)"><i class="fa-solid fa-border-all"></i>
+            All Trails</button>
+        <button class="trek-filter-btn" onclick="filterTreks('easy',this)"><i class="fa-solid fa-shoe-prints"></i>
+            Easy</button>
+        <button class="trek-filter-btn" onclick="filterTreks('moderate',this)"><i class="fa-solid fa-person-hiking"></i>
+            Moderate</button>
+        <button class="trek-filter-btn" onclick="filterTreks('challenging',this)"><i
+                class="fa-solid fa-mountain-sun"></i> Challenging</button>
+    </div>
+
+    <div class="trek-section">
+        <h2>Popular Trails</h2>
+        <div class="trek-grid" id="trek-grid"></div>
+    </div>
+
+    <section class="gear-section">
+        <h2>Essential <span>Gear</span> Checklist</h2>
+        <p>Be prepared for the mountains.</p>
+        <div class="gear-grid">
+            <div class="gear-item">
+                <div class="g-icon"><i class="fa-solid fa-shoe-prints"></i></div>
+                <h4>Trekking Boots</h4>
+                <p>Waterproof with ankle support</p>
+            </div>
+            <div class="gear-item">
+                <div class="g-icon"><i class="fa-solid fa-campground"></i></div>
+                <h4>Quality Tent</h4>
+                <p>4-season rated for altitude</p>
+            </div>
+            <div class="gear-item">
+                <div class="g-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h4>Headlamp</h4>
+                <p>LED with spare batteries</p>
+            </div>
+            <div class="gear-item">
+                <div class="g-icon"><i class="fa-solid fa-kit-medical"></i></div>
+                <h4>First Aid Kit</h4>
+                <p>Altitude sickness meds included</p>
+            </div>
+            <div class="gear-item">
+                <div class="g-icon"><i class="fa-solid fa-bottle-water"></i></div>
+                <h4>Water Purifier</h4>
+                <p>UV or filter-based system</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo"><img src="images/logo_tent_transparent.png" alt="HillStay Logo"></div>
+                <p style="font-size:.85rem;color:#bbb;line-height:1.6">Your gateway to authentic hill-country
+                    experiences.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="restaurant.html">Restaurants</a></li>
+                    <li><a href="trekking.html">Trekking</a></li>
+                    <li><a href="experience.html">Experiences</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="referral.html">Referral Program</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"
+            style="text-align:center;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);color:#888;font-size:.85rem">
+            &copy; 2026 HillStay LLC. All rights reserved.</div>
+    </footer>
+
+    <script src="js/hillstay.js"></script>
+    <script>
+        const treks = [
+            { id: 1, title: "Dzukou Valley Trek", location: "Nagaland–Manipur Border", difficulty: "moderate", badge: "Bestseller", duration: "2–3 Days", altitude: "2,452m", price: 4500, desc: "Walk through the valley of flowers and experience Nagaland's unique topography.", image: "https://images.unsplash.com/photo-1504280595-349f257a5360?q=80&w=600&auto=format&fit=crop" },
+            { id: 2, title: "Sandakphu–Phalut Trek", location: "Darjeeling, West Bengal", difficulty: "challenging", badge: "Premium", duration: "5–6 Days", altitude: "3,636m", price: 8500, desc: "The 'Trek of the Greats' — views of Everest, Kanchenjunga, Lhotse, and Makalu.", image: "https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=600&auto=format&fit=crop" },
+            { id: 3, title: "Goechala Trek", location: "West Sikkim", difficulty: "challenging", badge: "Epic", duration: "9–11 Days", altitude: "4,940m", price: 12000, desc: "Face-to-face with Kanchenjunga through rhododendron forests.", image: "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?q=80&w=600&auto=format&fit=crop" },
+            { id: 4, title: "Singalila Ridge Walk", location: "Darjeeling, West Bengal", difficulty: "easy", badge: "Scenic", duration: "3 Days", altitude: "3,200m", price: 3500, desc: "A gentle ridge walk with stunning sunrise views.", image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=600&auto=format&fit=crop" },
+            { id: 5, title: "Japfu Peak Trek", location: "Kohima, Nagaland", difficulty: "moderate", badge: "Unique", duration: "2 Days", altitude: "3,048m", price: 3800, desc: "Home to the world's tallest rhododendron tree.", image: "https://images.unsplash.com/photo-1570220104815-5e042c341a7d?q=80&w=600&auto=format&fit=crop" },
+            { id: 6, title: "Neora Valley Nature Trail", location: "Kalimpong, Darjeeling", difficulty: "easy", badge: "Family", duration: "1–2 Days", altitude: "1,800m", price: 2200, desc: "Gentle trails through pristine forests — perfect for families.", image: "https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=600&auto=format&fit=crop" }
+        ];
+        function renderTreks(items) {
+            document.getElementById('trek-grid').innerHTML = items.map(t => `
+        <div class="trek-card" data-difficulty="${t.difficulty}">
+            <div class="trek-card-img"><img src="${t.image}" alt="${t.title}" loading="lazy"><div class="trek-badge">${t.badge}</div><div class="trek-diff-badge ${t.difficulty}">${t.difficulty}</div></div>
+            <div class="trek-card-body">
+                <h3>${t.title}</h3>
+                <div class="trek-card-loc"><i class="fa-solid fa-location-dot"></i> ${t.location}</div>
+                <div class="trek-card-stats"><span><i class="fa-regular fa-clock"></i> ${t.duration}</span><span><i class="fa-solid fa-mountain"></i> ${t.altitude}</span><span><i class="fa-solid fa-gauge-high"></i> ${t.difficulty.charAt(0).toUpperCase() + t.difficulty.slice(1)}</span></div>
+                <p class="trek-card-desc">${t.desc}</p>
+                <div class="trek-card-bottom"><div class="trek-price">₹${t.price.toLocaleString()} <span>/ person</span></div><button class="btn-book" onclick="openBookingModal('${t.title}',${t.price})">Book Guide</button></div>
+            </div>
+        </div>`).join('');
+        }
+        function filterTreks(d, btn) { document.querySelectorAll('.trek-filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTreks(d === 'all' ? treks : treks.filter(t => t.difficulty === d)) }
+        document.addEventListener('DOMContentLoaded', () => renderTreks(treks));
+    </script>
+</body>
+
+</html>
