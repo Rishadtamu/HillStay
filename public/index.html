@@ -4,415 +4,1327 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HillStay - Explore the Unseen</title>
+  <title>HillStay – Discover Authentic Hill-Country Stays</title>
+  <meta name="description"
+    content="Book handpicked homestays, experiences and treks in Darjeeling, Sikkim and Nagaland. Authentic stays with local hosts.">
+  <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
   <link rel="stylesheet" href="css/hillstay.css">
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" type="image/png" href="images/logo_tent_transparent.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      height: 92vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-slider {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.8s ease-in-out;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.7) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      padding: 0 2rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(176, 135, 71, 0.25);
+      border: 1px solid rgba(176, 135, 71, 0.5);
+      backdrop-filter: blur(8px);
+      color: #e8c57a;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      padding: 0.85rem 2.2rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      transition: 0.25s;
+      border: 2px solid var(--accent);
+      box-shadow: 0 4px 20px rgba(176, 135, 71, 0.45);
+    }
+
+    .btn-hero-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .btn-hero-ghost {
+      padding: 0.85rem 2.2rem;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      transition: 0.25s;
+    }
+
+    .btn-hero-ghost:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0)
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px)
+      }
+    }
+
+    /* ── Search Bar ── */
+    .search-bar-wrap {
+      background: white;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 70px;
+      z-index: 800;
+    }
+
+    .search-bar-wrap .sb-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 160px;
+      padding: 0.6rem 1rem;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .search-bar-wrap .sb-field:focus-within {
+      border-color: var(--accent);
+    }
+
+    .search-bar-wrap .sb-field i {
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .search-bar-wrap .sb-field input,
+    .search-bar-wrap .sb-field select {
+      border: none;
+      outline: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      background: transparent;
+      width: 100%;
+    }
+
+    .search-bar-wrap .sb-field label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .search-bar-wrap .sb-inner {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .btn-sb-search {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: filter 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-sb-search:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Section Header ── */
+    .sec-hdr {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .sec-hdr .tag {
+      display: inline-block;
+      background: rgba(176, 135, 71, 0.1);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+    }
+
+    .sec-hdr h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 300;
+      color: var(--primary);
+    }
+
+    .sec-hdr h2 span {
+      color: var(--accent);
+    }
+
+    .sec-hdr p {
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0.6rem auto 0;
+    }
+
+    /* ── Destinations Strip ── */
+    .dest-strip {
+      padding: 5rem 2rem;
+      background: #fff;
+    }
+
+    .dest-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .dest-card-h {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      height: 380px;
+      cursor: pointer;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .dest-card-h:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    }
+
+    .dest-card-h img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+      display: block;
+    }
+
+    .dest-card-h:hover img {
+      transform: scale(1.07);
+    }
+
+    .dest-card-h .dc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 55%);
+    }
+
+    .dest-card-h .dc-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.8rem 1.5rem;
+    }
+
+    .dest-card-h .dc-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 0.6rem;
+    }
+
+    .dest-card-h h3 {
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 300;
+      margin-bottom: 0.3rem;
+    }
+
+    .dest-card-h p {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    /* ── Featured Stays ── */
+    .stays-section {
+      padding: 5rem 2rem;
+      background: #f8f9fa;
+    }
+
+    .stays-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stay-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .stay-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.13);
+    }
+
+    .stay-img {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stay-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+      display: block;
+    }
+
+    .stay-card:hover .stay-img img {
+      transform: scale(1.06);
+    }
+
+    .stay-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stay-fav {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #999;
+      transition: color 0.2s, background 0.2s;
+      border: none;
+    }
+
+    .stay-fav:hover {
+      color: #e53935;
+      background: #fff;
+    }
+
+    .stay-body {
+      padding: 1.3rem;
+    }
+
+    .stay-body h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .stay-loc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 0.8rem;
+    }
+
+    .stay-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stay-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stay-price span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .stay-rating {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stay-rating i {
+      color: var(--accent);
+    }
+
+    /* ── Experiences Strip ── */
+    .exp-strip {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #263A46 0%, #1a2a35 100%);
+    }
+
+    .exp-strip .sec-hdr h2 {
+      color: #fff;
+    }
+
+    .exp-strip .sec-hdr p {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .exp-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .exp-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    .exp-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .exp-img {
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .exp-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+      display: block;
+    }
+
+    .exp-card:hover .exp-img img {
+      transform: scale(1.08);
+    }
+
+    .exp-body {
+      padding: 1.2rem;
+    }
+
+    .exp-body h3 {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .exp-body p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.82rem;
+      margin: 0 0 0.8rem;
+    }
+
+    .exp-price {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* ── Why HillStay ── */
+    .why-section {
+      padding: 5rem 2rem;
+      background: #fff;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .why-item {
+      text-align: center;
+    }
+
+    .why-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      color: var(--accent);
+      font-size: 1.5rem;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .why-item:hover .why-icon {
+      transform: scale(1.1);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .why-item h4 {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .why-item p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* ── Testimonials ── */
+    .review-strip {
+      padding: 5rem 2rem;
+      background: #f8f9fa;
+    }
+
+    .review-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f0f0f0;
+      transition: transform 0.3s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .review-stars {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .review-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .review-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .review-location {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #1a2a35 0%, #263A46 50%, #B08747 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1544634076-a901606f43e9?w=1600&q=60') center/cover;
+      opacity: 0.08;
+    }
+
+    .cta-banner .inner {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-banner h2 {
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner h2 span {
+      color: var(--accent);
+    }
+
+    .cta-banner p {
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 2rem;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: 0.25s;
+      box-shadow: 0 6px 24px rgba(176, 135, 71, 0.5);
+    }
+
+    .btn-cta:hover {
+      filter: brightness(1.1);
+      transform: translateY(-3px);
+    }
+
+    /* ── Footer ── */
+    .main-footer {
+      background: #111;
+      padding: 4rem 2rem 0;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-col h4 {
+      color: var(--accent);
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-col ul li a {
+      color: #999;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: #fff;
+    }
+
+    .footer-col p {
+      color: #777;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .footer-logo-block {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-logo-block img {
+      height: 44px;
+      width: 44px;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    .footer-logo-block span {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    .social-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom span {
+      color: #666;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .dest-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .dest-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .dest-card-h {
+        height: 260px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .search-bar-wrap {
+        gap: 0.7rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header class="main-header">
-
-
-    <!-- Main Navigation Tier -->
+  <!-- ── Navbar ── -->
+  <header class="main-header" id="main-header">
     <div class="header-main-tier">
       <a href="index.html" class="logo">
-        <img src="images/logo_tent_transparent.png" alt="HillStay Logo" class="logo-img"> HillStay
+        <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img">
+        HillStay
       </a>
-
       <div class="header-nav-desktop">
-                <a href="destination.html" class="nav-item">Destinations</a>
-                <a href="homestay.html" class="nav-item">Homestays</a>
-        <a href="restaurant.html" class="nav-item">Restaurants</a>
-        <a href="trekking.html" class="nav-item">Trekking Experiences</a>
-        <a href="experience.html" class="nav-item">Activities</a>
+        <a href="experience.html" class="nav-item">Explore</a>
+        <a href="homestay.html" class="nav-item">Stays</a>
+        <a href="experience.html" class="nav-item">Experiences</a>
+        <a href="destination.html" class="nav-item">Destinations</a>
+        <a href="about.html" class="nav-item">Guides</a>
       </div>
-
       <div class="header-main-right">
-        <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i
-            class="fa-solid fa-magnifying-glass"></i></button>
-        <div class="header-lang-switcher">
-          <i class="fa-solid fa-globe"></i>
-          <div class="lang-dropdown">
-            <span class="lang-opt" data-lang="en">EN</span>
-            <span class="lang-opt" data-lang="hi">HI</span>
-            <span class="lang-opt" data-lang="bn">BN</span>
-            <span class="lang-opt" data-lang="ne">NE</span>
-          </div>
-        </div>
-        <div class="header-actions">
-          <!-- Auth Icon -->
-        </div>
-        <!-- Mobile Menu Toggle -->
+        <a href="#" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
+        <div class="header-actions"><!-- Auth via JS --></div>
         <button class="menu-toggle" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
     </div>
-
-    <!-- Navigation Links (Sidebar for Mobile) -->
+    <!-- Mobile Sidebar -->
     <div class="nav-links">
       <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+      <a href="experience.html">Explore</a>
+      <a href="homestay.html">Stays</a>
+      <a href="experience.html">Experiences</a>
       <a href="destination.html">Destinations</a>
-            <a href="homestay.html">Homestays</a>
-      <a href="restaurant.html">Restaurants</a>
-      <a href="trekking.html">Trekking Experiences</a>
-      <a href="experience.html">Activities</a>
+      <a href="about.html">Guides</a>
       <hr class="nav-divider">
-
-      <a href="referral.html"><i class="fa-solid fa-gift"></i> Referral Program</a>
-      <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;">
-        <!-- Mobile Auth handled via JS or specific class styling -->
-      </div>
+      <a href="#"><i class="fa-solid fa-home"></i> List Your Stay</a>
+      <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem;"></div>
     </div>
   </header>
 
-  <!-- Sticky Condensed Search Bar (Visible on scroll) -->
-  <div class="sticky-search-bar" id="sticky-search">
-    <div class="search-capsule condensed">
-      <div class="search-segment">
-        <label><i class="fa-solid fa-location-dot"></i> Where</label>
-        <span class="input-display">Darjeeling</span>
-      </div>
-      <div class="search-segment">
-        <label><i class="fa-solid fa-calendar-days"></i> When</label>
-        <span class="input-display">Any week</span>
-      </div>
-      <div class="search-segment">
-        <label><i class="fa-solid fa-user-group"></i> Who</label>
-        <span class="input-display">Add guests</span>
-      </div>
-      <button class="btn-search-main" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i
-          class="fa-solid fa-magnifying-glass"></i></button>
-    </div>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- ── Hero ── -->
+  <section class="hero" id="home">
     <div class="hero-slider">
-      <!-- Slide 1 (main) -->
-      <div class="hero-slide active" data-title="Find your perfect escape."
-        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('images/hero-main.jpeg');">
-      </div>
-      <!-- Slide 2 (new-hero) -->
-      <div class="hero-slide" data-title="Discover hidden gems."
-        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('images/new-hero.jpeg');">
-      </div>
-      <!-- Slide 3 (hero-3) -->
-      <div class="hero-slide" data-title="Experience local culture."
-        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('images/hero-3.jpeg');">
-      </div>
-      <!-- Slide 4 (landscape) -->
-      <div class="hero-slide" data-title="Breath-taking landscapes."
-        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('images/67067778.jpg');">
-      </div>
+      <div class="hero-slide active"
+        style="background-image:url('https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=1800&auto=format&fit=crop')"
+        data-title="Wake Up to the Himalayas"></div>
+      <div class="hero-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=1800&auto=format&fit=crop')"
+        data-title="Discover Sikkim's Hidden Valleys"></div>
+      <div class="hero-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1570220104815-5e042c341a7d?q=80&w=1800&auto=format&fit=crop')"
+        data-title="Experience Nagaland's Rich Heritage"></div>
     </div>
-
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-card-layout">
-        <h1 class="hero-title">Find your perfect escape.</h1>
-        <div class="search-widget" id="search">
-          <div class="search-tabs">
-            <button class="search-tab active" onclick="navigateTab('index.html')">Homestays</button>
-            <button class="search-tab" onclick="navigateTab('restaurant.html')">Restaurants</button>
-            <button class="search-tab" onclick="navigateTab('trekking.html')">Trekking</button>
-            <button class="search-tab" onclick="navigateTab('experience.html')">Experiences</button>
-            <button class="search-tab" onclick="navigateTab('experience.html')">Activities</button>
-          </div>
-          <div class="search-capsule">
-            <div class="search-segment">
-              <label><i class="fa-solid fa-house-chimney"></i> Destination</label>
-              <input type="text" placeholder="Where are you going?" value="Darjeeling, WB">
-            </div>
-            <div class="search-segment">
-              <label><i class="fa-solid fa-calendar-check"></i> Check-in</label>
-              <div class="input-display">Add date</div>
-              <input type="date" class="hidden-date-input">
-            </div>
-            <div class="search-segment">
-              <label><i class="fa-solid fa-calendar-xmark"></i> Check-out</label>
-              <div class="input-display">Add date</div>
-              <input type="date" class="hidden-date-input">
-            </div>
-            <div class="search-segment">
-              <label><i class="fa-solid fa-users"></i> Guests</label>
-              <div class="guest-control">
-                <select id="guest-count" onchange="updateGuests(this)" style="background:transparent; border:none; outline:none; font-family:'Outfit', sans-serif; font-weight:600; font-size:0.95rem; color:var(--text-main); cursor:pointer; width:100%;">
-                    <option value="1 Adult, 1 Room">1 Adult, 1 Room</option>
-                    <option value="2 Adults, 1 Room" selected>2 Adults, 1 Room</option>
-                    <option value="3 Adults, 1 Room">3 Adults, 1 Room</option>
-                    <option value="4 Adults, 2 Rooms">4 Adults, 2 Rooms</option>
-                    <option value="5+ Adults">5+ Adults</option>
-                </select>
-              </div>
-            </div>
-            <button class="btn-search-main">Search</button>
-          </div>
-          <div class="search-suggestions"></div>
-        </div>
+      <div class="hero-eyebrow"><i class="fa-solid fa-mountain-sun"></i> Northeast India's #1 Homestay Platform</div>
+      <h1 class="hero-title" id="hero-heading">Wake Up to the <span>Himalayas</span></h1>
+      <p class="hero-sub">Handpicked homestays, authentic experiences and treks in Darjeeling, Sikkim &amp; Nagaland —
+        hosted by locals, loved by travellers.</p>
+      <div class="hero-btns">
+        <a href="homestay.html" class="btn-hero-primary"><i class="fa-solid fa-magnifying-glass"></i> Find My Stay</a>
+        <a href="destination.html" class="btn-hero-ghost"><i class="fa-solid fa-map-location-dot"></i> Explore
+          Destinations</a>
       </div>
     </div>
-
+    <div class="hero-scroll-hint">
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
   </section>
 
-
-
-  <div class="gopod-wrapper">
-    <!-- Premium Homestays (Etihad-style Slider) -->
-    <section class="deals-section" id="homestays">
-      <div class="deals-header">
-        <div class="deals-title-group">
-          <h2 class="deals-title">Premium <span class="location-highlight">Homestays</span></h2>
-          <p class="deals-subtitle">Handpicked mountain escapes for your next journey</p>
-        </div>
-        <a href="#destinations" class="view-all-link">Explore more</a>
+  <!-- ── Quick Search Bar ── -->
+  <div class="search-bar-wrap" id="search">
+    <div class="sb-field">
+      <i class="fa-solid fa-location-dot"></i>
+      <div class="sb-inner">
+        <label>Where</label>
+        <input type="text" id="sb-where" placeholder="Darjeeling, Sikkim, Nagaland…">
       </div>
-
-      <div class="deals-slider-container">
-        <button class="deals-nav-btn prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
-
-        <div class="deals-slider-track">
-          <!-- Card 1 -->
-          <div class="deal-card" data-index="0">
-            <div class="deal-image"
-              style="background-image: url('https://images.unsplash.com/photo-1544634076-a901606f43e9?w=800');">
-              <div class="deal-badge">Heritage Stay</div>
-              <div class="deal-content">
-                <h3 class="deal-dest">Darjeeling</h3>
-                <p class="deal-price">From <span class="price-val">₹4,500</span> <span class="price-unit">per
-                    night</span></p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="deal-card active" data-index="1">
-            <div class="deal-image"
-              style="background-image: url('https://images.unsplash.com/photo-1588873280148-d30953931604?w=800');">
-              <div class="deal-badge">Premium</div>
-              <div class="deal-content">
-                <h3 class="deal-dest">Gangtok</h3>
-                <p class="deal-price">From <span class="price-val">₹6,500</span> <span class="price-unit">per
-                    night</span></p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="deal-card" data-index="2">
-            <div class="deal-image"
-              style="background-image: url('https://images.unsplash.com/photo-1571545625482-a7457d59996c?w=800');">
-              <div class="deal-badge">Eco Friendly</div>
-              <div class="deal-content">
-                <h3 class="deal-dest">Kalimpong</h3>
-                <p class="deal-price">From <span class="price-val">₹3,500</span> <span class="price-unit">per
-                    night</span></p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="deal-card" data-index="3">
-            <div class="deal-image"
-              style="background-image: url('https://images.unsplash.com/photo-1625299495147-9ac69c9b1386?w=800');">
-              <div class="deal-badge">Scenic View</div>
-              <div class="deal-content">
-                <h3 class="deal-dest">Pelling</h3>
-                <p class="deal-price">From <span class="price-val">₹5,200</span> <span class="price-unit">per
-                    night</span></p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="deal-card" data-index="4">
-            <div class="deal-image"
-              style="background-image: url('https://images.unsplash.com/photo-1616421060627-c1d09ec95697?w=800');">
-              <div class="deal-badge">Cultural Gem</div>
-              <div class="deal-content">
-                <h3 class="deal-dest">Kohima</h3>
-                <p class="deal-price">From <span class="price-val">₹3,500</span> <span class="price-unit">per
-                    night</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="deals-nav-btn next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
-
-        <div class="deals-pagination">
-          <span class="dot" data-index="0"></span>
-          <span class="dot active" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-          <span class="dot" data-index="3"></span>
-          <span class="dot" data-index="4"></span>
-        </div>
+    </div>
+    <div class="sb-field">
+      <i class="fa-regular fa-calendar"></i>
+      <div class="sb-inner">
+        <label>Check-in</label>
+        <input type="date" id="sb-checkin">
       </div>
-    </section>
+    </div>
+    <div class="sb-field">
+      <i class="fa-regular fa-calendar-check"></i>
+      <div class="sb-inner">
+        <label>Check-out</label>
+        <input type="date" id="sb-checkout">
+      </div>
+    </div>
+    <div class="sb-field" style="max-width:160px;">
+      <i class="fa-solid fa-users"></i>
+      <div class="sb-inner">
+        <label>Guests</label>
+        <select id="sb-guests">
+          <option>1 Guest</option>
+          <option selected>2 Guests</option>
+          <option>3 Guests</option>
+          <option>4 Guests</option>
+          <option>5+ Guests</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-sb-search" onclick="window.location.href='homestay.html'">
+      <i class="fa-solid fa-magnifying-glass"></i> Search
+    </button>
   </div>
 
-  <div class="gopod-wrapper">
-    <!-- Destinations Section -->
-    <section class="destinations-section">
-      <h2 class="section-title">Explore the Hills</h2>
-      <div class="carousel-container destination-carousel">
-        <div class="carousel-track" id="destinations-track">
-          <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=400&auto=format&fit=crop"
-              alt="Darjeeling">
-            <span>Darjeeling</span>
-          </div>
-          <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1571545625482-a7457d59996c?q=80&w=400&auto=format&fit=crop"
-              alt="Kalimpong">
-            <span>Kalimpong</span>
-          </div>
-          <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=400&auto=format&fit=crop"
-              alt="Gangtok">
-            <span>Gangtok</span>
-          </div>
-          <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1625299495147-9ac69c9b1386?q=80&w=400&auto=format&fit=crop"
-              alt="Pelling">
-            <span>Pelling</span>
-          </div>
-          <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1616421060627-c1d09ec95697?q=80&w=400&auto=format&fit=crop"
-              alt="Kohima">
-            <span>Kohima</span>
-          </div>
-          <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1504280595-349f257a5360?q=80&w=400&auto=format&fit=crop"
-              alt="Dzukou Valley">
-            <span>Dzukou</span>
-          </div>
+  <!-- ── Destinations ── -->
+  <section class="dest-strip">
+    <div class="sec-hdr">
+      <div class="tag">Our Destinations</div>
+      <h2>Where Do You Want to <span>Escape?</span></h2>
+      <p>Three distinct landscapes, each with its own soul — find yours.</p>
+    </div>
+    <div class="dest-cards">
+      <a href="destination.html" class="dest-card-h">
+        <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=800&auto=format&fit=crop"
+          alt="Darjeeling">
+        <div class="dc-overlay"></div>
+        <div class="dc-info">
+          <div class="dc-tag">West Bengal</div>
+          <h3>Darjeeling</h3>
+          <p>Tea gardens, toy trains &amp; Himalayan sunrises</p>
         </div>
-        <div class="carousel-nav">
-          <button class="carousel-btn prev-btn dest-prev"><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="carousel-btn next-btn dest-next"><i class="fa-solid fa-chevron-right"></i></button>
+      </a>
+      <a href="destination.html" class="dest-card-h">
+        <img src="https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=800&auto=format&fit=crop"
+          alt="Sikkim">
+        <div class="dc-overlay"></div>
+        <div class="dc-info">
+          <div class="dc-tag">North East</div>
+          <h3>Sikkim</h3>
+          <p>Crystal lakes, monasteries &amp; Himalayan treks</p>
+        </div>
+      </a>
+      <a href="destination.html" class="dest-card-h">
+        <img src="https://images.unsplash.com/photo-1570220104815-5e042c341a7d?q=80&w=800&auto=format&fit=crop"
+          alt="Nagaland">
+        <div class="dc-overlay"></div>
+        <div class="dc-info">
+          <div class="dc-tag">North East</div>
+          <h3>Nagaland</h3>
+          <p>Tribal heritage, festivals &amp; wild landscapes</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Featured Stays ── -->
+  <section class="stays-section" id="featured-stays">
+    <div class="sec-hdr">
+      <div class="tag">Handpicked for You</div>
+      <h2>Top-Rated <span>Stays</span></h2>
+      <p>Every property personally verified by our local team for authenticity &amp; comfort.</p>
+    </div>
+    <div class="stays-grid">
+      <div class="stay-card" onclick="window.location.href='homestay.html'">
+        <div class="stay-img">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop"
+            alt="Makaibari Tea Bungalow">
+          <div class="stay-badge">Bestseller</div>
+          <button class="stay-fav" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="stay-body">
+          <h3>Makaibari Tea Bungalow</h3>
+          <div class="stay-loc"><i class="fa-solid fa-location-dot"></i> Kurseong, Darjeeling</div>
+          <div class="stay-meta">
+            <div class="stay-price">₹4,500 <span>/ night</span></div>
+            <div class="stay-rating"><i class="fa-solid fa-star"></i> 4.9 · 312 reviews</div>
+          </div>
         </div>
       </div>
-    </section>
-  </div>
-
-
-  <div class="gopod-wrapper">
-    <!-- Advanced Story Section -->
-    <section class="adv-story-section">
-      <div class="adv-story-container">
-        <h2 class="section-title" style="margin-bottom: 4rem; text-align: center;">Travel Stories</h2>
-        <!-- Stories content... -->
-
-        <!-- Story 1: Sillery Gaon -->
-        <div class="adv-story-item">
-          <div class="adv-story-img">
-            <img src="https://images.unsplash.com/photo-1544634076-a901606f43e9" alt="Sillery Gaon">
-          </div>
-          <div class="adv-story-content">
-            <h3>The Silence of Sillery Gaon</h3>
-            <p>In the quiet hamlet of Sillery, I learned that silence isn't empty—it's full of answers. Here, 'slow
-              living' isn't a trend; it's the breath of the mountains. Disconnecting from the digital noise allowed me
-              to
-              hear the whispering wind and the beating of my own heart. A lesson in finding home within oneself.</p>
-            <a href="experience.html" class="read-more-btn">Read the Journey &rarr;</a>
+      <div class="stay-card" onclick="window.location.href='homestay.html'">
+        <div class="stay-img">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=600&auto=format&fit=crop"
+            alt="Hidden Forest Retreat">
+          <div class="stay-badge">Premium</div>
+          <button class="stay-fav" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="stay-body">
+          <h3>Hidden Forest Retreat</h3>
+          <div class="stay-loc"><i class="fa-solid fa-location-dot"></i> Pelling, Sikkim</div>
+          <div class="stay-meta">
+            <div class="stay-price">₹5,200 <span>/ night</span></div>
+            <div class="stay-rating"><i class="fa-solid fa-star"></i> 4.8 · 187 reviews</div>
           </div>
         </div>
-
-        <!-- Story 2: Kitchen Hearth -->
-        <div class="adv-story-item">
-          <div class="adv-story-img">
-            <img src="https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?q=80&w=800&auto=format&fit=crop"
-              alt="Kitchen Hearth">
-          </div>
-          <div class="adv-story-content">
-            <h3>A Seat at the Kitchen Hearth</h3>
-            <p>There is no warmth quite like the fire that keeps a mountain home alive. Sitting on a wooden stool,
-              sharing
-              steamed momos and stories with a local family, I realized that hospitality in the hills isn't a
-              service—it's
-              an ancient bond. It's the taste of love and the spice of shared laughter.</p>
-            <a href="experience.html" class="read-more-btn">Taste the Culture &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Story 3: Rishyap -->
-        <div class="adv-story-item">
-          <div class="adv-story-img">
-            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=800&auto=format&fit=crop"
-              alt="Rishyap">
-          </div>
-          <div class="adv-story-content">
-            <h3>The Whispering Pines of Rishyap</h3>
-            <p>Walking through the misty pine forests of Rishyap, the world felt soft and forgiving. The trees carry the
-              weight of centuries, and in their presence, my worries felt small. I learned that nature doesn't just
-              heal; it reminds us of our place in the grand design. A pilgrimage of the soul.</p>
-            <a href="experience.html" class="read-more-btn">Find Peace &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Story 4: Teesta -->
-        <div class="adv-story-item">
-          <div class="adv-story-img">
-            <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=80&w=800&auto=format&fit=crop"
-              alt="Teesta River">
-          </div>
-          <div class="adv-story-content">
-            <h3>The Soul of the Teesta</h3>
-            <p>Watching the emerald waters of the Teesta carve through rocky canyons, I understood persistence. The
-              river
-              flows because it must, overcoming every boulder in its path. It taught me that life, much like the river,
-              finds its way home eventually, if only we trust the current.</p>
-            <a href="experience.html" class="read-more-btn">Follow the Flow &rarr;</a>
-          </div>
-        </div>
-
       </div>
-    </section>
-  </div>
+      <div class="stay-card" onclick="window.location.href='homestay.html'">
+        <div class="stay-img">
+          <img src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?q=80&w=600&auto=format&fit=crop"
+            alt="Kanchenjunga View Villa">
+          <div class="stay-badge">Mountain View</div>
+          <button class="stay-fav" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="stay-body">
+          <h3>Kanchenjunga View Villa</h3>
+          <div class="stay-loc"><i class="fa-solid fa-location-dot"></i> Gangtok, Sikkim</div>
+          <div class="stay-meta">
+            <div class="stay-price">₹6,000 <span>/ night</span></div>
+            <div class="stay-rating"><i class="fa-solid fa-star"></i> 4.7 · 256 reviews</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="homestay.html" class="btn-hero-primary" style="display:inline-block;">View All Stays <i
+          class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </section>
 
-  <!-- Footer -->
+  <!-- ── Experiences ── -->
+  <section class="exp-strip">
+    <div class="sec-hdr">
+      <div class="tag" style="background:rgba(176,135,71,0.2); color:#e8c57a;">Curated Experiences</div>
+      <h2>More Than Just a <span>Stay</span></h2>
+      <p>Handpicked activities that connect you with the heart of the mountains.</p>
+    </div>
+    <div class="exp-cards">
+      <div class="exp-card" onclick="window.location.href='trekking.html'">
+        <div class="exp-img">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=500&auto=format&fit=crop"
+            alt="Sandakphu Trek">
+        </div>
+        <div class="exp-body">
+          <h3>Sandakphu Trek</h3>
+          <p>Views of Everest &amp; Kanchenjunga on this iconic 5-day trail.</p>
+          <div class="exp-price">From ₹8,500 / person</div>
+        </div>
+      </div>
+      <div class="exp-card" onclick="window.location.href='experience.html'">
+        <div class="exp-img">
+          <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=500&auto=format&fit=crop"
+            alt="Tea Garden Tour">
+        </div>
+        <div class="exp-body">
+          <h3>Tea Garden Tour</h3>
+          <p>Walk the estates &amp; taste first-flush Darjeeling with local experts.</p>
+          <div class="exp-price">From ₹1,200 / person</div>
+        </div>
+      </div>
+      <div class="exp-card" onclick="window.location.href='experience.html'">
+        <div class="exp-img">
+          <img src="https://images.unsplash.com/photo-1625299495147-9ac69c9b1386?q=80&w=500&auto=format&fit=crop"
+            alt="Naga Village Walk">
+        </div>
+        <div class="exp-body">
+          <h3>Naga Village Walk</h3>
+          <p>Immerse yourself in tribal heritage and local crafts in Kohima.</p>
+          <div class="exp-price">From ₹900 / person</div>
+        </div>
+      </div>
+      <div class="exp-card" onclick="window.location.href='restaurant.html'">
+        <div class="exp-img">
+          <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=500&auto=format&fit=crop"
+            alt="Himalayan Food Trail">
+        </div>
+        <div class="exp-body">
+          <h3>Himalayan Food Trail</h3>
+          <p>Momos, thukpa &amp; thali — a curated culinary journey through the hills.</p>
+          <div class="exp-price">From ₹750 / person</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Why HillStay ── -->
+  <section class="why-section">
+    <div class="sec-hdr">
+      <div class="tag">Our Promise</div>
+      <h2>Why Book with <span>HillStay?</span></h2>
+      <p>We go beyond listings — we personally curate every experience we offer.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-shield-check"></i></div>
+        <h4>Verified Hosts</h4>
+        <p>Every host is background-checked and personally onboarded by our local team.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h4>Local Immersion</h4>
+        <p>Go beyond sightseeing — experience authentic culture you won't find in hotels.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-headset"></i></div>
+        <h4>24/7 Support</h4>
+        <p>Our team is always on hand before, during, and after your journey.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fa-solid fa-rotate-left"></i></div>
+        <h4>Free Cancellation</h4>
+        <p>Cancel up to 48 hours before check-in with zero charges, no questions asked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Reviews ── -->
+  <section class="review-strip">
+    <div class="sec-hdr">
+      <div class="tag">Guest Stories</div>
+      <h2>Loved by <span>Travellers</span></h2>
+      <p>Real experiences from real guests who fell in love with the hills.</p>
+    </div>
+    <div class="review-cards">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Staying at the Makaibari Tea Bungalow was the most peaceful experience of my life.
+          Waking up to mist over the tea garden every morning was pure magic."</p>
+        <div class="review-author">
+          <div class="review-avatar"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="review-name">Anika Sharma</div>
+            <div class="review-location">Mumbai, India</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The Hidden Forest Retreat in Pelling exceeded all expectations. Our host prepared the
+          most incredible home-cooked Sikkimese meals every evening."</p>
+        <div class="review-author">
+          <div class="review-avatar"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="review-name">James Whitfield</div>
+            <div class="review-location">London, UK</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"HillStay made our Nagaland trip absolutely unforgettable. The village walk and longhouse
+          stay gave us genuine insight into Naga culture — 100% recommending!"</p>
+        <div class="review-author">
+          <div class="review-avatar"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="review-name">Priya Nair</div>
+            <div class="review-location">Bangalore, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Banner ── -->
+  <section class="cta-banner">
+    <div class="inner">
+      <h2>Ready to Discover the <span>Hills?</span></h2>
+      <p>Join over 8,500 travellers who have experienced the magic of Northeast India with HillStay.</p>
+      <a href="homestay.html" class="btn-cta">Start Exploring <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-col">
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="reviews.html">Write a review</a></li>
-          <li><a href="photos.html">Add photos</a></li>
-          <li><a href="stories.html">Travel stories</a></li>
-        </ul>
+        <div class="footer-logo-block">
+          <img src="images/hillstay_logo.jpeg" alt="HillStay Logo">
+          <span>HillStay</span>
+        </div>
+        <p>Your gateway to authentic hill-country experiences in Darjeeling, Sikkim &amp; Nagaland. Every stay verified,
+          every host trusted.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div class="footer-col">
-        <h4>Support</h4>
+        <h4>Explore</h4>
         <ul>
-
-          <li><a href="#">Help Center</a></li>
-          <li><a href="referral.html">Referral Program</a></li>
+          <li><a href="homestay.html">Stays</a></li>
+          <li><a href="experience.html">Experiences</a></li>
+          <li><a href="destination.html">Destinations</a></li>
+          <li><a href="restaurant.html">Restaurants</a></li>
+          <li><a href="trekking.html">Trekking</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About Us</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="referral.html">Referral Program</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
           <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms of Use</a></li>
-          <li><a href="#">Press</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo">
-        <img src="images/logo_tent_transparent.png" alt="HillStay Logo">
-      </div>
-      &copy; 2026 HillStay LLC All rights reserved.
+      <span>&copy; 2026 HillStay LLC. All rights reserved.</span>
+      <span>Made with ❤️ in the Himalayas</span>
     </div>
   </footer>
 
   <script src="js/hillstay.js"></script>
   <script>
-    function navigateTab(page) {
-      window.location.href = page;
-    }
+    // Hero heading updater
+    const slides = document.querySelectorAll('.hero-slide');
+    const heading = document.getElementById('hero-heading');
+    let cur = 0;
+    setInterval(() => {
+      heading.style.opacity = '0';
+      heading.style.transform = 'translateY(-16px)';
+      setTimeout(() => {
+        slides[cur].classList.remove('active');
+        cur = (cur + 1) % slides.length;
+        slides[cur].classList.add('active');
+        const titles = ['Wake Up to the <span>Himalayas</span>', "Sikkim's Hidden <span>Valleys</span>", "Nagaland's Rich <span>Heritage</span>"];
+        heading.innerHTML = titles[cur];
+        heading.style.opacity = '1';
+        heading.style.transform = 'translateY(0)';
+      }, 600);
+    }, 5000);
+
+    // Fav toggle
+    document.querySelectorAll('.stay-fav').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const icon = btn.querySelector('i');
+        icon.classList.toggle('fa-regular');
+        icon.classList.toggle('fa-solid');
+        icon.style.color = icon.classList.contains('fa-solid') ? '#e53935' : '';
+      });
+    });
   </script>
 </body>
 
