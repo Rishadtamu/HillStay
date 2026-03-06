@@ -58,4 +58,58 @@ router.get('/bookings/:userId', (req, res) => {
     );
 });
 
+// ==========================================
+// HOST APPLICATION ROUTES (List Your Stay)
+// ==========================================
+
+// Submit a new host application
+router.post('/host-applications', (req, res) => {
+    const { firstName, lastName, email, phone, propertyName, propertyType, destination, address, rooms } = req.body;
+
+    db.run(
+        `INSERT INTO host_applications (firstName, lastName, email, phone, propertyName, propertyType, destination, address, rooms) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [firstName, lastName, email, phone, propertyName, propertyType, destination, address, rooms],
+        function (err) {
+            if (err) res.status(500).json({ error: err.message });
+            else res.json({ message: 'Host application submitted successfully', id: this.lastID });
+        }
+    );
+});
+
+// Get all host applications (Admin feature)
+router.get('/host-applications', (req, res) => {
+    db.all("SELECT * FROM host_applications ORDER BY dateApplied DESC", [], (err, rows) => {
+        if (err) res.status(500).json({ error: err.message });
+        else res.json(rows);
+    });
+});
+
+// ==========================================
+// CONTACT ROUTES (Support/Contact Forms)
+// ==========================================
+
+// Submit a contact form
+router.post('/contact', (req, res) => {
+    const { name, email, subject, message } = req.body;
+
+    db.run(
+        `INSERT INTO contacts (name, email, subject, message) 
+        VALUES (?, ?, ?, ?)`,
+        [name, email, subject, message],
+        function (err) {
+            if (err) res.status(500).json({ error: err.message });
+            else res.json({ message: 'Contact message received', id: this.lastID });
+        }
+    );
+});
+
+// Get all contact messages (Admin feature)
+router.get('/contact', (req, res) => {
+    db.all("SELECT * FROM contacts ORDER BY dateSubmitted DESC", [], (err, rows) => {
+        if (err) res.status(500).json({ error: err.message });
+        else res.json(rows);
+    });
+});
+
 module.exports = router;

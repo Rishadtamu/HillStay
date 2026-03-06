@@ -885,7 +885,21 @@
       }
 
       .search-bar-wrap {
-        gap: 0.7rem;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.5rem 1rem;
+        gap: 0.8rem;
+      }
+
+      .search-bar-wrap .sb-field {
+        width: 100%;
+        min-width: unset;
+      }
+
+      .search-bar-wrap .btn-sb-search {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
       }
     }
   </style>
@@ -908,7 +922,7 @@
         <a href="about.html" class="nav-item">Guides</a>
       </div>
       <div class="header-main-right">
-        <a href="#" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
+        <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
         <div class="header-actions"><!-- Auth via JS --></div>
         <button class="menu-toggle" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars"></i>
@@ -918,13 +932,13 @@
     <!-- Mobile Sidebar -->
     <div class="nav-links">
       <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-      <a href="experience.html">Explore</a>
-      <a href="homestay.html">Stays</a>
-      <a href="experience.html">Experiences</a>
-      <a href="destination.html">Destinations</a>
-      <a href="about.html">Guides</a>
+      <a href="experience.html"><i class="fa-solid fa-compass"></i> Explore</a>
+      <a href="homestay.html"><i class="fa-solid fa-bed"></i> Stays</a>
+      <a href="experience.html"><i class="fa-solid fa-camera"></i> Experiences</a>
+      <a href="destination.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+      <a href="about.html"><i class="fa-solid fa-book-open"></i> Guides</a>
       <hr class="nav-divider">
-      <a href="#"><i class="fa-solid fa-home"></i> List Your Stay</a>
+      <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
       <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem;"></div>
     </div>
   </header>

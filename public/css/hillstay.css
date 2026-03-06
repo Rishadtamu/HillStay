@@ -2035,6 +2035,15 @@ img {
     margin-right: 1rem;
   }
 
+  .header-actions .btn-signin .signin-text {
+    display: none;
+  }
+
+  .header-actions .btn-signin {
+    padding: 0.6rem 0.8rem;
+    border-radius: 50px;
+  }
+
   .nav-links {
     position: fixed;
     top: 0;
@@ -2279,8 +2288,10 @@ img {
 }
 
 @media (max-width: 768px) {
-  .header-nav-desktop {
-    display: none;
+
+  .header-nav-desktop,
+  .btn-list-stay {
+    display: none !important;
   }
 
   .menu-toggle {

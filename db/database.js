@@ -46,6 +46,30 @@ const db = new sqlite3.Database(dbPath, (err) => {
             FOREIGN KEY(listingId) REFERENCES listings(id)
         )`);
 
+        db.run(`CREATE TABLE IF NOT EXISTS host_applications (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            firstName TEXT NOT NULL,
+            lastName TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT NOT NULL,
+            propertyName TEXT NOT NULL,
+            propertyType TEXT NOT NULL,
+            destination TEXT NOT NULL,
+            address TEXT NOT NULL,
+            rooms INTEGER NOT NULL,
+            status TEXT DEFAULT 'pending',
+            dateApplied TEXT DEFAULT (datetime('now', 'localtime'))
+        )`);
+
+        db.run(`CREATE TABLE IF NOT EXISTS contacts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            subject TEXT NOT NULL,
+            message TEXT NOT NULL,
+            dateSubmitted TEXT DEFAULT (datetime('now', 'localtime'))
+        )`);
+
         // Facilities and Gallery could be in separated tables, but for a simple site we can skip or store as JSON text in listings if needed.
     }
 });
