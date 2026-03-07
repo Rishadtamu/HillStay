@@ -13,7 +13,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            photo TEXT
+            photo TEXT,
+            password TEXT
         )`);
 
         db.run(`CREATE TABLE IF NOT EXISTS listings (
@@ -29,7 +30,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
             host TEXT,
             hostAbout TEXT,
             description TEXT,
-            permit BOOLEAN
+            permit BOOLEAN,
+            totalRooms INTEGER DEFAULT 5
         )`);
 
         db.run(`CREATE TABLE IF NOT EXISTS bookings (
@@ -41,6 +43,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
             guests INTEGER,
             totalPrice REAL,
             hasGuide BOOLEAN,
+            status TEXT DEFAULT 'Paid',
             dateCreated TEXT,
             FOREIGN KEY(userId) REFERENCES users(id),
             FOREIGN KEY(listingId) REFERENCES listings(id)
@@ -70,7 +73,23 @@ const db = new sqlite3.Database(dbPath, (err) => {
             dateSubmitted TEXT DEFAULT (datetime('now', 'localtime'))
         )`);
 
-        // Facilities and Gallery could be in separated tables, but for a simple site we can skip or store as JSON text in listings if needed.
+        // Seed listings if empty
+        db.get("SELECT COUNT(*) as count FROM listings", (err, row) => {
+            if (row && row.count === 0) {
+                const listings = [
+                    ["Tea Garden Retreat", "Darjeeling", "images/dest1.jpg", 1200, 4.8, 124, "featured", "homestay", "Pemba Sherpa", "Local mountain guide since 2010.", "Experience peaceful stays amidst tea gardens.", 0],
+                    ["Clouds End Cottage", "Gangtok", "images/dest2.jpg", 3500, 4.9, 87, "best choice", "homestay", "Karsang", "Passionate about local food.", "Modern comforts in the heart of mountains.", 1],
+                    ["Alpine Birding Stay", "Pelling", "images/dest3.jpg", 2200, 4.7, 52, "", "resort", "Doma", "Birdwatching expert.", "A paradise for bird watchers.", 0]
+                ];
+                const stmt = db.prepare("INSERT INTO listings (title, location, image, price, rating, reviews, badge, category, host, hostAbout, description, permit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                listings.forEach(l => stmt.run(l));
+                stmt.finalize();
+                console.log("Database seeded with sample listings.");
+            }
+        });
+
+        // Create a test user for easy login/testing
+        db.run(`INSERT OR IGNORE INTO users (id, name, email, photo) VALUES (1, 'Tenzing Norgay', 'tenzing@gmail.com', 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop')`);
     }
 });
 

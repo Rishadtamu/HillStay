@@ -74,6 +74,11 @@ function renderListings(data) {
            ${item.price > 0 ? `₹${item.price.toLocaleString()} <span style="font-size:0.8em; color:#666; font-weight:400">/ night</span>` : 'Free / Paid Entry'}
         </div>
         
+        <div class="live-status" style="font-size: 0.75rem; color: #d32f2f; margin-top: 8px; display: flex; align-items: center; gap: 5px;">
+           <span class="live-pulse"></span>
+           <span>${Math.floor(Math.random() * 8) + 3} people looking at this right now</span>
+        </div>
+        
         <div class="action-buttons" style="display:flex; gap:10px; margin-top:1rem;">
              <button class="btn-book" onclick="event.stopPropagation(); openBookingModal(${item.id})" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:6px; cursor:pointer; font-weight:600;">${item.category === 'homestay' || item.category === 'resort' || item.category === 'camp' ? 'Book Now' : 'View Details'}</button>
         </div>
@@ -122,17 +127,28 @@ function setupSearch() {
   searchInput.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
 
-    if (query.length < 2) {
+    if (query.length < 1) {
       suggestionsBox.style.display = "none";
       return;
     }
 
-    const filteredData = searchData.filter(item =>
+    // Filter both from hardcoded places AND live listings titles/locations
+    const filteredPlaces = searchData.filter(item =>
       item.name.toLowerCase().includes(query) ||
       item.location.toLowerCase().includes(query)
     );
 
-    renderSuggestions(filteredData, suggestionsBox);
+    const filteredListings = listings.filter(item =>
+      item.title.toLowerCase().includes(query) ||
+      item.location.toLowerCase().includes(query)
+    ).map(item => ({ name: item.title, type: "Homestay", location: item.location }));
+
+    const combined = [...filteredPlaces, ...filteredListings];
+    // De-duplicate
+    const unique = Array.from(new Set(combined.map(a => a.name)))
+      .map(name => combined.find(a => a.name === name));
+
+    renderSuggestions(unique, suggestionsBox);
   });
 
   // Close suggestions when clicking outside
@@ -244,6 +260,9 @@ function initAll() {
       header.classList.remove("scrolled");
     }
   });
+
+  // Start Real-time activity notifications
+  startActivitySimulator();
 }
 
 document.addEventListener("DOMContentLoaded", initAll);
@@ -294,7 +313,17 @@ function updateAuthUI() {
               <strong>Sign In</strong>
               <span>Explore mountain escapes</span>
             </div>
-            <button class="btn-social google-btn" onclick="loginWithGoogle()" style="width: 100%; text-align: left; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: white; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+            
+            <div style="padding: 0 1rem;">
+                <input type="email" id="login-email" placeholder="Email" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:6px;">
+                <input type="password" id="login-password" placeholder="Password" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:6px;">
+                <div id="login-error" style="color:red; font-size:12px; margin-bottom:10px; display:none;"></div>
+                <button onclick="loginWithEmail()" style="width:100%; background:var(--primary); color:white; border:none; padding:10px; border-radius:6px; cursor:pointer; font-weight:600; margin-bottom:10px;">Login / Sign Up</button>
+            </div>
+
+            <div style="text-align:center; font-size:12px; color:#666; margin-bottom:10px;">— OR —</div>
+
+            <button class="btn-social google-btn" onclick="loginWithGoogle()" style="width: calc(100% - 2rem); margin: 0 1rem 1rem 1rem; text-align: left; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: white; cursor: pointer; display: flex; align-items: center; gap: 10px;">
               <i class="fa-brands fa-google" style="color: #DB4437; font-size: 18px;"></i>
               Continue with Google
             </button>
@@ -307,7 +336,59 @@ function updateAuthUI() {
 
 function toggleLoginMenu() {
   const menu = document.getElementById('login-menu');
-  if (menu) menu.classList.toggle('active');
+  if (menu) {
+    menu.classList.toggle('active');
+    // Close user menu if open
+    const userMenu = document.getElementById('user-menu');
+    if (userMenu) userMenu.classList.remove('active');
+  }
+}
+
+function toggleUserMenu() {
+  const menu = document.getElementById('user-menu');
+  if (menu) {
+    menu.classList.toggle('active');
+  }
+}
+
+function logout() {
+  state.user = null;
+  localStorage.removeItem("hillstayUser");
+  updateAuthUI();
+  location.reload();
+}
+
+async function loginWithEmail() {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const errorDiv = document.getElementById('login-error');
+
+  if (!email || !password || !email.includes('@')) {
+    errorDiv.innerText = "Please provide valid email and password.";
+    errorDiv.style.display = "block";
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name: email.split('@')[0] })
+    });
+    const data = await response.json();
+    if (response.ok) {
+      state.user = data.user;
+      localStorage.setItem("hillstayUser", JSON.stringify(state.user));
+      updateAuthUI();
+      alert("Welcome back!");
+    } else {
+      errorDiv.innerText = data.error || "Login failed";
+      errorDiv.style.display = "block";
+    }
+  } catch (e) {
+    errorDiv.innerText = "Server connection error.";
+    errorDiv.style.display = "block";
+  }
 }
 
 function loginWithGoogle() {
@@ -315,18 +396,34 @@ function loginWithGoogle() {
   const btn = document.querySelector('.google-btn');
   btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Connecting to Gmail...`;
 
-  setTimeout(() => {
-    state.user = {
-      name: "Tenzing Norgay",
-      email: "tenzing@gmail.com",
-      photo: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop"
-    };
-    localStorage.setItem("hillstayUser", JSON.stringify(state.user));
-    const loginMenu = document.getElementById('login-menu');
-    if (loginMenu) loginMenu.classList.remove('active');
-    updateAuthUI();
-    alert("Logged in successfully with Gmail!");
-  }, 1500);
+  setTimeout(async () => {
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: "Tenzing Norgay",
+          email: "tenzing@gmail.com",
+          photo: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop"
+        })
+      });
+      const data = await response.json();
+      if (response.ok && data.user) {
+        state.user = data.user;
+        localStorage.setItem("hillstayUser", JSON.stringify(state.user));
+        const loginMenu = document.getElementById('login-menu');
+        if (loginMenu) loginMenu.classList.remove('active');
+        updateAuthUI();
+        alert("Logged in successfully with Gmail!");
+      } else {
+        alert("Login failed.");
+        btn.innerHTML = `<i class="fa-brands fa-google" style="color: #DB4437; font-size: 18px;"></i> Continue with Google`;
+      }
+    } catch (e) {
+      alert("Error connecting to server.");
+      btn.innerHTML = `<i class="fa-brands fa-google" style="color: #DB4437; font-size: 18px;"></i> Continue with Google`;
+    }
+  }, 800);
 }
 
 function mockLogin() {
@@ -416,11 +513,19 @@ function openBookingModal(id) {
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <div style="display:flex; gap:10px; margin-bottom: 10px;">
-                    <label style="flex:1;">Check-in <input type="date" id="checkin" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
-                    <label style="flex:1;">Check-out <input type="date" id="checkout" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
+                <div style="margin-bottom:12px; font-size:0.85rem; color:#d1671a;" id="availability-notice">
+                   <!-- Availability populated by JS -->
                 </div>
-                <label>Guests <input type="number" id="guests" min="1" value="2" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
+                <div style="display:flex; gap:10px; margin-bottom: 10px;">
+                    <label style="flex:1;">Check-in <input type="date" id="checkin" min="${new Date().toISOString().split('T')[0]}" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
+                    <label style="flex:1;">Check-out <input type="date" id="checkout" min="${new Date().toISOString().split('T')[0]}" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
+                </div>
+                <label>Guests</label>
+                <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
+                  <button onclick="updateGuests(-1)" style="width:30px; height:30px; border-radius:50%; border:1px solid #ddd; background:white; cursor:pointer;">-</button>
+                  <input type="number" id="guests" min="1" value="2" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; text-align:center;">
+                  <button onclick="updateGuests(1)" style="width:30px; height:30px; border-radius:50%; border:1px solid #ddd; background:white; cursor:pointer;">+</button>
+                </div>
             </div>
 
             ${item.suggestedGuide ? `
@@ -453,11 +558,24 @@ function openBookingModal(id) {
                </div>
             </div>
 
-            <button onclick="confirmBooking('${item.title}')" style="width:100%; padding:15px; border:none; background:var(--primary); color:white; font-weight:700; border-radius:8px; cursor:pointer;">Confirm & Pay</button>
+            <button onclick="proceedToPayment(${item.id})" style="width:100%; padding:15px; border:none; background:var(--primary); color:white; font-weight:700; border-radius:8px; cursor:pointer;">Proceed to Payment</button>
         </div>
     </div>
     `;
   document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  // Fetch booked dates to show availability
+  fetch(`/api/bookings/listing/${listingId}`)
+    .then(r => r.json())
+    .then(bookings => {
+      const notice = document.getElementById('availability-notice');
+      if (bookings && bookings.length > 0) {
+        let dates = bookings.map(b => `${b.checkin} to ${b.checkout}`).join(', ');
+        notice.innerHTML = `<strong>Note:</strong> Unavailable dates: <span style="display:block;">${dates}</span>`;
+      } else {
+        notice.innerHTML = `<span style="color:#2e7d32;">Available for your dates</span>`;
+      }
+    });
 }
 
 function updateTotalPrice(stayPrice, guidePrice) {
@@ -474,25 +592,165 @@ function updateTotalPrice(stayPrice, guidePrice) {
   }
 }
 
-function confirmBooking(title) {
+function proceedToPayment(listingId) {
+  if (!state.user) {
+    alert("Please sign in first to book a stay.");
+    toggleLoginMenu();
+    return;
+  }
+
+  const checkinInput = document.getElementById('checkin').value;
+  const checkoutInput = document.getElementById('checkout').value;
+  const guestsInput = document.getElementById('guests');
+  const guests = parseInt(guestsInput.value) || 1;
+
+  if (!checkinInput || !checkoutInput) {
+    alert("Please select both check-in and check-out dates.");
+    return;
+  }
+
+  const checkinDate = new Date(checkinInput);
+  const checkoutDate = new Date(checkoutInput);
+  if (checkoutDate <= checkinDate) {
+    alert("Check-out date must be after check-in date.");
+    return;
+  }
+
+  const diffTime = Math.abs(checkoutDate - checkinDate);
+  const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
+
   const guideChecked = document.getElementById('add-guide') ? document.getElementById('add-guide').checked : false;
-  const totalPrice = document.getElementById('total-price').innerText;
+  const item = listings.find(l => l.id === listingId);
+  if (!item) return;
 
-  let message = `Booking Confirmed for ${title}!`;
-  if (guideChecked) message += ` Your local guide has also been scheduled.`;
-  message += ` Total Paid: ${totalPrice}. Check your email/WhatsApp for details.`;
+  let rawTotal = item.price * nights;
+  if (guideChecked && item.suggestedGuide) {
+    rawTotal += item.suggestedGuide.price * nights;
+  }
 
-  alert(message);
   document.getElementById('booking-modal').remove();
+  openPaymentModal(item, checkinInput, checkoutInput, guests, guideChecked, rawTotal);
+}
 
-  // Save to trips
-  state.trips.push({
-    title,
-    date: new Date().toDateString(),
-    total: totalPrice,
-    hasGuide: guideChecked
-  });
-  localStorage.setItem("hillstayTrips", JSON.stringify(state.trips));
+function openPaymentModal(item, checkin, checkout, guests, hasGuide, rawTotal) {
+  const modalHTML = `
+  <div id="payment-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:2500;">
+      <div style="background:#fff; padding:2rem; border-radius:12px; max-width:400px; width:90%; position:relative;">
+          <button onclick="document.getElementById('payment-modal').remove()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+          
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+             <img src="images/logo_tent_transparent.png" alt="HillStay Logo" style="height: 50px; width: 50px; object-fit: contain; margin-bottom: 10px;">
+             <h3 style="margin:0; color:var(--primary); font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-shield-halved"></i> Secure Checkout</h3>
+             <p style="color:#666; font-size:0.9rem; margin-top: 5px;">Total Amount: <strong style="color:#222; font-size:1.2rem;">₹${rawTotal.toLocaleString()}</strong></p>
+          </div>
+          
+          <div style="margin-bottom: 1rem;">
+              <label style="display:block; font-size:0.85rem; margin-bottom:5px; font-weight:600; color:#444;">Card Number</label>
+              <div style="position:relative;">
+                  <i class="fa-brands fa-cc-visa" style="position:absolute; left:12px; top:12px; color:#1434CB; font-size:1.2rem;"></i>
+                  <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" style="width:100%; padding:10px 10px 10px 42px; border:1px solid #ccc; border-radius:6px; font-size:1rem; box-sizing: border-box;" oninput="this.value = this.value.replace(/[^0-9 ]/g, '')" id="pay-card">
+              </div>
+          </div>
+          
+          <div style="display:flex; gap:10px; margin-bottom: 1.5rem;">
+              <div style="flex:1;">
+                  <label style="display:block; font-size:0.85rem; margin-bottom:5px; font-weight:600; color:#444;">Expiry</label>
+                  <input type="text" placeholder="MM/YY" maxlength="5" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box;" id="pay-exp">
+              </div>
+              <div style="flex:1;">
+                  <label style="display:block; font-size:0.85rem; margin-bottom:5px; font-weight:600; color:#444;">CVV</label>
+                  <input type="password" placeholder="123" maxlength="3" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box;" id="pay-cvv">
+              </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem; font-size: 0.8rem; color: #888;">
+             <span><i class="fa-solid fa-lock"></i> SSL Encrypted</span>
+             <span>Powered by <strong>HillStay Pay</strong></span>
+          </div>
+          
+          <button id="btn-pay-now" onclick="processPayment(${item.id}, '${checkin}', '${checkout}', ${guests}, ${hasGuide}, ${rawTotal}, '${item.title}')" style="width:100%; padding:14px; background:var(--gold); color:var(--dark); border:none; border-radius:6px; font-family: 'Outfit', sans-serif; font-weight:bold; font-size:1.1rem; cursor:pointer; display:flex; justify-content:center; align-items:center; transition: all 0.3s ease;">
+              Pay ₹${rawTotal.toLocaleString()}
+          </button>
+      </div>
+  </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+
+async function processPayment(listingId, checkin, checkout, guests, hasGuide, rawTotal, title) {
+  const card = document.getElementById('pay-card').value;
+  const exp = document.getElementById('pay-exp').value;
+  const cvv = document.getElementById('pay-cvv').value;
+
+  if (card.replace(/\\s/g, '').length < 15 || exp.length < 4 || cvv.length < 3) {
+    alert("Please enter valid card details (dummy card works for demo).");
+    return;
+  }
+
+  const btn = document.getElementById('btn-pay-now');
+  btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin" style="margin-right:8px;"></i> Processing Payment...`;
+  btn.disabled = true;
+  btn.style.opacity = '0.8';
+
+  await new Promise(res => setTimeout(res, 2500));
+
+  try {
+    const response = await fetch('/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId: state.user.id || 1,
+        listingId,
+        checkin,
+        checkout,
+        guests,
+        totalPrice: rawTotal,
+        hasGuide
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      document.getElementById('payment-modal').remove();
+
+      const item = listings.find(l => l.id === listingId);
+      state.trips.push({
+        title: item ? item.title : title,
+        date: new Date().toDateString(),
+        total: `₹${rawTotal.toLocaleString()}`,
+        hasGuide: hasGuide,
+        id: data.id,
+        image: item ? item.image : '',
+        location: item ? item.location : ''
+      });
+      localStorage.setItem("hillstayTrips", JSON.stringify(state.trips));
+
+      showSuccessModal(item ? item.title : title);
+    } else {
+      throw new Error(data.error || 'Booking failed');
+    }
+  } catch (err) {
+    alert("Error processing payment: " + err.message);
+    btn.innerHTML = `Pay ₹${rawTotal.toLocaleString()}`;
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }
+}
+
+function showSuccessModal(title) {
+  const modalHTML = `
+  <div id="success-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:3000;">
+      <div style="background:#fff; padding:3rem; border-radius:16px; max-width:450px; width:90%; text-align:center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <div style="width:80px; height:80px; background:#4CAF50; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem auto; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);">
+              <i class="fa-solid fa-check" style="font-size:3rem; color:white;"></i>
+          </div>
+          <h2 style="margin-top:0; color:#333; font-family: 'Outfit', sans-serif;">Payment Successful!</h2>
+          <p style="color:#666; font-size:1.1rem; margin-bottom:2rem; line-height: 1.5;">Your stay at <strong>${title}</strong> has been secured. Your host has been notified.</p>
+          <a href="trips.html" onclick="document.getElementById('success-modal').remove()" style="display:inline-block; padding:12px 30px; background:var(--primary); color:white; border-radius:8px; font-weight:bold; text-decoration: none; font-family: 'Outfit', sans-serif; cursor:pointer; transition: all 0.3s ease;">View My Trips</a>
+      </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
 
 function saveToTrips(id) {
@@ -809,3 +1067,67 @@ function initDealsSlider() {
   updateActiveState();
 }
 
+function startActivitySimulator() {
+  const activities = [
+    "Someone from Delhi just booked Tea Garden Retreat!",
+    "A guest from Mumbai is looking at Alpine Birding Stay.",
+    "Only 2 rooms left for next weekend in Pelling!",
+    "New review: 'Amazing hospitality in Darjeeling!' - Rahul",
+    "Someone from Bangalore just inquired about Trekking tours."
+  ];
+
+  setInterval(() => {
+    if (Math.random() > 0.4) return;
+    const activity = activities[Math.floor(Math.random() * activities.length)];
+    showActivityToast(activity);
+  }, 12000);
+}
+
+function showActivityToast(message) {
+  let toast = document.querySelector('.activity-toast');
+  if (toast) toast.remove();
+
+  toast = document.createElement('div');
+  toast.className = 'activity-toast';
+  toast.innerHTML = `
+    <i class="fa-solid fa-bolt-lightning" style="color: #f5a623;"></i>
+    <span>${message}</span>
+  `;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('visible'), 100);
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => toast.remove(), 500);
+  }, 4500);
+}
+function updateGuests(val) {
+  const input = document.getElementById('guests');
+  if (!input) return;
+  let current = parseInt(input.value) || 0;
+  let nouveau = current + val;
+  if (nouveau < 1) nouveau = 1;
+  input.value = nouveau;
+}
+
+// Add event listener for manual guest input validation
+document.addEventListener('input', (e) => {
+  if (e.target.id === 'guests') {
+    if (e.target.value < 1) e.target.value = 1;
+  }
+});
+
+// Help prevent some console errors for missing elements
+function safeGet(id) {
+  return document.getElementById(id);
+}
+
+// Ensure images lazy load
+document.addEventListener('DOMContentLoaded', () => {
+  const imgs = document.querySelectorAll('img');
+  imgs.forEach(img => {
+    if (!img.hasAttribute('loading')) {
+      img.setAttribute('loading', 'lazy');
+    }
+  });
+});

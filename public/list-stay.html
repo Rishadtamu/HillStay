@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Your Stay – HillStay</title>
+    <meta name="description"
+        content="Partner with HillStay. Turn your mountain home into a verified premium homestay and welcome guests from around the world.">
+    <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
+    <link rel="stylesheet" href="css/hillstay.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .list-hero {
+            padding-top: 140px;
+            padding-bottom: 6rem;
+            background: linear-gradient(135deg, #1a2a35 0%, #263A46 60%, #B08747 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .list-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1544634076-a901606f43e9?w=1600&q=60') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .list-hero .inner {
+            position: relative;
+            z-index: 2;
+            padding: 0 2rem;
+        }
+
+        .list-hero .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(176, 135, 71, 0.3);
+        }
+
+        .list-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-weight: 300;
+            color: #FFF;
+            margin-bottom: 1.2rem;
+            line-height: 1.1;
+        }
+
+        .list-hero h1 span {
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        .list-hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .registration-section {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+            position: relative;
+            z-index: 5;
+            margin-top: -60px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .form-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header h2 span {
+            color: var(--accent);
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: all 0.3s;
+            background: #fdfdfd;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(176, 135, 71, 0.1);
+            background: #fff;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 1em;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(176, 135, 71, 0.4);
+            background: #9d783f;
+        }
+
+        .photo-upload {
+            border: 2px dashed #ddd;
+            padding: 2.5rem;
+            text-align: center;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-upload:hover {
+            border-color: var(--accent);
+            background: rgba(176, 135, 71, 0.03);
+        }
+
+        .photo-upload i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .photo-upload p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .benefits-section {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .benefits-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .benefits-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 300;
+        }
+
+        .benefits-header h2 span {
+            color: var(--accent);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            text-align: left;
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--accent);
+        }
+
+        .b-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(176, 135, 71, 0.1);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .list-hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Navbar ── -->
+    <header class="main-header" id="main-header">
+        <div class="header-main-tier">
+            <a href="index.html" class="logo">
+                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img">
+                HillStay
+            </a>
+            <div class="header-nav-desktop">
+                <a href="experience.html" class="nav-item">Explore</a>
+                <a href="homestay.html" class="nav-item">Stays</a>
+                <a href="experience.html" class="nav-item">Experiences</a>
+                <a href="destination.html" class="nav-item">Destinations</a>
+                <a href="about.html" class="nav-item">Guides</a>
+            </div>
+            <div class="header-main-right">
+                <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
+                <div class="header-actions"><!-- Auth via JS --></div>
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Sidebar -->
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="experience.html"><i class="fa-solid fa-compass"></i> Explore</a>
+            <a href="homestay.html"><i class="fa-solid fa-bed"></i> Stays</a>
+            <a href="experience.html"><i class="fa-solid fa-camera"></i> Experiences</a>
+            <a href="destination.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+            <a href="about.html"><i class="fa-solid fa-book-open"></i> Guides</a>
+            <hr class="nav-divider">
+            <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
+            <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem;"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="list-hero">
+        <div class="inner">
+            <div class="badge">Partner With Us</div>
+            <h1>Unlock the Potential of <br><span>Your Mountain Home</span></h1>
+            <p>Join the premium network of verified homestays in Northeast India. Let us bring the world to your
+                doorstep while you focus on hosting.</p>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="registration-section">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Host with <span>HillStay</span></h2>
+                <p>Fill out this application, and our local scouts will get in touch to verify your property.</p>
+            </div>
+
+            <form onsubmit="submitProperty(event)">
+                <!-- Host Details -->
+                <div class="form-group">
+                    <div class="form-row">
+                        <div>
+                            <label class="form-label">First Name</label>
+                            <input type="text" id="firstName" class="form-control" placeholder="e.g. Tenzin" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="e.g. Sherpa" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div>
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="hello@example.com"
+                                required>
+                        </div>
+                        <div>
+                            <label class="form-label">Phone Number (WhatsApp)</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 90000 00000" required>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 2.5rem 0;">
+
+                <!-- Property Details -->
+                <div class="form-group">
+                    <label class="form-label">Property Name</label>
+                    <input type="text" id="propertyName" class="form-control" placeholder="e.g. Pine Ridge Cottage"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div>
+                            <label class="form-label">Property Type</label>
+                            <select id="propertyType" class="form-control form-select" required>
+                                <option value="" disabled selected>Select property type</option>
+                                <option value="homestay">Homestay / Guesthouse</option>
+                                <option value="villa">Private Villa / Bungalow</option>
+                                <option value="resort">Boutique Resort</option>
+                                <option value="camp">Campsite / Glamping</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Destination</label>
+                            <select id="destination" class="form-control form-select" required>
+                                <option value="" disabled selected>Select location</option>
+                                <option value="darjeeling">Darjeeling</option>
+                                <option value="sikkim">Sikkim</option>
+                                <option value="nagaland">Nagaland</option>
+                                <option value="other">Other (Please specify)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Exact Address / Location Details</label>
+                    <textarea id="address" class="form-control"
+                        placeholder="Provide the exact town, village, and landmarks so our scouts can locate you..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Number of Rooms Available</label>
+                    <input type="number" id="rooms" min="1" max="50" class="form-control" placeholder="e.g. 4" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Upload Property Photos</label>
+                    <div class="photo-upload">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-weight: 600;">Drag & Drop or Click
+                            to Upload</h4>
+                        <p>Please upload at least 3 photos (living space, bedrooms, and exterior view).</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="benefits-header">
+            <h2>Why Partner with <span>HillStay?</span></h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="b-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Trusted Verification</h3>
+                <p>We personally verify every home to guarantee a standard of excellence, automatically boosting your
+                    credibility with guests.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="b-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Premium Audience</h3>
+                <p>HillStay attracts travellers seeking curated, authentic, and premium experiences rather than just
+                    cheap accommodation.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="b-icon"><i class="fa-solid fa-headset"></i></div>
+                <h3>Local Support Team</h3>
+                <p>Our dedicated regional managers operate directly out of Darjeeling and Sikkim, ensuring you always
+                    have on-the-ground support.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo-block"
+                    style="display:flex; align-items:center; gap:0.8rem; margin-bottom:1.2rem;">
+                    <img src="images/hillstay_logo.jpeg" alt="HillStay Logo"
+                        style="height:44px; width:44px; object-fit:contain; background:white; border-radius:50%; padding:5px;">
+                    <span style="color:#fff; font-size:1.5rem; font-weight:700;">HillStay</span>
+                </div>
+                <p>Your gateway to authentic hill-country experiences in Darjeeling, Sikkim &amp; Nagaland. Every stay
+                    verified, every host trusted.</p>
+                <div class="footer-social" style="display:flex; gap:0.8rem; margin-top:1.5rem;">
+                    <a href="#" class="social-btn"
+                        style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#999; font-size:0.9rem; transition:0.2s;"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-btn"
+                        style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#999; font-size:0.9rem; transition:0.2s;"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"
+                        style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#999; font-size:0.9rem; transition:0.2s;"><i
+                            class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4
+                    style="color:var(--accent); font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; margin-bottom:1.2rem;">
+                    Explore</h4>
+                <ul>
+                    <li style="margin-bottom:0.6rem;"><a href="homestay.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Stays</a></li>
+                    <li style="margin-bottom:0.6rem;"><a href="experience.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Experiences</a></li>
+                    <li style="margin-bottom:0.6rem;"><a href="destination.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Destinations</a></li>
+                    <li style="margin-bottom:0.6rem;"><a href="restaurant.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Restaurants</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4
+                    style="color:var(--accent); font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; margin-bottom:1.2rem;">
+                    Company</h4>
+                <ul>
+                    <li style="margin-bottom:0.6rem;"><a href="about.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">About Us</a></li>
+                    <li style="margin-bottom:0.6rem;"><a href="reviews.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Reviews</a></li>
+                    <li style="margin-bottom:0.6rem;"><a href="referral.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Referral Program</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4
+                    style="color:var(--accent); font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; margin-bottom:1.2rem;">
+                    Legal</h4>
+                <ul>
+                    <li style="margin-bottom:0.6rem;"><a href="terms.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Terms &amp; Conditions</a>
+                    </li>
+                    <li style="margin-bottom:0.6rem;"><a href="privacy.html"
+                            style="color:#999; font-size:0.88rem; transition:color 0.2s;">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"
+            style="max-width:1200px; margin:3rem auto 0; padding:1.5rem 0; border-top:1px solid rgba(255,255,255,0.07); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <span style="color:#666; font-size:0.82rem;">&copy; 2026 HillStay LLC. All rights reserved.</span>
+            <span style="color:#666; font-size:0.82rem;">Made with ❤️ in the Himalayas</span>
+        </div>
+    </footer>
+
+    <script src="js/hillstay.js"></script>
+    <script>
+        async function submitProperty(e) {
+            e.preventDefault();
+
+            // Extract values
+            const data = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                propertyName: document.getElementById('propertyName').value,
+                propertyType: document.getElementById('propertyType').value,
+                destination: document.getElementById('destination').value,
+                address: document.getElementById('address').value,
+                rooms: document.getElementById('rooms').value
+            };
+
+            const submitBtn = e.target.querySelector('.btn-submit');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Submitting...";
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/host-applications', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert("Thank you for applying to host with HillStay! Our scout team has received your application and will be in touch shortly.");
+                    e.target.reset();
+                } else {
+                    alert("Something went wrong while submitting. Please try again.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error. Please try again.");
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

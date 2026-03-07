@@ -65,6 +65,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Outfit', 'Outfit', 'Roboto', sans-serif;
   font-weight: 400;
@@ -72,6 +76,7 @@ body {
   line-height: 1.6;
   background-color: var(--bg-light);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -934,6 +939,42 @@ img {
   display: none;
   max-height: 400px;
   overflow-y: auto;
+  border-top: 1px solid #eee;
+}
+
+.suggestion-category {
+  padding: 10px 15px 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.suggestion-item {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.suggestion-item:hover {
+  background: #f8f9fa;
+}
+
+.suggestion-item i {
+  color: var(--primary);
+  opacity: 0.7;
+  width: 15px;
+  text-align: center;
+}
+
+.suggestion-meta {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #999;
 }
 
 
@@ -2831,5 +2872,55 @@ img {
 
   .dashboard-kpi-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* --- Real-time Activity UI --- */
+.activity-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background: #ffffff;
+  color: #111;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 4px solid var(--accent);
+  z-index: 9999;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transform: translateX(-120%);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.activity-toast.visible {
+  transform: translateX(0);
+}
+
+.live-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #d32f2f;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(211, 47, 47, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(211, 47, 47, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
   }
 }

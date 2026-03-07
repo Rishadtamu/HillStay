@@ -13,34 +13,61 @@ router.get('/listings', (req, res) => {
     });
 });
 
-// Login / Create User (Mock OAuth equivalent)
+// Login / Create User
 router.post('/login', (req, res) => {
-    const { name, email, photo } = req.body;
+    const { name, email, photo, password } = req.body;
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
+        if (err) return res.status(500).json({ error: err.message });
+
         if (user) {
+            // In a real app, use bcrypt. Here we just mock it.
+            if (password && user.password && user.password !== password) {
+                return res.status(401).json({ error: 'Invalid password' });
+            }
             res.json({ message: 'Login successful', user });
         } else {
             // Create user
-            db.run('INSERT INTO users (name, email, photo) VALUES (?, ?, ?)', [name, email, photo], function (err) {
-                if (err) res.status(500).json({ error: err.message });
-                else res.json({ message: 'User created', user: { id: this.lastID, name, email, photo } });
-            });
+            db.run('INSERT INTO users (name, email, photo, password) VALUES (?, ?, ?, ?)',
+                [name, email, photo, password || 'password123'], function (err) {
+                    if (err) res.status(500).json({ error: err.message });
+                    else res.json({ message: 'User created', user: { id: this.lastID, name, email, photo } });
+                });
         }
     });
 });
 
-// Create Bookings
+// Create Bookings with overlap check
 router.post('/bookings', (req, res) => {
     const { userId, listingId, checkin, checkout, guests, totalPrice, hasGuide } = req.body;
-    db.run(
-        `INSERT INTO bookings (userId, listingId, checkin, checkout, guests, totalPrice, hasGuide, dateCreated) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
-        [userId, listingId, checkin, checkout, guests, totalPrice, hasGuide],
-        function (err) {
-            if (err) res.status(500).json({ error: err.message });
-            else res.json({ message: 'Booking successful', id: this.lastID });
+
+    // Check for overlapping bookings for same listing
+    const overlapQuery = `
+        SELECT COUNT(*) as count FROM bookings 
+        WHERE listingId = ? 
+        AND (
+            (checkin <= ? AND checkout >= ?) OR
+            (checkin <= ? AND checkout >= ?) OR
+            (? <= checkin AND ? >= checkout)
+        )
+    `;
+
+    db.get(overlapQuery, [listingId, checkin, checkin, checkout, checkout, checkin, checkout], (err, row) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        if (row.count > 0) {
+            return res.status(400).json({ error: 'Dates are already booked. Please choose different dates.' });
         }
-    );
+
+        db.run(
+            `INSERT INTO bookings (userId, listingId, checkin, checkout, guests, totalPrice, hasGuide, status, dateCreated) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'Paid', datetime('now'))`,
+            [userId, listingId, checkin, checkout, guests, totalPrice, hasGuide],
+            function (err) {
+                if (err) res.status(500).json({ error: err.message });
+                else res.json({ message: 'Booking successful', id: this.lastID });
+            }
+        );
+    });
 });
 
 // Get User Bookings
@@ -107,6 +134,14 @@ router.post('/contact', (req, res) => {
 // Get all contact messages (Admin feature)
 router.get('/contact', (req, res) => {
     db.all("SELECT * FROM contacts ORDER BY dateSubmitted DESC", [], (err, rows) => {
+        if (err) res.status(500).json({ error: err.message });
+        else res.json(rows);
+    });
+});
+
+// Get All Bookings for a listing
+router.get('/bookings/listing/:listingId', (req, res) => {
+    db.all("SELECT checkin, checkout FROM bookings WHERE listingId = ?", [req.params.listingId], (err, rows) => {
         if (err) res.status(500).json({ error: err.message });
         else res.json(rows);
     });
