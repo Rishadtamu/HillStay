@@ -1,7 +1,7 @@
 import os
 import re
 
-public_dir = '/Users/rishadgurung/Desktop/HillStay/public'
+public_dir = '/Users/rishadgurung/Desktop/Hilligo/public'
 for root, _, files in os.walk(public_dir):
     for f in files:
         if f.endswith('.html'):

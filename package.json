@@ -1,5 +1,5 @@
 {
-  "name": "hillstay",
+  "name": "hilligo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,16 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rishadtamu/HillStay.git"
+    "url": "git+https://github.com/Rishadtamu/Hilligo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Rishadtamu/HillStay/issues"
+    "url": "https://github.com/Rishadtamu/Hilligo/issues"
   },
-  "homepage": "https://github.com/Rishadtamu/HillStay#readme",
+  "homepage": "https://github.com/Rishadtamu/Hilligo#readme",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",

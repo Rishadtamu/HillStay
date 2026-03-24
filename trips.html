@@ -4,23 +4,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HillStay - My Trips</title>
-    <link rel="stylesheet" href="css/hillstay.css">
-    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>My Trips – Hilligo</title>
+    <meta name="description" content="View and manage your Hilligo bookings and upcoming trips.">
+    <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
+    <link rel="stylesheet" href="css/hilligo.css">
+  <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .trips-hero {
+            padding-top: 110px;
+            padding-bottom: 3rem;
+            background: linear-gradient(135deg, #1a2a35 0%, #263A46 100%);
+            text-align: center;
+        }
+
+        .trips-hero h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .trips-hero h1 span {
+            color: var(--accent);
+        }
+
+        .trips-hero p {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 1rem;
+        }
+
+        .trips-shell {
+            max-width: 860px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            min-height: 50vh;
+        }
+
+        .trip-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .trip-tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #888;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .trip-tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .trip-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            margin-bottom: 1.2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .trip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .trip-card-img {
+            height: 180px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #263A46, #1a2a35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trip-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trip-card-img .img-placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 3rem;
+        }
+
+        .trip-card-body {
+            padding: 1.4rem 1.6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .trip-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .trip-card-loc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 0.8rem;
+        }
+
+        .trip-card-dates {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .trip-date-item {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .trip-date-item strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        .trip-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trip-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .trip-status.confirmed {
+            background: #e6f4ea;
+            color: #1e8e3e;
+        }
+
+        .trip-status.past {
+            background: #f5f5f5;
+            color: #888;
+        }
+
+        .trip-total {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .trips-empty {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: #f9f9f9;
+            border-radius: 20px;
+        }
+
+        .trips-empty i {
+            font-size: 4rem;
+            color: #d0d0d0;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .trips-empty h2 {
+            color: var(--text-main);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .trips-empty p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .trips-empty a {
+            display: inline-block;
+            padding: 0.85rem 2.2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .trips-empty a:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .trips-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .trips-count {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .btn-clear-trips {
+            padding: 0.5rem 1.2rem;
+            border: 1.5px solid #e0e0e0;
+            background: white;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            color: #666;
+            font-family: 'Outfit', sans-serif;
+            transition: 0.2s;
+        }
+
+        .btn-clear-trips:hover {
+            border-color: #e53935;
+            color: #e53935;
+        }
+
+        @media (max-width: 600px) {
+            .trip-card {
+                grid-template-columns: 1fr;
+            }
+
+            .trip-card-img {
+                height: 160px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- Header -->
-    <header class="main-header">
-        
-
-        <!-- Main Navigation Tier -->
+    <header class="main-header scrolled">
         <div class="header-main-tier">
-            <a href="index.html" class="logo">
-                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img"> HillStay
+            <a href="index.html" class="logo" style="color: var(--text-main) !important;">
+                <img src="images/Hilligo%20Logo.png" alt="Hilligo Logo" class="logo-img">
             </a>
-
             <div class="header-nav-desktop">
                 <a href="experience.html" class="nav-item">Explore</a>
                 <a href="homestay.html" class="nav-item">Stays</a>
@@ -28,117 +273,222 @@
                 <a href="destination.html" class="nav-item">Destinations</a>
                 <a href="about.html" class="nav-item">Guides</a>
             </div>
-
             <div class="header-main-right">
-                <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i class="fa-solid fa-magnifying-glass"></i></button>
-                <div class="header-lang-switcher">
-                    <i class="fa-solid fa-globe"></i>
-                    <div class="lang-dropdown">
-                        <span class="lang-opt" data-lang="en">EN</span>
-                        <span class="lang-opt" data-lang="hi">HI</span>
-                        <span class="lang-opt" data-lang="bn">BN</span>
-                        <span class="lang-opt" data-lang="ne">NE</span>
-                    </div>
-                </div>
-                <div class="header-actions">
-                    <!-- Auth Icon -->
-                </div>
-                <!-- Mobile Menu Toggle -->
+                <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
+                <div class="header-actions"><!-- Auth Icon via JS --></div>
                 <button class="menu-toggle" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
-
-        <!-- Navigation Links (Sidebar for Mobile) -->
+        <!-- Mobile Sidebar -->
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="experience.html">Explore</a>
+            <a href="homestay.html">Stays</a>
+            <a href="experience.html">Experiences</a>
+            <a href="destination.html">Destinations</a>
+            <a href="about.html">Guides</a>
+            <hr class="nav-divider">
+            <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
+            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
         </div>
     </header>
 
-    <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem; min-height: 60vh;">
-        <h1 style="color: var(--primary); margin-bottom: 0.5rem;">My Trips</h1>
-        <p style="color: var(--text-muted); margin-bottom: 2rem;">Manage your upcoming and past bookings.</p>
+    <!-- Page Hero -->
+    <div class="trips-hero">
+        <h1>My <span>Trips</span></h1>
+        <p>Your upcoming and past Hilligo bookings in one place.</p>
+    </div>
 
-        <div id="trips-container">
-            <!-- Logic handled by JS -->
-            <div style="text-align: center; padding: 4rem; color: #666; background: #f9f9f9; border-radius: 12px;">
-                <i class="fa-solid fa-suitcase-rolling" style="font-size: 3rem; margin-bottom: 1rem; color: #ccc;"></i>
-                <p>You haven't booked any trips yet.</p>
-                <a href="index.html"
-                    style="display: inline-block; margin-top: 1rem; color: var(--primary); font-weight: 600;">Start
-                    Exploring &rarr;</a>
-            </div>
+    <!-- Trips Content -->
+    <div class="trips-shell">
+        <div class="trip-tabs">
+            <button class="trip-tab-btn active" onclick="switchTab('upcoming', this)">
+                <i class="fa-regular fa-calendar"></i> Upcoming
+            </button>
+            <button class="trip-tab-btn" onclick="switchTab('past', this)">
+                <i class="fa-solid fa-clock-rotate-left"></i> Past Trips
+            </button>
         </div>
 
+        <div id="trips-container">
+            <!-- Rendered by JS -->
+        </div>
     </div>
 
     <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-col">
-                <h4>About HillStay</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
+                <div class="footer-logo"><img src="images/Hilligo%20Logo.png" alt="Hilligo Logo"></div>
+                <p style="font-size:0.85rem; color:#bbb; line-height:1.6;">Your gateway to authentic hill-country
+                    experiences in Northeast India.</p>
             </div>
             <div class="footer-col">
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="#">Read Reviews</a></li>
-                    <li><a href="#">Add a Place</a></li>
-                    <li><a href="#">Join</a></li>
+                    <li><a href="destination.html">Destinations</a></li>
+                    <li><a href="homestay.html">Homestays</a></li>
+                    <li><a href="experience.html">Experiences</a></li>
+                    <li><a href="trekking.html">Trekking</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Support</h4>
+                <h4>Account</h4>
                 <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="trips.html">My Trips</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="referral.html">Referral</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">
-            &copy; 2026 HillStay LLC All rights reserved.
+        <div
+            style="text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); color: #888; font-size: 0.85rem;">
+            &copy; 2026 Hilligo LLC. All rights reserved.
         </div>
     </footer>
 
-    <script src="js/hillstay.js"></script>
+    
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <a href="index.html" aria-label="Home">
+        <i class="fa-regular fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="homestay.html" aria-label="Stays">
+        <i class="fa-regular fa-building"></i>
+        <span>Stays</span>
+      </a>
+      <a href="experience.html" class="nav-search-center" aria-label="Explore">
+        <i class="fa-solid fa-compass"></i>
+      </a>
+      <a href="restaurant.html" aria-label="Dine">
+        <i class="fa-regular fa-utensils"></i>
+        <span>Dine</span>
+      </a>
+      <a href="trips.html" class="active" aria-label="Trips">
+        <i class="fa-solid fa-suitcase"></i>
+        <span>Trips</span>
+      </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
     <script>
+        let currentTab = 'upcoming';
+
         document.addEventListener("DOMContentLoaded", () => {
             updateAuthUI();
-            renderTrips();
+            setupMobileMenu();
+            renderTrips('upcoming');
         });
 
-        function renderTrips() {
-            const trips = JSON.parse(localStorage.getItem("hillstayTrips")) || [];
+        function switchTab(tab, btn) {
+            currentTab = tab;
+            document.querySelectorAll('.trip-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTrips(tab);
+        }
+
+        function renderTrips(tab) {
+            const allTrips = JSON.parse(localStorage.getItem("hilligoTrips")) || [];
             const container = document.getElementById("trips-container");
+            const today = new Date().toISOString().split('T')[0];
 
-            if (trips.length > 0) {
-                container.innerHTML = trips.map((trip, index) => `
-          <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-sm); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <h3 style="margin-bottom: 0.5rem;">${trip.title}</h3>
-              <p style="color: #666;"><i class="fa-regular fa-calendar"></i> Booked on: ${trip.date}</p>
-            </div>
-            <div>
-              <span style="background: #e6f4ea; color: #1e8e3e; padding: 4px 10px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;">Confirmed</span>
-            </div>
-          </div>
-        `).join("");
+            const trips = allTrips.filter(trip => {
+                const checkoutDate = trip.checkout || trip.date || '';
+                if (tab === 'upcoming') {
+                    return !checkoutDate || checkoutDate >= today;
+                } else {
+                    return checkoutDate && checkoutDate < today;
+                }
+            });
 
-                // Add a clear button for demo purposes
-                const clearBtn = document.createElement("button");
-                clearBtn.innerText = "Clear History";
-                clearBtn.style.cssText = "margin-top: 2rem; padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 6px; cursor: pointer; color: #666;";
-                clearBtn.onclick = () => {
-                    if (confirm("Clear trip history?")) {
-                        localStorage.removeItem("hillstayTrips");
-                        location.reload();
-                    }
-                };
-                container.appendChild(clearBtn);
+            if (trips.length === 0) {
+                const icon = tab === 'upcoming' ? 'fa-suitcase-rolling' : 'fa-clock-rotate-left';
+                const msg = tab === 'upcoming'
+                    ? "No upcoming trips. Time to plan your next mountain escape!"
+                    : "No past trips on record.";
+                container.innerHTML = `
+                    <div class="trips-empty">
+                        <i class="fa-solid ${icon}"></i>
+                        <h2>${tab === 'upcoming' ? "No Upcoming Trips" : "No Past Trips"}</h2>
+                        <p>${msg}</p>
+                        ${tab === 'upcoming' ? '<a href="homestay.html"><i class="fa-solid fa-magnifying-glass"></i> Browse Stays</a>' : ''}
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="trips-actions">
+                    <span class="trips-count">${trips.length} trip${trips.length !== 1 ? 's' : ''} found</span>
+                    <button class="btn-clear-trips" onclick="clearTrips()">
+                        <i class="fa-solid fa-trash-can"></i> Clear History
+                    </button>
+                </div>
+            `;
+
+            trips.forEach(trip => {
+                const isUpcoming = !trip.checkout || trip.checkout >= today;
+                const statusClass = isUpcoming ? 'confirmed' : 'past';
+                const statusIcon = isUpcoming ? 'fa-circle-check' : 'fa-circle-xmark';
+                const statusLabel = isUpcoming ? 'Confirmed' : 'Completed';
+
+                const imgHtml = trip.image
+                    ? `<img src="${trip.image}" alt="${trip.title}" loading="lazy">`
+                    : `<div class="img-placeholder"><i class="fa-solid fa-mountain"></i></div>`;
+
+                const checkinDisplay = trip.checkin
+                    ? new Date(trip.checkin + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+                    : (trip.date || 'N/A');
+                const checkoutDisplay = trip.checkout
+                    ? new Date(trip.checkout + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+                    : '—';
+
+                html += `
+                    <div class="trip-card">
+                        <div class="trip-card-img">${imgHtml}</div>
+                        <div class="trip-card-body">
+                            <div>
+                                <div class="trip-card-title">${trip.title}</div>
+                                ${trip.location ? `<div class="trip-card-loc"><i class="fa-solid fa-location-dot"></i> ${trip.location}</div>` : ''}
+                                <div class="trip-card-dates">
+                                    <div class="trip-date-item">
+                                        Check-in
+                                        <strong>${checkinDisplay}</strong>
+                                    </div>
+                                    <div class="trip-date-item">
+                                        Check-out
+                                        <strong>${checkoutDisplay}</strong>
+                                    </div>
+                                </div>
+                                ${trip.hasGuide ? '<div style="font-size:0.8rem; color:var(--accent); margin-bottom:0.5rem;"><i class="fa-solid fa-user-check"></i> Local guide included</div>' : ''}
+                            </div>
+                            <div class="trip-card-footer">
+                                <span class="trip-status ${statusClass}">
+                                    <i class="fa-solid ${statusIcon}"></i> ${statusLabel}
+                                </span>
+                                <span class="trip-total">${trip.total || '—'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function clearTrips() {
+            if (confirm("Clear all trip history? This cannot be undone.")) {
+                localStorage.removeItem("hilligoTrips");
+                renderTrips(currentTab);
             }
         }
     </script>

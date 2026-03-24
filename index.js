@@ -14,8 +14,13 @@ app.use(express.static(path.join(__dirname)));
 // API Routes
 app.use('/api', apiRoutes);
 
-// Fallback to index.html for SPA/frontend navigation
-app.get('(.*)', (req, res) => {
+// Fallback: only redirect non-file requests to index.html
+app.get('/{*path}', (req, res, next) => {
+    const url = req.path;
+    // Let express.static handle known file extensions
+    if (url.match(/\.(html|css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot)$/i)) {
+        return next();
+    }
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 

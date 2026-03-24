@@ -4,20 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HillStay - Referral Program</title>
-    <link rel="stylesheet" href="css/hillstay.css">
-    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Hilligo - Referral Program</title>
+    <link rel="stylesheet" href="css/hilligo.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <!-- Header -->
     <header class="main-header">
-        
+
 
         <!-- Main Navigation Tier -->
         <div class="header-main-tier">
             <a href="index.html" class="logo">
-                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img"> HillStay
+                <img src="images/Hilligo%20Logo.png" alt="Hilligo Logo" class="logo-img">
             </a>
 
             <div class="header-nav-desktop">
@@ -29,7 +30,9 @@
             </div>
 
             <div class="header-main-right">
-                <button class="search-icon-btn" aria-label="Search" onclick="window.location.href='index.html#search'"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="search-icon-btn" aria-label="Search"
+                    onclick="window.location.href='index.html#search'"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
                 <div class="header-lang-switcher">
                     <i class="fa-solid fa-globe"></i>
                     <div class="lang-dropdown">
@@ -50,6 +53,16 @@
         </div>
 
         <!-- Navigation Links (Sidebar for Mobile) -->
+        <div class="nav-links">
+            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
+            <a href="experience.html"><i class="fa-solid fa-compass"></i> Explore</a>
+            <a href="homestay.html"><i class="fa-solid fa-bed"></i> Stays</a>
+            <a href="experience.html"><i class="fa-solid fa-camera"></i> Experiences</a>
+            <a href="destination.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+            <a href="about.html"><i class="fa-solid fa-book-open"></i> Guides</a>
+            <hr class="nav-divider">
+            <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
+            <div class="header-actions-mobile mobile-only" style="padding:1rem 1.5rem;"></div>
         </div>
     </header>
 
@@ -71,10 +84,33 @@
 
     <footer class="main-footer">
         <div style="text-align: center; padding: 2rem 0; border-top: 1px solid #333;">
-            <p>&copy; 2026 HillStay LLC. All rights reserved.</p>
+            <p>&copy; 2026 Hilligo LLC. All rights reserved.</p>
         </div>
     </footer>
-    <script src="js/hillstay.js"></script>
+
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a href="index.html" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="homestay.html" aria-label="Stays">
+            <i class="fa-regular fa-building"></i>
+            <span>Stays</span>
+        </a>
+        <a href="experience.html" class="nav-search-center" aria-label="Explore">
+            <i class="fa-solid fa-compass"></i>
+        </a>
+        <a href="restaurant.html" aria-label="Dine">
+            <i class="fa-regular fa-utensils"></i>
+            <span>Dine</span>
+        </a>
+        <a href="trips.html" aria-label="Trips">
+            <i class="fa-regular fa-suitcase"></i>
+            <span>Trips</span>
+        </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
 </body>
 
 </html>

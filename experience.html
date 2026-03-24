@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unique Hill Experiences – HillStay</title>
+    <title>Experiences &amp; Monastery Retreats</title>
     <meta name="description"
-        content="Immerse yourself in local culture, workshops, and hidden gems in Darjeeling, Sikkim & Nagaland.">
-    <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
-    <link rel="stylesheet" href="css/hillstay.css">
-    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        content="Discover and book authentic experiences, cooking classes, and monastery retreats in Northeast India.">
+    <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
+    <link rel="stylesheet" href="css/hilligo.css">
+  <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ── Page Hero ── */
         .exp-hero {
@@ -282,15 +283,15 @@
     <!-- ── Header ── -->
     <header class="main-header scrolled">
         <div class="header-main-tier">
-            <a href="index.html" class="logo" style="color: var(--text-main) !important;">
-                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img"> HillStay
+            <a href="index.html" class="logo">
+                <img src="images/Hilligo%20Logo.png" alt="Logo" class="logo-img">
             </a>
             <div class="header-nav-desktop">
-                <a href="experience.html" class="nav-item">Explore</a>
+                <a href="index.html" class="nav-item">Explore</a>
                 <a href="homestay.html" class="nav-item">Stays</a>
                 <a href="experience.html" class="nav-item">Experiences</a>
                 <a href="destination.html" class="nav-item">Destinations</a>
-                <a href="about.html" class="nav-item">Guides</a>
+                <a href="about.html" class="nav-item">About</a>
             </div>
             <div class="header-main-right">
                 <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
@@ -303,11 +304,11 @@
         <!-- Mobile Sidebar -->
         <div class="nav-links">
             <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-            <a href="experience.html">Explore</a>
-            <a href="homestay.html">Stays</a>
-            <a href="experience.html">Experiences</a>
-            <a href="destination.html">Destinations</a>
-            <a href="about.html">Guides</a>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Explore</a>
+            <a href="homestay.html"><i class="fa-solid fa-bed"></i> Stays</a>
+            <a href="experience.html" class="active"><i class="fa-solid fa-mountain-sun"></i> Experiences</a>
+            <a href="destination.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+            <a href="about.html"><i class="fa-solid fa-book-open"></i> About</a>
             <hr class="nav-divider">
             <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
             <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
@@ -376,15 +377,15 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-col">
-                <div class="footer-logo"><img src="images/hillstay_logo.jpeg" alt="HillStay Logo"></div>
+                <div class="footer-logo"><img src="images/Hilligo%20Logo.png" alt="Logo"></div>
                 <p style="font-size:0.85rem; color:#bbb; line-height:1.6;">Your gateway to authentic hill-country
                     experiences in Northeast India.</p>
             </div>
             <div class="footer-col">
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="destination.html">Destinations</a>
-            <a href="homestay.html">Homestays</a></li>
+                    <li><a href="destination.html">Destinations</a></li>
+                    <li><a href="homestay.html">Homestays</a></li>
                     <li><a href="restaurant.html">Restaurants</a></li>
                     <li><a href="trekking.html">Trekking</a></li>
                     <li><a href="experience.html">Experiences</a></li>
@@ -395,7 +396,6 @@
                 <ul>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="reviews.html">Reviews</a></li>
-                    <li><a href="referral.html">Referral Program</a></li>
                     <li><a href="support.html">Support</a></li>
                 </ul>
             </div>
@@ -409,21 +409,46 @@
         </div>
         <div class="footer-bottom"
             style="text-align:center; margin-top:3rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.07); color:#888; font-size:0.85rem;">
-            &copy; 2026 HillStay LLC. All rights reserved.
+            &copy; 2026 Hilligo LLC. All rights reserved.
         </div>
     </footer>
 
-    <script src="js/hillstay.js"></script>
+    
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <a href="index.html" aria-label="Home">
+        <i class="fa-regular fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="homestay.html" aria-label="Stays">
+        <i class="fa-regular fa-building"></i>
+        <span>Stays</span>
+      </a>
+      <a href="experience.html" class="nav-search-center" aria-label="Explore">
+        <i class="fa-solid fa-compass"></i>
+      </a>
+      <a href="restaurant.html" aria-label="Dine">
+        <i class="fa-regular fa-utensils"></i>
+        <span>Dine</span>
+      </a>
+      <a href="trips.html" aria-label="Trips">
+        <i class="fa-regular fa-suitcase"></i>
+        <span>Trips</span>
+      </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
     <script>
         const experiences = [
-            { id: 1, title: "Organic Tea Picking & Tasting", location: "Makaibari, Darjeeling", category: "cultural", badge: "Bestseller", duration: "3 hours", groupSize: "2–8 guests", price: 1200, image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=600&auto=format&fit=crop" },
-            { id: 2, title: "Sikkimese Cooking Class", location: "Gangtok, Sikkim", category: "culinary", badge: "Top Rated", duration: "4 hours", groupSize: "2–6 guests", price: 1800, image: "https://images.unsplash.com/photo-1551021216-14c1fa932664?q=80&w=600&auto=format&fit=crop" },
-            { id: 3, title: "Monastery Meditation Retreat", location: "Rumtek, Sikkim", category: "spiritual", badge: "Unique", duration: "Full day", groupSize: "1–4 guests", price: 2500, image: "https://images.unsplash.com/photo-1545389336-cf090694435e?q=80&w=600&auto=format&fit=crop" },
+            { id: 1, title: "Organic Tea Picking & Tasting", location: "Makaibari, Darjeeling", category: "cultural", badge: "Bestseller", duration: "3 hours", groupSize: "2–8 guests", price: 1200, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop" },
+            { id: 2, title: "Sikkimese Cooking Class", location: "Gangtok, Sikkim", category: "culinary", badge: "Top Rated", duration: "4 hours", groupSize: "2–6 guests", price: 1800, image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=600&auto=format&fit=crop" },
+            { id: 3, title: "Monastery Meditation Retreat", location: "Rumtek, Sikkim", category: "spiritual", badge: "Unique", duration: "Full day", groupSize: "1–4 guests", price: 0, image: "https://images.unsplash.com/photo-1545389336-cf090694435e?q=80&w=600&auto=format&fit=crop" },
             { id: 4, title: "Paragliding over Gangtok", location: "Gangtok, Sikkim", category: "adventure", badge: "Thrilling", duration: "2 hours", groupSize: "1–2 guests", price: 3500, image: "https://images.unsplash.com/photo-1503220317670-6e1ee3b22ac3?q=80&w=600&auto=format&fit=crop" },
             { id: 5, title: "Naga Village Heritage Walk", location: "Khonoma, Nagaland", category: "cultural", badge: "Authentic", duration: "5 hours", groupSize: "2–10 guests", price: 900, image: "https://images.unsplash.com/photo-1570220104815-5e042c341a7d?q=80&w=600&auto=format&fit=crop" },
             { id: 6, title: "Darjeeling Tea Estate Tour", location: "Happy Valley, Darjeeling", category: "cultural", badge: "Classic", duration: "3 hours", groupSize: "2–12 guests", price: 800, image: "https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=600&auto=format&fit=crop" },
-            { id: 7, title: "Himalayan Bread Baking", location: "Kalimpong, Darjeeling", category: "culinary", badge: "Cozy", duration: "3 hours", groupSize: "2–6 guests", price: 1500, image: "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?q=80&w=600&auto=format&fit=crop" },
-            { id: 8, title: "River Rafting on Teesta", location: "Teesta River, Sikkim", category: "adventure", badge: "Exciting", duration: "Half day", groupSize: "4–8 guests", price: 2200, image: "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=80&w=600&auto=format&fit=crop" },
+            { id: 7, title: "Himalayan Bread Baking", location: "Kalimpong, Darjeeling", category: "culinary", badge: "Cozy", duration: "3 hours", groupSize: "2–6 guests", price: 1500, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
+            { id: 8, title: "River Rafting on Teesta", location: "Teesta River, Sikkim", category: "adventure", badge: "Exciting", duration: "Half day", groupSize: "4–8 guests", price: 2200, image: "https://images.unsplash.com/photo-1506501139174-099022df5260?q=80&w=800&auto=format&fit=crop", icon: "fa-water" },
+            { id: 9, title: "Naga Weaving Workshop", location: "Dimapur, Nagaland", category: "cultural", badge: "Handcraft", duration: "3 hours", groupSize: "2–6 guests", price: 750, image: "https://images.unsplash.com/photo-1583394293214-3f3c00e7f8e3?q=80&w=600&auto=format&fit=crop" },
+            { id: 10, title: "Sunrise Yoga at Tiger Hill", location: "Tiger Hill, Darjeeling", category: "spiritual", badge: "Peaceful", duration: "2 hours", groupSize: "1–8 guests", price: 0, image: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=600&auto=format&fit=crop" },
         ];
 
         function renderExperiences(items) {
@@ -438,12 +463,11 @@
                         <h3>${item.title}</h3>
                         <div class="exp-card-loc"><i class="fa-solid fa-location-dot"></i> ${item.location}</div>
                         <div class="exp-card-meta">
-                            <span><i class="fa-regular fa-clock"></i> ${item.duration}</span>
+                            <span><i class="fa-solid ${item.icon || 'fa-clock'}"></i> ${item.duration}</span>
                             <span><i class="fa-solid fa-user-group"></i> ${item.groupSize}</span>
                         </div>
                         <div class="exp-card-price">
-                            <strong>₹${item.price.toLocaleString()}</strong>
-                            <span>/ person</span>
+                            ${item.price === 0 ? '<strong style="color:var(--accent);">Free</strong>' : `<strong>₹${item.price.toLocaleString()}</strong><span>/ person</span>`}
                         </div>
                         <button class="btn-book" style="width:100%;" onclick="event.stopPropagation(); window.openBookingModal('${item.title}', ${item.price})">Book Experience</button>
                     </div>

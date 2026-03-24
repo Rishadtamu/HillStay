@@ -2,13 +2,20 @@ let listings = [];
 
 // Fetch listings from API
 async function fetchListings() {
+  // Only fetch and render on pages that need dynamic listings
+  const path = window.location.pathname;
+  const isListingPage = path.includes('index.html') || path.includes('homestay.html') || path === '/' || path.endsWith('/');
+
   try {
     const response = await fetch('/api/listings');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     listings = await response.json();
-    renderListings(listings);
+    // Only populate the listing grid on relevant pages
+    if (isListingPage) {
+      renderListings(listings);
+    }
   } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
   }
@@ -16,8 +23,8 @@ async function fetchListings() {
 
 // App State
 let state = {
-  user: JSON.parse(localStorage.getItem("hillstayUser")) || null,
-  trips: JSON.parse(localStorage.getItem("hillstayTrips")) || [],
+  user: JSON.parse(localStorage.getItem("hilligoUser")) || null,
+  trips: JSON.parse(localStorage.getItem("hilligoTrips")) || [],
   currentBooking: null
 };
 
@@ -26,11 +33,11 @@ function getStarHTML(rating) {
   let stars = "";
   for (let i = 1; i <= 5; i++) {
     if (i <= Math.floor(rating)) {
-      stars += `<i class="fa-solid fa-circle"></i>`;
+      stars += `<i class="fa-solid fa-star" style="color:var(--accent);"></i>`;
     } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
-      stars += `<i class="fa-solid fa-circle-half-stroke"></i>`;
+      stars += `<i class="fa-solid fa-star-half-stroke" style="color:var(--accent);"></i>`;
     } else {
-      stars += `<i class="fa-regular fa-circle"></i>`;
+      stars += `<i class="fa-regular fa-star" style="color:var(--accent);"></i>`;
     }
   }
   return stars;
@@ -96,33 +103,29 @@ function openWhatsApp(propertyName) {
 // Search Functionality
 // Mock Search Data
 const searchData = [
-  { name: "Darjeeling", type: "Place", location: "West Bengal" },
-  { name: "Gangtok", type: "Place", location: "Sikkim" },
-  { name: "Pelling", type: "Place", location: "Sikkim" },
-  { name: "Tea Garden Homestay", type: "Homestay", location: "Darjeeling" },
-  { name: "Clouds End Cottage", type: "Homestay", location: "Mussoorie" },
-  { name: "Alpine Birding Stay", type: "Homestay", location: "Ravangla" },
-  { name: "Glenary's", type: "Restaurant", location: "Darjeeling" },
-  { name: "Keventers", type: "Restaurant", location: "Darjeeling" },
-  { name: "Taste of Tibet", type: "Restaurant", location: "Gangtok" },
-  { name: "Tiger Hill Sunrise", type: "Things to do", location: "Darjeeling" },
-  { name: "River Rafting", type: "Things to do", location: "Teesta River" },
-  { name: "Tsomgo Lake Visit", type: "Things to do", location: "Sikkim" },
-  { name: "Nathula Pass", type: "Things to do", location: "Sikkim" },
-  { name: "Nagaland", type: "Place", location: "North East" },
-  { name: "Kohima", type: "Place", location: "Nagaland" },
-  { name: "Khonoma Heritage Stay", type: "Homestay", location: "Nagaland" },
-  { name: "Mokokchung Village Homestay", type: "Homestay", location: "Nagaland" }
+  { name: "Darjeeling", type: "Place", location: "West Bengal", url: "homestay.html?q=Darjeeling" },
+  { name: "Gangtok", type: "Place", location: "Sikkim", url: "homestay.html?q=Gangtok" },
+  { name: "Pelling", type: "Place", location: "Sikkim", url: "homestay.html?q=Pelling" },
+  { name: "Nagaland", type: "Place", location: "North East India", url: "homestay.html?q=Nagaland" },
+  { name: "Kohima", type: "Place", location: "Nagaland", url: "homestay.html?q=Kohima" },
+  { name: "Makaibari Tea Bungalow", type: "Homestay", location: "Kurseong, Darjeeling", url: "homestay.html" },
+  { name: "Mirik Lakeside Bungalow", type: "Homestay", location: "Mirik, Darjeeling", url: "homestay.html" },
+  { name: "Glenary's", type: "Restaurant", location: "Darjeeling", url: "restaurant.html" },
+  { name: "Taste of Tibet", type: "Restaurant", location: "Gangtok", url: "restaurant.html" },
+  { name: "Tiger Hill Sunrise", type: "Things to do", location: "Darjeeling", url: "experience.html" },
+  { name: "River Rafting", type: "Things to do", location: "Teesta River", url: "experience.html" },
+  { name: "Tsomgo Lake Visit", type: "Things to do", location: "Sikkim", url: "destination.html" },
+  { name: "Dzukou Valley Trek", type: "Trekking", location: "Nagaland", url: "trekking.html" },
+  { name: "Sandakphu Trek", type: "Trekking", location: "Darjeeling", url: "trekking.html" },
+  { name: "Goechala Trek", type: "Trekking", location: "Sikkim", url: "trekking.html" }
 ];
 
-// Search Functionality
-// Search Functionality
 function setupSearch() {
-  const searchInput = document.querySelector(".search-input-group input[type='text']");
+  const searchInput = document.getElementById("sb-where") || document.querySelector(".search-input-group input[type='text']") || document.querySelector(".search-widget input[type='text']");
   const suggestionsBox = document.querySelector(".search-suggestions");
-  const searchBtn = document.querySelector(".btn-search");
+  const searchBtn = document.querySelector(".btn-search") || document.querySelector(".btn-sb-search");
 
-  if (!searchInput || !suggestionsBox) return;
+  if (!searchInput) return;
 
   searchInput.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
@@ -132,7 +135,6 @@ function setupSearch() {
       return;
     }
 
-    // Filter both from hardcoded places AND live listings titles/locations
     const filteredPlaces = searchData.filter(item =>
       item.name.toLowerCase().includes(query) ||
       item.location.toLowerCase().includes(query)
@@ -141,17 +143,29 @@ function setupSearch() {
     const filteredListings = listings.filter(item =>
       item.title.toLowerCase().includes(query) ||
       item.location.toLowerCase().includes(query)
-    ).map(item => ({ name: item.title, type: "Homestay", location: item.location }));
+    ).map(item => ({ name: item.title, type: "Homestay", location: item.location, url: `homestay.html?q=${encodeURIComponent(item.title)}` }));
 
     const combined = [...filteredPlaces, ...filteredListings];
-    // De-duplicate
     const unique = Array.from(new Set(combined.map(a => a.name)))
       .map(name => combined.find(a => a.name === name));
 
     renderSuggestions(unique, suggestionsBox);
   });
 
-  // Close suggestions when clicking outside
+  // Enter key triggers search
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const query = searchInput.value.trim();
+      if (!query) return;
+      suggestionsBox.style.display = "none";
+      if (window.location.pathname.includes('homestay.html')) {
+        performSearch(query.toLowerCase());
+      } else {
+        window.location.href = `homestay.html?q=${encodeURIComponent(query)}`;
+      }
+    }
+  });
+
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".search-widget")) {
       suggestionsBox.style.display = "none";
@@ -160,9 +174,29 @@ function setupSearch() {
 
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
-      const query = searchInput.value.toLowerCase();
-      performSearch(query);
+      const query = searchInput.value.trim();
+      if (!query) return;
+      suggestionsBox.style.display = "none";
+      if (window.location.pathname.includes('homestay.html')) {
+        performSearch(query.toLowerCase());
+      } else {
+        window.location.href = `homestay.html?q=${encodeURIComponent(query)}`;
+      }
     });
+  }
+
+  // Handle URL query param (when redirected from index search)
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlQuery = urlParams.get('q');
+  if (urlQuery && window.location.pathname.includes('homestay.html')) {
+    searchInput.value = urlQuery;
+    // Wait for listings to load before filtering
+    const waitForListings = setInterval(() => {
+      if (listings.length > 0) {
+        clearInterval(waitForListings);
+        performSearch(urlQuery.toLowerCase());
+      }
+    }, 100);
   }
 }
 
@@ -206,8 +240,7 @@ function renderSuggestions(data, container) {
 
   let html = "";
 
-  // Custom order: Place, Homestay, Restaurant, Things to do
-  const order = ["Place", "Homestay", "Restaurant", "Things to do"];
+  const order = ["Place", "Homestay", "Restaurant", "Things to do", "Trekking"];
 
   order.forEach(type => {
     if (grouped[type]) {
@@ -216,10 +249,15 @@ function renderSuggestions(data, container) {
         let icon = "fa-location-dot";
         if (type === "Homestay") icon = "fa-bed";
         if (type === "Restaurant") icon = "fa-utensils";
-        if (type === "Things to do") icon = "fa-person-walking";
+        if (type === "Things to do") icon = "fa-person-hiking";
+        if (type === "Trekking") icon = "fa-mountain-sun";
+        const url = item.url || null;
+        const onclickAttr = url
+          ? `onclick="window.location.href='${url}'"`
+          : `onclick="selectSuggestion('${item.name.replace(/'/g, "\\'")}')"`;
 
         html += `
-          <div class="suggestion-item" onclick="selectSuggestion('${item.name}')">
+          <div class="suggestion-item" ${onclickAttr}>
             <i class="fa-solid ${icon}"></i>
             <span>${item.name}</span>
             <span class="suggestion-meta">${item.location}</span>
@@ -234,11 +272,33 @@ function renderSuggestions(data, container) {
 }
 
 function selectSuggestion(name) {
-  const searchInput = document.querySelector(".search-input-group input[type='text']");
-  searchInput.value = name;
-  document.querySelector(".search-suggestions").style.display = "none";
+  const searchInput = document.getElementById("sb-where") || document.querySelector(".search-input-group input[type='text']") || document.querySelector(".search-widget input[type='text']");
+  if (searchInput) searchInput.value = name;
+  const suggestionsBox = document.querySelector(".search-suggestions");
+  if (suggestionsBox) suggestionsBox.style.display = "none";
   performSearch(name.toLowerCase());
 }
+
+// Global search handler for the hero/quick search bar
+function doHeroSearch() {
+  const whereInput = document.getElementById('sb-where');
+  const query = whereInput ? whereInput.value.trim() : '';
+  
+  if (!query) {
+    window.location.href = 'homestay.html';
+    return;
+  }
+
+  // If already on homestay page, just perform search
+  if (window.location.pathname.includes('homestay.html')) {
+    performSearch(query.toLowerCase());
+  } else {
+    // Redirect with query param
+    window.location.href = `homestay.html?q=${encodeURIComponent(query)}`;
+  }
+}
+
+window.doHeroSearch = doHeroSearch;
 
 // Initialize everything on DOM load
 function initAll() {
@@ -309,7 +369,7 @@ function updateAuthUI() {
           
           <div class="user-menu" id="login-menu">
             <div class="user-menu-header">
-              <img src="images/logo_tent_transparent.png" alt="HillStay Logo" style="height: 40px; width: 40px; object-fit: contain; background: white; border-radius: 50%; padding: 5px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+              <img src="images/logo_tent_transparent.png" alt="Logo" style="height: 40px; width: 40px; object-fit: contain; background: white; border-radius: 50%; padding: 5px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
               <strong>Sign In</strong>
               <span>Explore mountain escapes</span>
             </div>
@@ -353,7 +413,7 @@ function toggleUserMenu() {
 
 function logout() {
   state.user = null;
-  localStorage.removeItem("hillstayUser");
+  localStorage.removeItem("usUser");
   updateAuthUI();
   location.reload();
 }
@@ -378,7 +438,7 @@ async function loginWithEmail() {
     const data = await response.json();
     if (response.ok) {
       state.user = data.user;
-      localStorage.setItem("hillstayUser", JSON.stringify(state.user));
+      localStorage.setItem("usUser", JSON.stringify(state.user));
       updateAuthUI();
       alert("Welcome back!");
     } else {
@@ -410,7 +470,7 @@ function loginWithGoogle() {
       const data = await response.json();
       if (response.ok && data.user) {
         state.user = data.user;
-        localStorage.setItem("hillstayUser", JSON.stringify(state.user));
+        localStorage.setItem("usUser", JSON.stringify(state.user));
         const loginMenu = document.getElementById('login-menu');
         if (loginMenu) loginMenu.classList.remove('active');
         updateAuthUI();
@@ -428,18 +488,6 @@ function loginWithGoogle() {
 
 function mockLogin() {
   alert("For this demo, please use 'Continue with Google'");
-}
-
-function logout() {
-  state.user = null;
-  localStorage.removeItem("hillstayUser");
-  updateAuthUI();
-  alert("You have been logged out.");
-}
-
-function toggleUserMenu() {
-  const menu = document.getElementById('user-menu');
-  if (menu) menu.classList.toggle('active');
 }
 
 // Close User/Login Menu on Outside Click
@@ -468,18 +516,13 @@ function initStoryAnimations() {
   items.forEach(item => observer.observe(item));
 }
 
-// Room Details with Amenities (Override existing openPropertyDetails)
-const originalOpenPropertyDetails = openPropertyDetails;
-openPropertyDetails = function (id) {
-  originalOpenPropertyDetails(id);
-  // Add specific layout for amenities if needed, though the baseline modal already has it
-};
+// openPropertyDetails is defined later in the file — no override needed here
 
 function saveToTrips(id) {
   const item = listings.find(l => l.id === id);
   if (!item) return;
 
-  const trips = JSON.parse(localStorage.getItem("hillstayTrips")) || [];
+  const trips = JSON.parse(localStorage.getItem("usTrips")) || [];
   if (trips.some(t => t.id === id)) {
     alert("Already in your favorites!");
     return;
@@ -491,109 +534,174 @@ function saveToTrips(id) {
     date: new Date().toLocaleDateString()
   });
 
-  localStorage.setItem("hillstayTrips", JSON.stringify(trips));
+  localStorage.setItem("usTrips", JSON.stringify(trips));
   alert("Added to your trips!");
 }
 
 // Booking Modal Logic
-function openBookingModal(id) {
-  const item = listings.find(l => l.id === id);
+// Can be called with (id) for DB listings, or (titleStr, priceNum) for static cards
+function openBookingModal(idOrTitle, priceOverride) {
+  let item;
+
+  if (typeof idOrTitle === 'number') {
+    // Called with DB listing id
+    item = listings.find(l => l.id === idOrTitle);
+  }
+
+  // Fallback: called from static card with (title, price) or item not found in DB
+  if (!item && typeof idOrTitle === 'string') {
+    item = {
+      id: null,
+      title: idOrTitle,
+      price: priceOverride || 0,
+      suggestedGuide: null
+    };
+  }
+
   if (!item) return;
 
   // Close details modal if open
   const detailsModal = document.getElementById("property-details-modal");
   if (detailsModal) detailsModal.remove();
 
+  // Also close any existing booking modal
+  const existingModal = document.getElementById('booking-modal');
+  if (existingModal) existingModal.remove();
+
   const modalHTML = `
     <div id="booking-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:2000;">
-        <div style="background:white; padding:2rem; border-radius:12px; max-width:450px; width:90%; max-height: 90vh; overflow-y: auto;">
+        <div style="background:white; padding:2rem; border-radius:12px; max-width:450px; width:90%; max-height: 90vh; overflow-y: auto; position:relative;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
-               <h3 style="margin:0;">Book ${item.title}</h3>
-               <button onclick="document.getElementById('booking-modal').remove()" style="background:none; border:none; font-size: 1.5rem; cursor:pointer;">&times;</button>
+               <h3 style="margin:0; font-size:1.1rem;">Book ${item.title}</h3>
+               <button onclick="document.getElementById('booking-modal').remove()" style="background:none; border:none; font-size: 1.5rem; cursor:pointer; line-height:1;">&times;</button>
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <div style="margin-bottom:12px; font-size:0.85rem; color:#d1671a;" id="availability-notice">
-                   <!-- Availability populated by JS -->
+                <div style="margin-bottom:12px; padding:10px; border-radius:8px; font-size:0.85rem;" id="availability-notice">
+                   <span style="color:#999;"><i class="fa-solid fa-circle-notch fa-spin"></i> Checking availability...</span>
                 </div>
-                <div style="display:flex; gap:10px; margin-bottom: 10px;">
-                    <label style="flex:1;">Check-in <input type="date" id="checkin" min="${new Date().toISOString().split('T')[0]}" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
-                    <label style="flex:1;">Check-out <input type="date" id="checkout" min="${new Date().toISOString().split('T')[0]}" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px;"></label>
+                <div style="display:flex; gap:10px; margin-bottom: 12px;">
+                    <label style="flex:1; font-size:0.85rem; font-weight:600; color:#555;">Check-in<br><input type="date" id="checkin" min="${new Date().toISOString().split('T')[0]}" onchange="updateNightsPrice(${item.price})" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px; margin-top:4px;"></label>
+                    <label style="flex:1; font-size:0.85rem; font-weight:600; color:#555;">Check-out<br><input type="date" id="checkout" min="${new Date().toISOString().split('T')[0]}" onchange="updateNightsPrice(${item.price})" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:6px; margin-top:4px;"></label>
                 </div>
-                <label>Guests</label>
+                <label style="font-size:0.85rem; font-weight:600; color:#555;">Guests</label>
                 <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-                  <button onclick="updateGuests(-1)" style="width:30px; height:30px; border-radius:50%; border:1px solid #ddd; background:white; cursor:pointer;">-</button>
+                  <button onclick="updateGuests(-1)" style="width:34px; height:34px; border-radius:50%; border:1px solid #ddd; background:white; cursor:pointer; font-size:1.1rem;">-</button>
                   <input type="number" id="guests" min="1" value="2" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; text-align:center;">
-                  <button onclick="updateGuests(1)" style="width:30px; height:30px; border-radius:50%; border:1px solid #ddd; background:white; cursor:pointer;">+</button>
+                  <button onclick="updateGuests(1)" style="width:34px; height:34px; border-radius:50%; border:1px solid #ddd; background:white; cursor:pointer; font-size:1.1rem;">+</button>
                 </div>
             </div>
 
             ${item.suggestedGuide ? `
-               <div class="guide-card">
-                 <div class="guide-header">
-                   <span class="guide-name"><i class="fa-solid fa-user-check" style="color:var(--primary);"></i> Recommended Guide</span>
-                   <span class="guide-price">₹${item.suggestedGuide.price}</span>
+               <div class="guide-card" style="background:#f8f9fa; padding:1rem; border-radius:10px; margin-bottom:1rem;">
+                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                   <span style="font-weight:600;"><i class="fa-solid fa-user-check" style="color:var(--primary);"></i> Recommended Guide</span>
+                   <span style="font-weight:700;">₹${item.suggestedGuide.price}/night</span>
                  </div>
-                 <div style="font-weight: 600; font-size: 0.9rem;">${item.suggestedGuide.name} <span style="color:#f5a623;">★ ${item.suggestedGuide.rating}</span></div>
-                 <p class="guide-bio">${item.suggestedGuide.bio}</p>
-                 <div class="guide-select-group">
-                   <input type="checkbox" id="add-guide" class="guide-checkbox" onchange="updateTotalPrice(${item.price}, ${item.suggestedGuide.price})">
-                   <label for="add-guide" style="font-weight: 500; cursor: pointer;">Include this guide in my trip</label>
-                 </div>
+                 <div style="font-size:0.85rem; margin-bottom:5px;">${item.suggestedGuide.name} <span style="color:#f5a623;">★ ${item.suggestedGuide.rating}</span></div>
+                 <p style="font-size:0.8rem; color:#666; margin:0 0 10px;">${item.suggestedGuide.bio}</p>
+                 <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.9rem;">
+                   <input type="checkbox" id="add-guide" onchange="updateNightsPrice(${item.price})">
+                   Include this guide
+                 </label>
                </div>
             ` : ''}
 
-            <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
-               <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
-                 <span>Stay price</span>
-                 <span>₹${item.price.toLocaleString()}</span>
+            <div style="background: #f9f9f9; padding: 1.2rem; border-radius: 10px; margin-bottom: 1.5rem;">
+               <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;">
+                 <span id="nights-label">₹${item.price.toLocaleString()} × 1 night</span>
+                 <span id="stay-subtotal">₹${item.price.toLocaleString()}</span>
                </div>
-               <div id="guide-price-row" style="display:none; justify-content:space-between; margin-bottom: 5px;">
+               <div id="guide-price-row" style="display:none; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;">
                  <span>Guide fee</span>
                  <span>₹${item.suggestedGuide ? item.suggestedGuide.price.toLocaleString() : 0}</span>
                </div>
-               <div style="display:flex; justify-content:space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; font-weight: 700; font-size: 1.1rem;">
+               <div style="display:flex; justify-content:space-between; margin-top:10px; padding-top:10px; border-top: 1px solid #eee; font-weight: 700; font-size: 1.1rem;">
                  <span>Total</span>
                  <span id="total-price">₹${item.price.toLocaleString()}</span>
                </div>
             </div>
 
-            <button onclick="proceedToPayment(${item.id})" style="width:100%; padding:15px; border:none; background:var(--primary); color:white; font-weight:700; border-radius:8px; cursor:pointer;">Proceed to Payment</button>
+            <button onclick="proceedToPayment(${JSON.stringify(item.id)}, ${item.price})" style="width:100%; padding:15px; border:none; background:var(--primary); color:white; font-weight:700; border-radius:8px; cursor:pointer; font-size:1rem;">Proceed to Payment</button>
         </div>
     </div>
     `;
   document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-  // Fetch booked dates to show availability
-  fetch(`/api/bookings/listing/${listingId}`)
-    .then(r => r.json())
-    .then(bookings => {
-      const notice = document.getElementById('availability-notice');
-      if (bookings && bookings.length > 0) {
-        let dates = bookings.map(b => `${b.checkin} to ${b.checkout}`).join(', ');
-        notice.innerHTML = `<strong>Note:</strong> Unavailable dates: <span style="display:block;">${dates}</span>`;
-      } else {
-        notice.innerHTML = `<span style="color:#2e7d32;">Available for your dates</span>`;
-      }
-    });
-}
-
-function updateTotalPrice(stayPrice, guidePrice) {
-  const checkbox = document.getElementById('add-guide');
-  const totalPriceElem = document.getElementById('total-price');
-  const guidePriceRow = document.getElementById('guide-price-row');
-
-  if (checkbox && checkbox.checked) {
-    totalPriceElem.innerText = `₹${(stayPrice + guidePrice).toLocaleString()}`;
-    guidePriceRow.style.display = 'flex';
+  // Fetch booked dates to show availability (only if listing has a real DB id)
+  if (item.id) {
+    fetch(`/api/bookings/listing/${item.id}`)
+      .then(r => r.json())
+      .then(bookings => {
+        const notice = document.getElementById('availability-notice');
+        if (!notice) return;
+        if (bookings && bookings.length > 0) {
+          let dates = bookings.slice(0, 3).map(b => `${b.checkin} → ${b.checkout}`).join(', ');
+          notice.style.background = '#fff3cd';
+          notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#d97706;"></i> <strong>Unavailable:</strong> ${dates}`;
+        } else {
+          notice.style.background = '#e6f4ea';
+          notice.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#2e7d32;"></i> <span style="color:#2e7d32;">Available — choose your dates!</span>`;
+        }
+      })
+      .catch(() => {
+        const notice = document.getElementById('availability-notice');
+        if (notice) {
+          notice.style.background = '#e6f4ea';
+          notice.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#2e7d32;"></i> <span style="color:#2e7d32;">Available — choose your dates!</span>`;
+        }
+      });
   } else {
-    totalPriceElem.innerText = `₹${stayPrice.toLocaleString()}`;
-    guidePriceRow.style.display = 'none';
+    const notice = document.getElementById('availability-notice');
+    if (notice) {
+      notice.style.background = '#e6f4ea';
+      notice.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#2e7d32;"></i> <span style="color:#2e7d32;">Available — choose your dates!</span>`;
+    }
   }
 }
 
-function proceedToPayment(listingId) {
+// Recalculate price based on selected dates and guide
+function updateNightsPrice(pricePerNight) {
+  const checkinVal = document.getElementById('checkin')?.value;
+  const checkoutVal = document.getElementById('checkout')?.value;
+  const guideCheckbox = document.getElementById('add-guide');
+  const totalPriceElem = document.getElementById('total-price');
+  const nightsLabel = document.getElementById('nights-label');
+  const staySubtotal = document.getElementById('stay-subtotal');
+  const guidePriceRow = document.getElementById('guide-price-row');
+
+  let nights = 1;
+  if (checkinVal && checkoutVal) {
+    const diff = (new Date(checkoutVal) - new Date(checkinVal)) / (1000 * 60 * 60 * 24);
+    if (diff > 0) nights = diff;
+  }
+
+  const stayTotal = pricePerNight * nights;
+  let grandTotal = stayTotal;
+
+  if (nightsLabel) nightsLabel.textContent = `₹${pricePerNight.toLocaleString()} × ${nights} night${nights > 1 ? 's' : ''}`;
+  if (staySubtotal) staySubtotal.textContent = `₹${stayTotal.toLocaleString()}`;
+
+  if (guideCheckbox && guideCheckbox.checked) {
+    const guidePriceText = guidePriceRow?.querySelector('span:last-child')?.textContent || '₹0';
+    const guidePrice = parseInt(guidePriceText.replace(/[^0-9]/g, '')) || 0;
+    grandTotal += guidePrice * nights;
+    if (guidePriceRow) guidePriceRow.style.display = 'flex';
+  } else {
+    if (guidePriceRow) guidePriceRow.style.display = 'none';
+  }
+
+  if (totalPriceElem) totalPriceElem.textContent = `₹${grandTotal.toLocaleString()}`;
+}
+
+function updateTotalPrice(stayPrice, guidePrice) {
+  updateNightsPrice(stayPrice);
+}
+
+function proceedToPayment(listingId, pricePerNight) {
   if (!state.user) {
+    const bm = document.getElementById('booking-modal');
+    if (bm) bm.remove();
     alert("Please sign in first to book a stay.");
     toggleLoginMenu();
     return;
@@ -602,7 +710,7 @@ function proceedToPayment(listingId) {
   const checkinInput = document.getElementById('checkin').value;
   const checkoutInput = document.getElementById('checkout').value;
   const guestsInput = document.getElementById('guests');
-  const guests = parseInt(guestsInput.value) || 1;
+  const guests = parseInt(guestsInput?.value) || 1;
 
   if (!checkinInput || !checkoutInput) {
     alert("Please select both check-in and check-out dates.");
@@ -619,9 +727,16 @@ function proceedToPayment(listingId) {
   const diffTime = Math.abs(checkoutDate - checkinDate);
   const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
 
-  const guideChecked = document.getElementById('add-guide') ? document.getElementById('add-guide').checked : false;
-  const item = listings.find(l => l.id === listingId);
-  if (!item) return;
+  const guideChecked = document.getElementById('add-guide')?.checked || false;
+
+  // Resolve the item: either from DB listings (by id) or fallback with pricePerNight
+  let item = listings.find(l => l.id === listingId);
+  if (!item) {
+    // Fallback for static cards — construct minimal item object
+    const titleEl = document.querySelector('#booking-modal h3');
+    const titleText = titleEl ? titleEl.textContent.replace('Book ', '') : 'Selected Stay';
+    item = { id: null, title: titleText, price: pricePerNight || 0, suggestedGuide: null };
+  }
 
   let rawTotal = item.price * nights;
   if (guideChecked && item.suggestedGuide) {
@@ -639,7 +754,7 @@ function openPaymentModal(item, checkin, checkout, guests, hasGuide, rawTotal) {
           <button onclick="document.getElementById('payment-modal').remove()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
           
           <div style="text-align: center; margin-bottom: 1.5rem;">
-             <img src="images/logo_tent_transparent.png" alt="HillStay Logo" style="height: 50px; width: 50px; object-fit: contain; margin-bottom: 10px;">
+             <img src="images/logo_tent_transparent.png" alt="Logo" style="height: 50px; width: 50px; object-fit: contain; margin-bottom: 10px;">
              <h3 style="margin:0; color:var(--primary); font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-shield-halved"></i> Secure Checkout</h3>
              <p style="color:#666; font-size:0.9rem; margin-top: 5px;">Total Amount: <strong style="color:#222; font-size:1.2rem;">₹${rawTotal.toLocaleString()}</strong></p>
           </div>
@@ -665,7 +780,7 @@ function openPaymentModal(item, checkin, checkout, guests, hasGuide, rawTotal) {
 
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem; font-size: 0.8rem; color: #888;">
              <span><i class="fa-solid fa-lock"></i> SSL Encrypted</span>
-             <span>Powered by <strong>HillStay Pay</strong></span>
+             <span>Powered by <strong>Secure Pay</strong></span>
           </div>
           
           <button id="btn-pay-now" onclick="processPayment(${item.id}, '${checkin}', '${checkout}', ${guests}, ${hasGuide}, ${rawTotal}, '${item.title}')" style="width:100%; padding:14px; background:var(--gold); color:var(--dark); border:none; border-radius:6px; font-family: 'Outfit', sans-serif; font-weight:bold; font-size:1.1rem; cursor:pointer; display:flex; justify-content:center; align-items:center; transition: all 0.3s ease;">
@@ -682,8 +797,9 @@ async function processPayment(listingId, checkin, checkout, guests, hasGuide, ra
   const exp = document.getElementById('pay-exp').value;
   const cvv = document.getElementById('pay-cvv').value;
 
-  if (card.replace(/\\s/g, '').length < 15 || exp.length < 4 || cvv.length < 3) {
-    alert("Please enter valid card details (dummy card works for demo).");
+  const cleanCard = card.replace(/\s/g, '');
+  if (cleanCard.length < 15 || exp.length < 4 || cvv.length < 3) {
+    alert("Please enter valid card details. Any 16-digit number works for demo.");
     return;
   }
 
@@ -692,44 +808,51 @@ async function processPayment(listingId, checkin, checkout, guests, hasGuide, ra
   btn.disabled = true;
   btn.style.opacity = '0.8';
 
-  await new Promise(res => setTimeout(res, 2500));
+  await new Promise(res => setTimeout(res, 2000));
+
+  // Resolve item for the trip record
+  const item = listings.find(l => l.id === listingId);
+  const resolvedTitle = (item && item.title) ? item.title : title;
 
   try {
-    const response = await fetch('/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        userId: state.user.id || 1,
-        listingId,
-        checkin,
-        checkout,
-        guests,
-        totalPrice: rawTotal,
-        hasGuide
-      })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      document.getElementById('payment-modal').remove();
-
-      const item = listings.find(l => l.id === listingId);
-      state.trips.push({
-        title: item ? item.title : title,
-        date: new Date().toDateString(),
-        total: `₹${rawTotal.toLocaleString()}`,
-        hasGuide: hasGuide,
-        id: data.id,
-        image: item ? item.image : '',
-        location: item ? item.location : ''
+    // Only post to API if we have a real DB listingId
+    if (listingId) {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: state.user.id || 1,
+          listingId,
+          checkin,
+          checkout,
+          guests,
+          totalPrice: rawTotal,
+          hasGuide
+        })
       });
-      localStorage.setItem("hillstayTrips", JSON.stringify(state.trips));
 
-      showSuccessModal(item ? item.title : title);
-    } else {
-      throw new Error(data.error || 'Booking failed');
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Booking failed');
+      }
     }
+
+    // Always record in localStorage trips
+    document.getElementById('payment-modal').remove();
+    state.trips.push({
+      title: resolvedTitle,
+      checkin,
+      checkout,
+      date: new Date().toDateString(),
+      total: `₹${rawTotal.toLocaleString()}`,
+      hasGuide,
+      image: item ? item.image : '',
+      location: item ? item.location : ''
+    });
+    localStorage.setItem("hilligoTrips", JSON.stringify(state.trips));
+    showSuccessModal(resolvedTitle);
+
   } catch (err) {
     alert("Error processing payment: " + err.message);
     btn.innerHTML = `Pay ₹${rawTotal.toLocaleString()}`;
@@ -754,7 +877,17 @@ function showSuccessModal(title) {
 }
 
 function saveToTrips(id) {
-  alert("Added to your Favorites!");
+  const item = typeof id === 'number' ? listings.find(l => l.id === id) : null;
+  const trips = JSON.parse(localStorage.getItem("hilligoTrips")) || [];
+  if (item && trips.some(t => t.id === item.id)) {
+    alert("Already in your favorites!");
+    return;
+  }
+  if (item) {
+    trips.push({ id: item.id, title: item.title, date: new Date().toLocaleDateString(), image: item.image || '', location: item.location || '' });
+    localStorage.setItem("hilligoTrips", JSON.stringify(trips));
+  }
+  alert("Added to your Favorites! ❤️");
 }
 
 // Hero Slider
@@ -882,7 +1015,7 @@ function setupMobileMenu() {
         }
 
         // Save choice
-        localStorage.setItem('hillstay_language', selectedLang);
+        localStorage.setItem('hilligo_language', selectedLang);
         console.log(`Language changed to: ${langName}`);
       });
     });
@@ -931,7 +1064,7 @@ function handleScroll() {
 
 // Persist language on load
 function initLanguage() {
-  const savedLang = localStorage.getItem('hillstay_language') || 'en';
+  const savedLang = localStorage.getItem('hilligo_language') || 'en';
   const desktopLangIndicator = document.querySelector('.current-lang');
   if (desktopLangIndicator) desktopLangIndicator.textContent = savedLang.toUpperCase();
 
@@ -1131,3 +1264,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Open Property Details Modal - shows listing info before booking
+function openPropertyDetails(id) {
+  const item = listings.find(l => l.id === id);
+  if (!item) {
+    // If listing not loaded yet, go straight to booking
+    openBookingModal(id);
+    return;
+  }
+
+  const existingModal = document.getElementById('property-details-modal');
+  if (existingModal) existingModal.remove();
+
+  const modalHTML = `
+  <div id="property-details-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:1500; padding:1rem;">
+    <div style="background:#fff; border-radius:16px; max-width:560px; width:100%; max-height:90vh; overflow-y:auto; position:relative;">
+      <button onclick="document.getElementById('property-details-modal').remove()" style="position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.5rem; cursor:pointer; z-index:10; line-height:1;">&times;</button>
+      <div style="height:240px; overflow:hidden; border-radius:16px 16px 0 0; position:relative;">
+        <img src="${item.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600'}" alt="${item.title}" style="width:100%; height:100%; object-fit:cover;">
+        ${item.badge ? `<div style="position:absolute; top:14px; left:14px; background:var(--accent); color:white; padding:4px 14px; border-radius:50px; font-size:0.77rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">${item.badge}</div>` : ''}
+      </div>
+      <div style="padding:1.6rem;">
+        <h2 style="margin:0 0 0.3rem; font-size:1.3rem; color:var(--text-main);">${item.title}</h2>
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem; display:flex; align-items:center; gap:5px;">
+          <i class="fa-solid fa-location-dot" style="color:var(--accent);"></i> ${item.location}
+        </div>
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem;">
+          <div style="font-size:0.9rem; color:#555;"><i class="fa-solid fa-star" style="color:var(--accent);"></i> <strong>${item.rating}</strong> (${item.reviews.toLocaleString()} reviews)</div>
+          ${item.permit ? '<div style="font-size:0.82rem; background:#fff3cd; color:#856404; padding:3px 10px; border-radius:50px;"><i class="fa-solid fa-passport"></i> Permit Required</div>' : ''}
+        </div>
+        ${item.description ? `<p style="font-size:0.9rem; color:#555; line-height:1.7; margin-bottom:1.2rem;">${item.description}</p>` : ''}
+        ${item.host ? `<div style="display:flex; align-items:center; gap:10px; background:#f8f9fa; padding:0.9rem; border-radius:10px; margin-bottom:1.2rem;">
+          <div style="width:42px; height:42px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:1.1rem; flex-shrink:0;"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Hosted by ${item.host}</div>
+            ${item.hostAbout ? `<div style="font-size:0.8rem; color:#888; margin-top:2px;">${item.hostAbout}</div>` : ''}
+          </div>
+        </div>` : ''}
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#f8f9fa; padding:1rem; border-radius:10px; margin-bottom:1.4rem;">
+          <div>
+            <div style="font-size:0.75rem; color:#888; text-transform:uppercase; letter-spacing:0.5px; font-weight:600;">Price per night</div>
+            <div style="font-size:1.4rem; font-weight:700; color:var(--primary);">₹${item.price.toLocaleString()}</div>
+          </div>
+          <div style="font-size:0.82rem; color:#888;"><i class="fa-solid fa-bed"></i> ${item.totalRooms || 5} rooms available</div>
+        </div>
+        <button onclick="document.getElementById('property-details-modal').remove(); openBookingModal(${item.id});"
+          style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; font-family:'Outfit',sans-serif; transition:0.2s;">
+          <i class="fa-solid fa-calendar-check"></i> Book This Stay
+        </button>
+      </div>
+    </div>
+  </div>`;
+
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+
+// Expose key functions globally so they can be called from inline HTML in any page
+window.openBookingModal = openBookingModal;
+window.openPropertyDetails = openPropertyDetails;
+window.saveToTrips = saveToTrips;
+window.updateGuests = updateGuests;
+window.updateNightsPrice = updateNightsPrice;
+

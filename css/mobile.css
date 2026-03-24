@@ -1,0 +1,925 @@
+/* ═══════════════════════════════════════════════════════════════════
+   HILLIGO MOBILE APP STYLES — Premium Native-App Feel
+   Applied only on screens ≤ 768px
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Global mobile tweaks ── */
+@media (max-width: 768px) {
+  html {
+    /* Prevent iOS text size adjust */
+    -webkit-text-size-adjust: 100%;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* Account for bottom nav bar */
+    padding-bottom: 70px;
+    background: #f5f7fa;
+    overflow-x: hidden;
+  }
+
+  /* ── Top Header — App Style ── */
+  .main-header {
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .header-top-tier {
+    display: none !important;
+  }
+
+  .header-main-tier {
+    padding: 0.7rem 1.2rem !important;
+    min-height: 58px;
+    background: rgba(38, 58, 70, 0.92) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .main-header.scrolled .header-main-tier {
+    background: rgba(255, 255, 255, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid #eee;
+    padding: 0.6rem 1.2rem !important;
+  }
+
+  .logo {
+    font-size: 1.3rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .logo-img {
+    height: 60px !important;
+    width: auto !important;
+    max-width: 200px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Show List Your Stay as icon-only on mobile (or hide it) */
+  .btn-list-stay {
+    display: none !important;
+  }
+
+  /* Header actions — tighten */
+  .header-main-right {
+    gap: 0.5rem !important;
+  }
+
+  .user-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    border-width: 1.5px !important;
+  }
+
+  .menu-toggle {
+    font-size: 1.3rem !important;
+    padding: 4px !important;
+  }
+
+  /* ── Mobile Navigation Drawer ── */
+  .nav-links {
+    width: 85vw !important;
+    max-width: 320px !important;
+    padding: 1.5rem 1.2rem !important;
+    gap: 0.2rem !important;
+    background: rgba(15, 32, 44, 0.96) !important;
+    backdrop-filter: blur(30px) saturate(200%) !important;
+  }
+
+  .nav-links a {
+    font-size: 1rem !important;
+    padding: 0.9rem 1rem !important;
+    border-radius: 14px !important;
+    border-bottom: none !important;
+    gap: 0.8rem !important;
+    transition: background 0.15s !important;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:active {
+    background: rgba(176, 135, 71, 0.15) !important;
+    color: var(--accent) !important;
+  }
+
+  .menu-close {
+    width: 36px !important;
+    height: 36px !important;
+    margin-bottom: 1.5rem !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+  }
+
+  /* ── BOTTOM NAVIGATION BAR (App-Style) ── */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: stretch;
+    z-index: 999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    /* Safe area for notched phones */
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .mobile-bottom-nav a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: #9ca3af;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+    padding: 8px 4px;
+    position: relative;
+  }
+
+  .mobile-bottom-nav a i {
+    font-size: 1.22rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .mobile-bottom-nav a.active,
+  .mobile-bottom-nav a:active {
+    color: var(--primary);
+  }
+
+  .mobile-bottom-nav a.active i,
+  .mobile-bottom-nav a:active i {
+    transform: translateY(-2px);
+    color: var(--accent);
+  }
+
+  /* Active indicator dot */
+  .mobile-bottom-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Center "search" tab — slightly elevated  */
+  .mobile-bottom-nav a.nav-search-center {
+    background: var(--primary);
+    color: white !important;
+    border-radius: 18px;
+    margin: 8px 8px 12px;
+    flex: 0 0 56px;
+    box-shadow: 0 4px 14px rgba(38, 58, 70, 0.35);
+  }
+
+  .mobile-bottom-nav a.nav-search-center i {
+    font-size: 1.3rem;
+    color: white !important;
+  }
+
+  .mobile-bottom-nav a.nav-search-center span {
+    display: none;
+  }
+
+  /* ── HERO — Full-screen, App Style ── */
+  .hero {
+    height: 100svh !important;
+    height: 100vh !important;
+    min-height: 600px !important;
+  }
+
+  .hero-content {
+    padding: 0 1.2rem !important;
+    margin-bottom: 1.8rem !important;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem !important;
+    padding: 5px 14px !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .hero-title,
+  #hero-heading {
+    font-size: clamp(1.9rem, 8vw, 2.6rem) !important;
+    line-height: 1.18 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem !important;
+    margin-bottom: 2rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Hero Buttons — stack on mobile */
+  .hero-btns {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.7rem !important;
+    width: 100% !important;
+    max-width: 340px !important;
+  }
+
+  .hero-btns a,
+  .hero-btns button {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* ── Quick Search Bar (index.html) ── */
+  .search-bar-wrap {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    padding: 0.8rem !important;
+    border-radius: 16px !important;
+    margin: 0 1rem 1.5rem !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .search-bar-wrap .sb-field:nth-child(1) {
+    grid-column: span 2 !important;
+  }
+
+  .search-bar-wrap .sb-field:nth-child(4) {
+    grid-column: span 2 !important;
+  }
+
+  .search-bar-wrap .btn-sb-search {
+    grid-column: span 2 !important;
+  }
+
+  .search-bar-wrap .sb-field {
+    width: 100% !important;
+    border-radius: 10px !important;
+    padding: 0.6rem 0.8rem !important;
+    border: 1px solid #e9ecef !important;
+    background: #f8f9fa !important;
+    gap: 6px !important;
+  }
+
+  .search-bar-wrap .sb-field:focus-within {
+    border-color: var(--accent) !important;
+    background: #fff !important;
+  }
+
+  .search-bar-wrap .sb-inner label {
+    font-size: 0.6rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    color: #888 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .search-bar-wrap .sb-inner input,
+  .search-bar-wrap .sb-inner select {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: var(--text-main) !important;
+    padding: 0 !important;
+  }
+
+  .btn-sb-search {
+    width: 100% !important;
+    padding: 0.8rem !important;
+    border-radius: 10px !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    background: var(--primary) !important;
+    color: white !important;
+    border: none !important;
+    margin-top: 0.2rem !important;
+    box-shadow: 0 4px 10px rgba(38, 58, 70, 0.2) !important;
+  }
+
+  /* ── Search Widget (homestay page) ── */
+  .search-capsule {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    padding: 0.8rem !important;
+    border-radius: 16px !important;
+    margin: 0 1rem 1.5rem !important;
+  }
+
+  .search-capsule .search-segment:nth-child(1) {
+    grid-column: span 2 !important;
+  }
+
+  .search-capsule .search-segment:nth-child(2) {
+    grid-column: span 1 !important;
+  }
+
+  .search-capsule .search-segment:nth-child(3) {
+    grid-column: span 1 !important;
+  }
+
+  .search-capsule .search-segment:nth-child(4) {
+    grid-column: span 2 !important;
+  }
+
+  .search-capsule .btn-search-main {
+    grid-column: span 2 !important;
+    margin: 0 !important;
+  }
+
+  .search-segment {
+    width: 100% !important;
+    padding: 0.6rem 0.8rem !important;
+    border-radius: 10px !important;
+    background: #f8f9fa !important;
+    border: 1px solid #e9ecef !important;
+  }
+
+  .btn-search-main {
+    width: 100% !important;
+    margin: 0 !important;
+    min-height: 48px !important;
+    border-radius: 10px !important;
+    font-size: 0.9rem !important;
+    padding: 0.8rem !important;
+  }
+
+  /* ── LISTING CARDS — App style ── */
+  .listing-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+    padding: 0 1rem !important;
+  }
+
+  .listing-card {
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    min-height: 130px !important;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+
+  .listing-card:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* Image takes left side, content right side */
+  .listing-card .card-img-container {
+    width: 130px !important;
+    min-width: 130px !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    border-radius: 0 !important;
+    position: relative !important;
+  }
+
+  .listing-card .card-img-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+
+  .listing-card .card-badge {
+    top: 8px !important;
+    left: 8px !important;
+    font-size: 0.68rem !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    white-space: nowrap !important;
+  }
+
+  .listing-card .favorite-btn {
+    top: 8px !important;
+    right: 8px !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .listing-card .card-content {
+    flex: 1 !important;
+    padding: 0.85rem 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    min-width: 0 !important;
+  }
+
+  .listing-card .card-title {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.2rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .listing-card .card-location {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.3rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .listing-card .card-rating {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.3rem !important;
+    gap: 3px !important;
+  }
+
+  .listing-card .bubbles i {
+    font-size: 0.7rem !important;
+  }
+
+  .listing-card .review-count {
+    font-size: 0.72rem !important;
+  }
+
+  .listing-card .card-price {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    margin-top: 0 !important;
+    color: var(--primary) !important;
+  }
+
+  .listing-card .live-status {
+    font-size: 0.68rem !important;
+    margin-top: 0 !important;
+  }
+
+  .listing-card .action-buttons {
+    margin-top: 0.5rem !important;
+  }
+
+  .listing-card .btn-book {
+    padding: 0.5rem 0.8rem !important;
+    font-size: 0.78rem !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* permit badge offset on cards */
+  .permit-badge {
+    top: 36px !important;
+    left: 8px !important;
+    font-size: 0.62rem !important;
+    padding: 2px 6px !important;
+  }
+
+  /* ── Filter Bar (Homestay page) ── */
+  .filter-bar,
+  [class*="filter-wrap"],
+  .stays-filter-section {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    scrollbar-width: none !important;
+    padding: 0.8rem 1rem !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* All filter chips/pills in a scrollable row */
+  [class*="filter-chip"],
+  [class*="filter-btn"],
+  .filter-pill,
+  .category-filter {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  /* ── Sections — tighter padding on mobile ── */
+  .featured-section {
+    padding: 0 0 2rem !important;
+    margin: 1rem 0 !important;
+  }
+
+  .section-title {
+    font-size: 1.3rem !important;
+    padding: 0 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* ── Destination cards strip ── */
+  .dest-cards,
+  .dest-strip .dest-cards {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+  }
+
+  .dest-card-h {
+    height: 200px !important;
+    border-radius: 20px !important;
+  }
+
+  /* ── Deals / Featured Stays Slider ── */
+  .deals-section {
+    padding: 2rem 0 !important;
+  }
+
+  .deals-header {
+    padding: 0 1.2rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .deals-title {
+    font-size: 1.6rem !important;
+  }
+
+  .deal-card {
+    flex: 0 0 82vw !important;
+    height: 220px !important;
+    max-width: 300px !important;
+  }
+
+  .deals-slider-track {
+    padding: 20px 1.2rem !important;
+    gap: 16px !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .deals-nav-btn {
+    display: none !important;
+  }
+
+  /* ── Advanced Story Section ── */
+  .adv-story-section {
+    padding: 3rem 0 !important;
+  }
+
+  .adv-story-container {
+    padding: 0 1.2rem !important;
+  }
+
+  .adv-story-item {
+    gap: 1.2rem !important;
+    margin-bottom: 3rem !important;
+  }
+
+  .adv-story-img {
+    height: 220px !important;
+    border-radius: 16px !important;
+  }
+
+  .adv-story-content h3 {
+    font-size: 1.4rem !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+  }
+
+  .adv-story-content p {
+    font-size: 0.95rem !important;
+    text-align: left !important;
+  }
+
+  /* ── Restaurant page tabs ── */
+  .rest-tabs {
+    top: 58px !important;
+    padding: 0.7rem 1rem !important;
+    gap: 0.5rem !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none !important;
+  }
+
+  .rest-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .rest-tab {
+    flex-shrink: 0 !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 50px !important;
+  }
+
+  /* Restaurant cards — still one column */
+  .rest-section-wrapper {
+    padding: 2rem 1rem !important;
+  }
+
+  /* ── Trekking page ── */
+  .trek-filter-bar {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none !important;
+    padding: 0.8rem 1rem !important;
+  }
+
+  /* ── Experience / Activity cards ── */
+  .exp-grid,
+  [class*="experience-grid"],
+  [class*="activities-grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+  }
+
+  /* ── Booking Modal — full screen on mobile ── */
+  #booking-modal {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  #booking-modal>div {
+    border-radius: 24px 24px 0 0 !important;
+    max-height: 92vh !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-y: auto !important;
+    padding-bottom: env(safe-area-inset-bottom, 20px) !important;
+  }
+
+  /* Property details modal */
+  #property-details-modal {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  #property-details-modal>div {
+    border-radius: 24px 24px 0 0 !important;
+    max-height: 90vh !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* ── Auth Modal ── */
+  .auth-modal-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  .auth-modal-content {
+    border-radius: 24px 24px 0 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 2rem 1.5rem !important;
+    max-height: 92vh !important;
+    overflow-y: auto !important;
+  }
+
+  /* ── Support page ── */
+  .support-hero,
+  .support-content {
+    padding: 1.5rem 1rem !important;
+  }
+
+  /* ── Footer ── */
+  .main-footer {
+    padding: 2rem 1rem 1rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    text-align: center !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* ── Activity toast — adjust for bottom nav ── */
+  .activity-toast {
+    bottom: 80px !important;
+    left: 12px !important;
+    right: 12px !important;
+    transform: translateY(200%) !important;
+    font-size: 0.82rem !important;
+    border-radius: 14px !important;
+  }
+
+  .activity-toast.visible {
+    transform: translateY(0) !important;
+  }
+
+  /* ── Sticky search bar adjust ── */
+  .sticky-search-bar {
+    display: none !important;
+  }
+
+  /* ── Section wrappers — full-bleed on mobile ── */
+  .sec-hdr {
+    padding: 0 1.2rem !important;
+    text-align: left !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .sec-hdr h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .sec-hdr .tag {
+    font-size: 0.7rem !important;
+  }
+
+  .sec-hdr p {
+    font-size: 0.9rem !important;
+    margin-top: 0.4rem !important;
+  }
+
+  /* ── Gopod hero sections ── */
+  .gopod-wrapper {
+    padding-top: 80px !important;
+    border-radius: 0 !important;
+  }
+
+  /* ── "Why Hilligo" & feature grids ── */
+  [class*="why-grid"],
+  [class*="features-grid"],
+  [class*="trust-grid"],
+  [class*="stats-grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+    padding: 0 1rem !important;
+  }
+
+  /* ── Reviews cards ── */
+  [class*="review-card"],
+  [class*="testimonial-card"] {
+    padding: 1.2rem !important;
+    border-radius: 16px !important;
+  }
+
+  /* ── Destination strip carousel ── */
+  #destinations-track {
+    gap: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  #destinations-track>* {
+    scroll-snap-align: start !important;
+    flex: 0 0 75vw !important;
+    max-width: 280px !important;
+  }
+
+  /* ── Dashboard ── */
+  .dashboard-shell {
+    margin-top: 5rem !important;
+    padding: 0 0.8rem !important;
+  }
+
+  .dashboard-kpi-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* ── Hide desktop-only elements ── */
+  .dest-prev,
+  .dest-next,
+  .header-nav-desktop {
+    display: none !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE BOTTOM NAV — Always show the component if injected
+   ════════════════════════════════════════════════════════════ */
+.mobile-bottom-nav {
+  display: none;
+  /* Hidden by default — shown via media query below */
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HOMESTAY PAGE — Filter bar overhaul (most important fix)
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* The inline filter and sort row */
+  .stays-controls,
+  div[style*="display:flex"][style*="flex-wrap"] {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0.8rem 1rem !important;
+    gap: 0.5rem !important;
+    background: #fff !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+  }
+
+  /* All pill/chip buttons in filter area */
+  button[style*="border-radius: 50px"],
+  button[style*="border-radius:50px"],
+  button[class*="filter"] {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Sort dropdown — push to its own row on very small screens */
+  .sort-bar {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding: 0 1rem 0.6rem !important;
+    background: #fff !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PREMIUM TOUCH UX IMPROVEMENTS
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Larger tap targets */
+  button,
+  a,
+  [role="button"] {
+    min-height: 36px;
+  }
+
+  /* Prevent double-tap zoom on buttons */
+  button {
+    touch-action: manipulation;
+  }
+
+  /* Card press animation */
+  .listing-card:active,
+  .dest-card-h:active,
+  .deal-card:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.1s !important;
+  }
+
+  /* Smooth momentum scrolling */
+  .rest-tabs,
+  #destinations-track,
+  .deals-slider-track,
+  .nav-links {
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Hide hover effects on touch — avoids stuck states */
+  .listing-card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07) !important;
+  }
+
+  /* Input zoom prevention — font ≥ 16px prevents iOS zoom */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Trekking page card grid */
+  #trek-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+    padding: 0 1rem !important;
+  }
+
+  /* Experience page grid */
+  .exp-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+  }
+}

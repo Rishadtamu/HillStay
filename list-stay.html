@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Your Stay – HillStay</title>
+    <title>List Your Stay – Hilligo</title>
     <meta name="description"
-        content="Partner with HillStay. Turn your mountain home into a verified premium homestay and welcome guests from around the world.">
-    <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
-    <link rel="stylesheet" href="css/hillstay.css">
+        content="Partner with Hilligo. Turn your mountain home into a verified premium homestay and welcome guests from around the world.">
+    <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
+    <link rel="stylesheet" href="css/hilligo.css">
+  <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .list-hero {
@@ -305,8 +306,8 @@
     <header class="main-header" id="main-header">
         <div class="header-main-tier">
             <a href="index.html" class="logo">
-                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img">
-                HillStay
+                <img src="images/Hilligo%20Logo.png" alt="Hilligo Logo" class="logo-img">
+                Hilligo
             </a>
             <div class="header-nav-desktop">
                 <a href="experience.html" class="nav-item">Explore</a>
@@ -351,7 +352,7 @@
     <section class="registration-section">
         <div class="form-container">
             <div class="form-header">
-                <h2>Host with <span>HillStay</span></h2>
+                <h2>Host with <span>Hilligo</span></h2>
                 <p>Fill out this application, and our local scouts will get in touch to verify your property.</p>
             </div>
 
@@ -447,7 +448,7 @@
     <!-- Benefits Section -->
     <section class="benefits-section">
         <div class="benefits-header">
-            <h2>Why Partner with <span>HillStay?</span></h2>
+            <h2>Why Partner with <span>Hilligo?</span></h2>
         </div>
         <div class="benefits-grid">
             <div class="benefit-card">
@@ -459,7 +460,7 @@
             <div class="benefit-card">
                 <div class="b-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <h3>Premium Audience</h3>
-                <p>HillStay attracts travellers seeking curated, authentic, and premium experiences rather than just
+                <p>Hilligo attracts travellers seeking curated, authentic, and premium experiences rather than just
                     cheap accommodation.</p>
             </div>
             <div class="benefit-card">
@@ -477,9 +478,9 @@
             <div class="footer-col">
                 <div class="footer-logo-block"
                     style="display:flex; align-items:center; gap:0.8rem; margin-bottom:1.2rem;">
-                    <img src="images/hillstay_logo.jpeg" alt="HillStay Logo"
+                    <img src="images/Hilligo%20Logo.png" alt="Hilligo Logo"
                         style="height:44px; width:44px; object-fit:contain; background:white; border-radius:50%; padding:5px;">
-                    <span style="color:#fff; font-size:1.5rem; font-weight:700;">HillStay</span>
+                    <span style="color:#fff; font-size:1.5rem; font-weight:700;">Hilligo</span>
                 </div>
                 <p>Your gateway to authentic hill-country experiences in Darjeeling, Sikkim &amp; Nagaland. Every stay
                     verified, every host trusted.</p>
@@ -538,12 +539,35 @@
         </div>
         <div class="footer-bottom"
             style="max-width:1200px; margin:3rem auto 0; padding:1.5rem 0; border-top:1px solid rgba(255,255,255,0.07); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-            <span style="color:#666; font-size:0.82rem;">&copy; 2026 HillStay LLC. All rights reserved.</span>
+            <span style="color:#666; font-size:0.82rem;">&copy; 2026 Hilligo LLC. All rights reserved.</span>
             <span style="color:#666; font-size:0.82rem;">Made with ❤️ in the Himalayas</span>
         </div>
     </footer>
 
-    <script src="js/hillstay.js"></script>
+    
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <a href="index.html" aria-label="Home">
+        <i class="fa-regular fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="homestay.html" aria-label="Stays">
+        <i class="fa-regular fa-building"></i>
+        <span>Stays</span>
+      </a>
+      <a href="experience.html" class="nav-search-center" aria-label="Explore">
+        <i class="fa-solid fa-compass"></i>
+      </a>
+      <a href="restaurant.html" aria-label="Dine">
+        <i class="fa-regular fa-utensils"></i>
+        <span>Dine</span>
+      </a>
+      <a href="trips.html" aria-label="Trips">
+        <i class="fa-regular fa-suitcase"></i>
+        <span>Trips</span>
+      </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
     <script>
         async function submitProperty(e) {
             e.preventDefault();
@@ -574,7 +598,7 @@
                 });
 
                 if (response.ok) {
-                    alert("Thank you for applying to host with HillStay! Our scout team has received your application and will be in touch shortly.");
+                    alert("Thank you for applying to host with Hilligo! Our scout team has received your application and will be in touch shortly.");
                     e.target.reset();
                 } else {
                     alert("Something went wrong while submitting. Please try again.");

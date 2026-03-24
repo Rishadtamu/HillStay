@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HillStay - Dashboard</title>
-    <link rel="stylesheet" href="css/hillstay.css">
+    <title>Hilligo - Dashboard</title>
+    <link rel="stylesheet" href="css/hilligo.css">
+  <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
+    <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <header class="main-header">
         <div class="header-main-tier">
             <a href="index.html" class="logo">
-                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img"> HillStay
+                <img src="images/Hilligo%20Logo.png" alt="Hilligo Logo" class="logo-img">
             </a>
 
             <div class="header-nav-desktop">
@@ -137,7 +138,7 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-col">
-                <h4>About HillStay</h4>
+                <h4>About Hilligo</h4>
                 <ul>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Press</a></li>
@@ -162,11 +163,34 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">
-            &copy; 2026 HillStay LLC All rights reserved.
+            &copy; 2026 Hilligo LLC All rights reserved.
         </div>
     </footer>
 
-    <script src="js/hillstay.js"></script>
+    
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <a href="index.html" aria-label="Home">
+        <i class="fa-regular fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="homestay.html" aria-label="Stays">
+        <i class="fa-regular fa-building"></i>
+        <span>Stays</span>
+      </a>
+      <a href="experience.html" class="nav-search-center" aria-label="Explore">
+        <i class="fa-solid fa-compass"></i>
+      </a>
+      <a href="restaurant.html" aria-label="Dine">
+        <i class="fa-regular fa-utensils"></i>
+        <span>Dine</span>
+      </a>
+      <a href="trips.html" aria-label="Trips">
+        <i class="fa-regular fa-suitcase"></i>
+        <span>Trips</span>
+      </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 

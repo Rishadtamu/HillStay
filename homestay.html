@@ -4,21 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Homestays – HillStay</title>
+    <title>Stays – Authentic Homestays</title>
     <meta name="description"
-        content="Discover authentic, handpicked homestays in Darjeeling, Sikkim and Nagaland. Book directly with local hosts.">
-    <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
-    <link rel="stylesheet" href="css/hillstay.css">
-    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        content="Discover and book authentic homestays in Northeast India. Every stay verified and hosted by locals.">
+    <link rel="icon" type="image/png" href="images/logo_tent_transparent.png">
+    <link rel="stylesheet" href="css/hilligo.css">
+  <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ── Page Header ── */
         .homestay-page-header {
-            padding-top: 120px;
-            padding-bottom: 5rem;
-            background: linear-gradient(135deg, #1a2a35 0%, #263A46 60%, #2E4755 100%);
+            padding-top: 140px;
+            padding-bottom: 6rem;
+            background: #fff;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid #eee;
         }
 
         .homestay-page-header::before {
@@ -37,7 +39,7 @@
         .homestay-page-header h1 {
             font-size: clamp(2.2rem, 5vw, 3.8rem);
             font-weight: 300;
-            color: #FFFFFF;
+            color: var(--primary);
             margin-bottom: 0.8rem;
             letter-spacing: -0.02em;
         }
@@ -48,7 +50,7 @@
 
         .homestay-page-header p {
             font-size: 1.15rem;
-            color: rgba(255, 255, 255, 0.75);
+            color: var(--text-muted);
             max-width: 560px;
             margin: 0 auto 2rem;
         }
@@ -375,7 +377,7 @@
             font-size: 0.9rem;
         }
 
-        /* ── Why HillStay Strip ── */
+        /* ── Why Hilligo Strip ── */
         .why-strip {
             background: #f8f9fa;
             padding: 4rem 2rem;
@@ -451,16 +453,15 @@
     <!-- ── Header ── -->
     <header class="main-header scrolled">
         <div class="header-main-tier">
-            <a href="index.html" class="logo" style="color: var(--text-main) !important;">
-                <img src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img">
-                HillStay
+            <a href="index.html" class="logo">
+                <img src="images/Hilligo%20Logo.png" alt="Logo" class="logo-img">
             </a>
             <div class="header-nav-desktop">
-                <a href="experience.html" class="nav-item">Explore</a>
+                <a href="index.html" class="nav-item">Explore</a>
                 <a href="homestay.html" class="nav-item">Stays</a>
                 <a href="experience.html" class="nav-item">Experiences</a>
                 <a href="destination.html" class="nav-item">Destinations</a>
-                <a href="about.html" class="nav-item">Guides</a>
+                <a href="about.html" class="nav-item">About</a>
             </div>
             <div class="header-main-right">
                 <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
@@ -473,11 +474,11 @@
         <!-- Mobile Sidebar -->
         <div class="nav-links">
             <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-            <a href="experience.html">Explore</a>
-            <a href="homestay.html">Stays</a>
-            <a href="experience.html">Experiences</a>
-            <a href="destination.html">Destinations</a>
-            <a href="about.html">Guides</a>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Explore</a>
+            <a href="homestay.html" class="active"><i class="fa-solid fa-bed"></i> Stays</a>
+            <a href="experience.html"><i class="fa-solid fa-mountain-sun"></i> Experiences</a>
+            <a href="destination.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+            <a href="about.html"><i class="fa-solid fa-book-open"></i> About</a>
             <hr class="nav-divider">
             <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
             <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
@@ -487,8 +488,8 @@
     <!-- ── Page Hero ── -->
     <div class="homestay-page-header">
         <div class="inner">
-            <h1>Find Your Perfect <span>Homestay</span></h1>
-            <p>Authentic stays in Darjeeling, Sikkim &amp; Nagaland — hosted by locals, loved by travellers.</p>
+            <h1>Authentic Homestays in <span>Northeast India</span></h1>
+            <p>Discover handpicked, verified homestays hosted by locals in Darjeeling, Sikkim, Nagaland, and beyond.</p>
             <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
                 <a href="#all-homestays" class="btn-prem-book" style="padding:0.8rem 2rem; font-size:0.95rem;">
                     <i class="fa-solid fa-magnifying-glass"></i> Browse All Stays
@@ -543,8 +544,8 @@
     <!-- ── Premium Homestays Slider ── -->
     <section class="premium-slider-section">
         <div class="section-header">
-            <h2><span>Premium</span> Homestays</h2>
-            <p class="subtitle">Curated luxury stays with exceptional host experiences</p>
+            <h2>Our <span>Top-Rated</span> Stays</h2>
+            <p class="subtitle">Experience the best of local hospitality with our highly-rated homestays.</p>
         </div>
         <div class="prem-slider-wrapper">
             <div class="prem-track" id="premTrack">
@@ -562,7 +563,8 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.9 (312 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="event.stopPropagation(); window.openBookingModal('Makaibari Tea Bungalow', 4500)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Makaibari Tea Bungalow', 4500)">Book
+                                Now</button>
                         </div>
                     </div>
                 </div>
@@ -579,7 +581,8 @@
                         <div class="price">₹5,200 <span>/ night</span></div>
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.8 (187 reviews)</div>
-                            <button class="btn-prem-book" onclick="event.stopPropagation(); window.openBookingModal('Hidden Forest Retreat', 5200)">Book
+                            <button class="btn-prem-book"
+                                onclick="event.stopPropagation(); window.openBookingModal('Hidden Forest Retreat', 5200)">Book
                                 Now</button>
                         </div>
                     </div>
@@ -598,7 +601,8 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.95 (94 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="event.stopPropagation(); window.openBookingModal('Naga Heritage Longhouse', 3800)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Naga Heritage Longhouse', 3800)">Book
+                                Now</button>
                         </div>
                     </div>
                 </div>
@@ -616,7 +620,8 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.7 (256 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="event.stopPropagation(); window.openBookingModal('Kanchenjunga View Villa', 6000)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Kanchenjunga View Villa', 6000)">Book
+                                Now</button>
                         </div>
                     </div>
                 </div>
@@ -634,7 +639,8 @@
                         <div class="prem-card-footer">
                             <div class="prem-rating"><i class="fa-solid fa-star"></i> 4.6 (145 reviews)</div>
                             <button class="btn-prem-book"
-                                onclick="event.stopPropagation(); window.openBookingModal('Mirik Lakeside Bungalow', 3200)">Book Now</button>
+                                onclick="event.stopPropagation(); window.openBookingModal('Mirik Lakeside Bungalow', 3200)">Book
+                                Now</button>
                         </div>
                     </div>
                 </div>
@@ -653,7 +659,7 @@
     <!-- ── All Homestays ── -->
     <div class="all-homestays-section" id="all-homestays">
         <div class="section-header">
-            <h2 class="section-title">All Homestays</h2>
+            <h2 class="section-title">Browse All Stays</h2>
             <span class="result-count" id="result-count">Loading...</span>
         </div>
         <div class="listing-grid" id="listing-grid">
@@ -661,9 +667,9 @@
         </div>
     </div>
 
-    <!-- ── Why HillStay ── -->
+    <!-- ── Why Hilligo ── -->
     <section class="why-strip">
-        <h2>Why Book with HillStay?</h2>
+        <h2>Why Book Your Stay with Us?</h2>
         <p>Every stay is personally verified by our local team for authenticity and comfort.</p>
         <div class="why-grid">
             <div class="why-item">
@@ -683,8 +689,8 @@
             </div>
             <div class="why-item">
                 <div class="icon-circle"><i class="fa-solid fa-rotate-left"></i></div>
-                <h4>Free Cancellation</h4>
-                <p>Cancel up to 48 hours before check-in with no charges.</p>
+                <h4>Flexible Booking</h4>
+                <p>Enjoy peace of mind with flexible cancellation options on most stays.</p>
             </div>
         </div>
     </section>
@@ -693,15 +699,15 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-col">
-                <div class="footer-logo"><img src="images/hillstay_logo.jpeg" alt="HillStay Logo"></div>
+                <div class="footer-logo"><img src="images/Hilligo%20Logo.png" alt="Logo"></div>
                 <p style="font-size:0.85rem; color:#bbb; line-height:1.6;">Your gateway to authentic hill-country
                     experiences in Northeast India.</p>
             </div>
             <div class="footer-col">
                 <h4>Explore</h4>
                 <ul>
-                    <li><a href="destination.html">Destinations</a>
-            <a href="homestay.html">Homestays</a></li>
+                    <li><a href="destination.html">Destinations</a></li>
+                    <li><a href="homestay.html">Homestays</a></li>
                     <li><a href="restaurant.html">Restaurants</a></li>
                     <li><a href="trekking.html">Trekking</a></li>
                     <li><a href="experience.html">Experiences</a></li>
@@ -726,100 +732,95 @@
         </div>
         <div class="footer-bottom"
             style="text-align:center; margin-top:3rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.07); color:#888; font-size:0.85rem;">
-            &copy; 2026 HillStay LLC. All rights reserved.
+            &copy; 2026 Hilligo LLC. All rights reserved.
         </div>
     </footer>
 
-    <script src="js/hillstay.js"></script>
+    
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <a href="index.html" aria-label="Home">
+        <i class="fa-regular fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="homestay.html" class="active" aria-label="Stays">
+        <i class="fa-solid fa-building"></i>
+        <span>Stays</span>
+      </a>
+      <a href="experience.html" class="nav-search-center" aria-label="Explore">
+        <i class="fa-solid fa-compass"></i>
+      </a>
+      <a href="restaurant.html" aria-label="Dine">
+        <i class="fa-regular fa-utensils"></i>
+        <span>Dine</span>
+      </a>
+      <a href="trips.html" aria-label="Trips">
+        <i class="fa-regular fa-suitcase"></i>
+        <span>Trips</span>
+      </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
     <script>
         // ── Render listing cards ──
         document.addEventListener('DOMContentLoaded', () => {
-            loadHomestays('all');
-
             // Premium slider nav
             const track = document.getElementById('premTrack');
-            document.getElementById('premNext').addEventListener('click', () => {
-                track.scrollBy({ left: 320, behavior: 'smooth' });
-            });
-            document.getElementById('premPrev').addEventListener('click', () => {
-                track.scrollBy({ left: -320, behavior: 'smooth' });
-            });
-        });
-
-        function loadHomestays(filter) {
-            let items = typeof listings !== 'undefined'
-                ? listings.filter(l => l.category === 'homestay')
-                : getFallbackHomestays();
-
-            if (filter === 'darjeeling') items = items.filter(l => l.location && l.location.toLowerCase().includes('darjeeling'));
-            if (filter === 'sikkim') items = items.filter(l => l.location && l.location.toLowerCase().includes('sikkim'));
-            if (filter === 'nagaland') items = items.filter(l => l.location && l.location.toLowerCase().includes('nagaland'));
-            if (filter === 'premium') items = items.filter(l => l.badge === 'Premium' || (l.price && l.price >= 4000));
-
-            document.getElementById('result-count').textContent = items.length + ' stays found';
-
-            if (typeof renderListings === 'function') {
-                renderListings(items, 'listing-grid');
-            } else {
-                renderFallbackCards(items);
+            if (track) {
+                document.getElementById('premNext').addEventListener('click', () => {
+                    track.scrollBy({ left: 320, behavior: 'smooth' });
+                });
+                document.getElementById('premPrev').addEventListener('click', () => {
+                    track.scrollBy({ left: -320, behavior: 'smooth' });
+                });
             }
-        }
+
+            // Sync result count if listings are already loaded
+            setTimeout(() => {
+                if (typeof listings !== 'undefined' && listings.length > 0) {
+                    const homestays = listings.filter(l => l.category === 'homestay');
+                    const countEl = document.getElementById('result-count');
+                    if (countEl) countEl.textContent = homestays.length + ' stays found';
+                }
+            }, 500);
+        });
 
         function filterStays(filter, btn) {
             document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
             btn.classList.add('active');
-            loadHomestays(filter);
+            
+            if (typeof performSearch === 'function') {
+                if (filter === 'all') {
+                    performSearch('');
+                } else {
+                    performSearch(filter);
+                }
+            }
+            
+            // Update count after a delay
+            setTimeout(() => {
+                const grid = document.getElementById('listing-grid');
+                const count = grid ? grid.querySelectorAll('.listing-card').length : 0;
+                const countEl = document.getElementById('result-count');
+                if (countEl) countEl.textContent = count + ' stays found';
+            }, 200);
         }
 
         function sortStays(method) {
             const grid = document.getElementById('listing-grid');
+            if (!grid) return;
             const cards = Array.from(grid.querySelectorAll('.listing-card'));
             cards.sort((a, b) => {
-                const priceA = parseInt(a.dataset.price || 0);
-                const priceB = parseInt(b.dataset.price || 0);
-                const ratingA = parseFloat(a.dataset.rating || 0);
-                const ratingB = parseFloat(b.dataset.rating || 0);
+                const priceA = parseInt(a.querySelector('.card-price')?.textContent.replace(/[^0-9]/g, '') || 0);
+                const priceB = parseInt(b.querySelector('.card-price')?.textContent.replace(/[^0-9]/g, '') || 0);
+                const ratingA = parseFloat(a.querySelector('.card-rating [style*="font-weight:700"]')?.textContent || 0);
+                const ratingB = parseFloat(b.querySelector('.card-rating [style*="font-weight:700"]')?.textContent || 0);
+                
                 if (method === 'price-asc') return priceA - priceB;
                 if (method === 'price-desc') return priceB - priceA;
                 if (method === 'rating') return ratingB - ratingA;
                 return 0;
             });
             cards.forEach(c => grid.appendChild(c));
-        }
-
-        function getFallbackHomestays() {
-            return [
-                { id: 1, title: "Makaibari Tea Bungalow", location: "Kurseong, Darjeeling", price: 4500, rating: 4.9, reviews: 312, badge: "Bestseller", category: "homestay", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=70" },
-                { id: 2, title: "Hidden Forest Retreat", location: "Pelling, Sikkim", price: 5200, rating: 4.8, reviews: 187, badge: "Premium", category: "homestay", image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=70" },
-                { id: 3, title: "Naga Heritage Longhouse", location: "Khonoma, Nagaland", price: 3800, rating: 4.95, reviews: 94, badge: "Unique", category: "homestay", image: "https://images.unsplash.com/photo-1570220104815-5e042c341a7d?w=600&q=70" },
-                { id: 4, title: "Kanchenjunga View Villa", location: "Gangtok, Sikkim", price: 6000, rating: 4.7, reviews: 256, badge: "Mountain View", category: "homestay", image: "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?w=600&q=70" },
-                { id: 5, title: "Mirik Lakeside Bungalow", location: "Mirik, Darjeeling", price: 3200, rating: 4.6, reviews: 145, badge: "Lakeside", category: "homestay", image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=70" },
-                { id: 6, title: "Kalimpong Heritage Home", location: "Kalimpong, Darjeeling", price: 2800, rating: 4.5, reviews: 89, badge: "Heritage", category: "homestay", image: "https://images.unsplash.com/photo-1596700209699-7d8cc1ab1e48?w=600&q=70" },
-            ];
-        }
-
-        function renderFallbackCards(items) {
-            const grid = document.getElementById('listing-grid');
-            grid.innerHTML = items.map(item => `
-                <div class="listing-card" data-price="${item.price}" data-rating="${item.rating}">
-                    <div class="card-img-container">
-                        <img src="${item.image}" alt="${item.title}" loading="lazy">
-                        <div class="card-badge">${item.badge || 'Stay'}</div>
-                        <button class="favorite-btn" title="Save to wishlist"><i class="fa-regular fa-heart" onclick="event.stopPropagation(); saveToTrips(this)"></i></button>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${item.title}</h3>
-                        <div class="card-location"><i class="fa-solid fa-location-dot"></i> ${item.location}</div>
-                        <div class="card-rating">
-                            <div class="bubbles"><i class="fa-solid fa-star" style="color:var(--accent);"></i></div>
-                            <span style="font-weight:700; font-size:0.9rem;">${item.rating}</span>
-                            <span class="review-count">(${item.reviews} reviews)</span>
-                        </div>
-                        <div class="card-price">₹${item.price.toLocaleString()} <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">/ night</span></div>
-                        <button class="btn-book" style="width:100%; margin-top:0.8rem;" onclick="event.stopPropagation(); window.openBookingModal('${item.title}', ${item.price})">Book Now</button>
-                    </div>
-                </div>
-            `).join('');
         }
     </script>
 </body>

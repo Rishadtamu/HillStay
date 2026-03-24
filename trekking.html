@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trekking Trails – HillStay</title>
+    <title>Trekking Trails – Hilligo</title>
     <meta name="description" content="Discover the best trekking trails in Darjeeling, Sikkim & Nagaland.">
-    <link rel="icon" type="image/png" href="images/hillstay_logo.jpeg">
-    <link rel="stylesheet" href="css/hillstay.css">
-    <link rel="stylesheet" href="css/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
+    <link rel="stylesheet" href="css/hilligo.css">
+  <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .trek-hero {
             padding-top: 120px;
@@ -311,7 +312,7 @@
     <header class="main-header scrolled">
         <div class="header-main-tier">
             <a href="index.html" class="logo" style="color:var(--text-main)!important"><img
-                    src="images/hillstay_logo.jpeg" alt="HillStay Logo" class="logo-img"> HillStay</a>
+                    src="images/Hilligo%20Logo.png" alt="Hilligo Logo" class="logo-img"></a>
             <div class="header-nav-desktop">
                 <a href="experience.html" class="nav-item">Explore</a>
                 <a href="homestay.html" class="nav-item">Stays</a>
@@ -400,7 +401,7 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-col">
-                <div class="footer-logo"><img src="images/hillstay_logo.jpeg" alt="HillStay Logo"></div>
+                <div class="footer-logo"><img src="images/Hilligo%20Logo.png" alt="Hilligo Logo"></div>
                 <p style="font-size:.85rem;color:#bbb;line-height:1.6">Your gateway to authentic hill-country
                     experiences.</p>
             </div>
@@ -434,14 +435,37 @@
         </div>
         <div class="footer-bottom"
             style="text-align:center;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);color:#888;font-size:.85rem">
-            &copy; 2026 HillStay LLC. All rights reserved.</div>
+            &copy; 2026 Hilligo LLC. All rights reserved.</div>
     </footer>
 
-    <script src="js/hillstay.js"></script>
+    
+    <!-- ── Mobile Bottom Navigation Bar ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <a href="index.html" aria-label="Home">
+        <i class="fa-regular fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="homestay.html" aria-label="Stays">
+        <i class="fa-regular fa-building"></i>
+        <span>Stays</span>
+      </a>
+      <a href="experience.html" class="nav-search-center" aria-label="Explore">
+        <i class="fa-solid fa-compass"></i>
+      </a>
+      <a href="restaurant.html" aria-label="Dine">
+        <i class="fa-regular fa-utensils"></i>
+        <span>Dine</span>
+      </a>
+      <a href="trips.html" aria-label="Trips">
+        <i class="fa-regular fa-suitcase"></i>
+        <span>Trips</span>
+      </a>
+    </nav>
+    <script src="js/hilligo.js"></script>
     <script>
         const treks = [
-            { id: 1, title: "Dzukou Valley Trek", location: "Nagaland–Manipur Border", difficulty: "moderate", badge: "Bestseller", duration: "2–3 Days", altitude: "2,452m", price: 4500, desc: "Walk through the valley of flowers and experience Nagaland's unique topography.", image: "https://images.unsplash.com/photo-1504280595-349f257a5360?q=80&w=600&auto=format&fit=crop" },
-            { id: 2, title: "Sandakphu–Phalut Trek", location: "Darjeeling, West Bengal", difficulty: "challenging", badge: "Premium", duration: "5–6 Days", altitude: "3,636m", price: 8500, desc: "The 'Trek of the Greats' — views of Everest, Kanchenjunga, Lhotse, and Makalu.", image: "https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=600&auto=format&fit=crop" },
+            { id: 1, title: "Dzukou Valley Trek", location: "Nagaland–Manipur Border", difficulty: "moderate", badge: "Bestseller", duration: "2–3 Days", altitude: "2,452m", price: 4500, desc: "Walk through the valley of flowers and experience Nagaland's unique topography.", image: "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=600&auto=format&fit=crop" },
+            { id: 2, title: "Sandakphu–Phalut Trek", location: "Darjeeling, West Bengal", difficulty: "challenging", badge: "Premium", duration: "5–6 Days", altitude: "3,636m", price: 8500, desc: "The 'Trek of the Greats' — views of Everest, Kanchenjunga, Lhotse, and Makalu.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600&auto=format&fit=crop" },
             { id: 3, title: "Goechala Trek", location: "West Sikkim", difficulty: "challenging", badge: "Epic", duration: "9–11 Days", altitude: "4,940m", price: 12000, desc: "Face-to-face with Kanchenjunga through rhododendron forests.", image: "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?q=80&w=600&auto=format&fit=crop" },
             { id: 4, title: "Singalila Ridge Walk", location: "Darjeeling, West Bengal", difficulty: "easy", badge: "Scenic", duration: "3 Days", altitude: "3,200m", price: 3500, desc: "A gentle ridge walk with stunning sunrise views.", image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=600&auto=format&fit=crop" },
             { id: 5, title: "Japfu Peak Trek", location: "Kohima, Nagaland", difficulty: "moderate", badge: "Unique", duration: "2 Days", altitude: "3,048m", price: 3800, desc: "Home to the world's tallest rhododendron tree.", image: "https://images.unsplash.com/photo-1570220104815-5e042c341a7d?q=80&w=600&auto=format&fit=crop" },
