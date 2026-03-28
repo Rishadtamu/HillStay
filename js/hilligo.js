@@ -1327,3 +1327,59 @@ window.saveToTrips = saveToTrips;
 window.updateGuests = updateGuests;
 window.updateNightsPrice = updateNightsPrice;
 
+// Hillygo Navbar Toggles
+function toggleMobileMenu() {
+  let overlay = document.querySelector('.mobile-overlay');
+  
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'mobile-overlay';
+    overlay.innerHTML = `
+      <button class="mobile-overlay-close" onclick="toggleMobileMenu()">&times;</button>
+      <div class="mobile-nav-links">
+        <a href="index.html" onclick="toggleMobileMenu()">Explore</a>
+        <a href="homestay.html" onclick="toggleMobileMenu()">Stays</a>
+        <a href="experience.html" onclick="toggleMobileMenu()">Experiences</a>
+        <a href="destination.html" onclick="toggleMobileMenu()">Destinations</a>
+        <a href="about.html" onclick="toggleMobileMenu()">About</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <div style="font-family:'Playfair Display', serif; font-size: 1.5rem; color:#1B2B30; margin-bottom: 0.5rem;">Hillygo</div>
+        <p style="font-size: 0.85rem; color: #888;">Northeast India's Premier Stays</p>
+        <a href="list-stay.html" class="btn-list-mobile">List Your Stay</a>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    
+    // Trigger reflow for animation
+    setTimeout(() => overlay.classList.add('active'), 10);
+  } else {
+    overlay.classList.toggle('active');
+    // Remove from DOM after transition
+    if (!overlay.classList.contains('active')) {
+      setTimeout(() => overlay.remove(), 500);
+    }
+  }
+}
+
+function toggleLoginMenu() {
+  if (typeof updateAuthUI === 'function') {
+    // Try to trigger existing auth modal if available
+    const signinBtn = document.querySelector('.btn-signin');
+    if (signinBtn) signinBtn.click();
+    else alert("Sign In / Profile: Coming Soon!");
+  } else {
+    alert("Sign In / Profile: Coming Soon!");
+  }
+}
+
+function toggleNavExpand() {
+  const nav = document.getElementById('hillygo-nav');
+  if (nav) {
+    nav.classList.toggle('is-expanded');
+  }
+}
+
+window.toggleNavExpand = toggleNavExpand;
+window.toggleMobileMenu = toggleMobileMenu;
+window.toggleLoginMenu = toggleLoginMenu;

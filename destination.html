@@ -7,9 +7,10 @@
     <title>Destinations – Hilligo</title>
     <link rel="stylesheet" href="css/hilligo.css">
   <link rel="stylesheet" href="css/mobile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
-    <style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/Hilligo%20Logo.png">
+  <style>
         .dest-hero {
             padding-top: 120px;
             padding-bottom: 5rem;
@@ -123,39 +124,39 @@
 </head>
 
 <body>
-    <header class="main-header scrolled">
-        <div class="header-main-tier">
-            <a href="index.html" class="logo" style="color: var(--text-main) !important;">
-                <img src="images/Hilligo%20Logo.png" alt="Hilligo Logo" class="logo-img">
+    <nav class="hillygo-navbar">
+        <!-- Left Section -->
+        <div class="nav-group">
+            <div class="explore-dropdown">
+                <span class="nav-item-new">Explore <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></span>
+                <div class="dropdown-menu">
+                    <a href="destination.html">Destinations</a>
+                    <a href="trekking.html">Trekking</a>
+                    <a href="restaurant.html">Restaurants</a>
+                </div>
+            </div>
+            <a href="homestay.html" class="nav-item-new">Stays</a>
+            <a href="experience.html" class="nav-item-new">Experiences</a>
+        </div>
+
+        <!-- Center Section: Logo -->
+        <a href="index.html" class="hillygo-logo">Hillygo</a>
+
+        <!-- Right Section -->
+        <div class="nav-group right">
+            <a href="destination.html" class="nav-item-new">Destinations</a>
+            <a href="about.html" class="nav-item-new">About</a>
+            <a href="list-stay.html" class="nav-item-new">List Your Stay</a>
+            <a href="#" class="btn-signin-pill" onclick="toggleLoginMenu()">
+                <i class="fa-solid fa-user"></i> <span class="signin-text-hide">Sign In / Profile</span>
             </a>
-            <div class="header-nav-desktop">
-                <a href="experience.html" class="nav-item">Explore</a>
-                <a href="homestay.html" class="nav-item">Stays</a>
-                <a href="experience.html" class="nav-item">Experiences</a>
-                <a href="destination.html" class="nav-item">Destinations</a>
-                <a href="about.html" class="nav-item">Guides</a>
-            </div>
-            <div class="header-main-right">
-                <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
-                <div class="header-actions"><!-- Auth Icon via JS --></div>
-                <button class="menu-toggle" aria-label="Toggle navigation">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
         </div>
-        <!-- Mobile Sidebar -->
-        <div class="nav-links">
-            <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-            <a href="experience.html">Explore</a>
-            <a href="homestay.html">Stays</a>
-            <a href="experience.html">Experiences</a>
-            <a href="destination.html">Destinations</a>
-            <a href="about.html">Guides</a>
-            <hr class="nav-divider">
-            <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
-            <div class="header-actions-mobile mobile-only" style="padding: 1rem 1.5rem;"></div>
-        </div>
-    </header>
+
+        <!-- Mobile Navigation Toggle -->
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
 
     <div class="dest-hero">
         <div class="inner">

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/hilligo.css">
   <link rel="stylesheet" href="css/mobile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ── Hero Override ── */
     .hero {
@@ -18,14 +19,12 @@
       min-height: 600px;
     }
 
-
     /* ── Search Bar Override ── */
     .search-bar-wrap {
       transform: translateY(-50px);
       border-radius: 12px;
       padding: 1.5rem 2.2rem;
     }
-
 
     /* ── Quick Search Override ── */
     .search-bar-wrap {
@@ -582,53 +581,76 @@
 
 <body>
 
-  <!-- ── Navbar ── -->
-  <header class="main-header" id="main-header">
-    <div class="header-main-tier">
-      <a href="index.html" class="logo">
-        <img src="images/Hilligo%20Logo.png" alt="Logo" class="logo-img">
-      </a>
-      <div class="header-nav-desktop">
-        <a href="index.html" class="nav-item">Explore</a>
-        <a href="homestay.html" class="nav-item">Stays</a>
-        <a href="experience.html" class="nav-item">Experiences</a>
-        <a href="destination.html" class="nav-item">Destinations</a>
-        <a href="about.html" class="nav-item">About</a>
+  <nav class="hillygo-navbar" id="hillygo-nav">
+    <div class="nav-main-row">
+      <!-- Left Section -->
+      <div class="nav-col">
+        <div class="nav-item-new" onclick="toggleNavExpand()">Explore <i class="fa-solid fa-chevron-down"></i></div>
+        <a href="homestay.html" class="nav-item-new">Stays</a>
+        <a href="experience.html" class="nav-item-new">Experiences</a>
       </div>
-      <div class="header-main-right">
-        <a href="list-stay.html" class="btn-list-stay" id="btn-list-stay">List Your Stay</a>
-        <div class="header-actions"><!-- Auth via JS --></div>
-        <button class="menu-toggle" aria-label="Toggle navigation">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+
+      <!-- Center Logo -->
+      <div class="nav-col center">
+        <a href="index.html" class="hillygo-logo">Hillygo</a>
+      </div>
+
+      <!-- Right Section -->
+      <div class="nav-col right">
+        <a href="destination.html" class="nav-item-new">Destinations</a>
+        <a href="about.html" class="nav-item-new">About</a>
+        <a href="#" class="btn-book-pill" onclick="toggleLoginMenu()">Sign In / Profile</a>
+      </div>
+
+      <!-- Mobile Button -->
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Expanded Grid (Hidden by Default) -->
+    <div class="nav-expanded-content">
+      <div class="expand-col">
+        <h4>Popular Stays</h4>
+        <ul>
+          <li><a href="homestay.html">Mountain Retreats</a></li>
+          <li><a href="homestay.html">Forest Cabins</a></li>
+          <li><a href="homestay.html">Monastery Stays</a></li>
+        </ul>
+      </div>
+      <div class="expand-col">
+        <h4>Experiences</h4>
+        <ul>
+          <li><a href="experience.html">Trekking Tours</a></li>
+          <li><a href="experience.html">Cultural Walks</a></li>
+          <li><a href="experience.html">Tea Tasting</a></li>
+        </ul>
+      </div>
+      <div class="expand-col">
+        <h4>Destinations</h4>
+        <ul>
+          <li><a href="destination.html">Sikkim</a></li>
+          <li><a href="destination.html">Darjeeling</a></li>
+          <li><a href="destination.html">Nagaland</a></li>
+        </ul>
+      </div>
+      <div class="expand-col">
+        <h4>Help & Support</h4>
+        <ul>
+          <li><a href="support.html">Contact Us</a></li>
+          <li><a href="about.html">About Hillygo</a></li>
+          <li><a href="terms.html">Privacy Policy</a></li>
+        </ul>
       </div>
     </div>
-    <!-- Mobile Sidebar -->
-    <div class="nav-links">
-      <button class="menu-close"><i class="fa-solid fa-xmark"></i></button>
-      <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Explore</a>
-      <a href="homestay.html"><i class="fa-solid fa-bed"></i> Stays</a>
-      <a href="experience.html"><i class="fa-solid fa-mountain-sun"></i> Experiences</a>
-      <a href="destination.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
-      <a href="about.html"><i class="fa-solid fa-book-open"></i> About</a>
-      <hr class="nav-divider">
-      <a href="list-stay.html"><i class="fa-solid fa-home"></i> List Your Stay</a>
-      <div class="header-actions-mobile mobile-only"></div>
-    </div>
-  </header>
+  </nav>
 
   <!-- ── Hero ── -->
   <section class="hero" id="home">
     <div class="hero-slider">
       <div class="hero-slide active"
-        style="background-image:url('https://images.unsplash.com/photo-1544634076-a901606f43e9?q=80&w=1800&auto=format&fit=crop')"
+        style="background-image:url('images/Hero%20section.png')"
         data-title="Wake Up to the Himalayas"></div>
-      <div class="hero-slide"
-        style="background-image:url('https://images.unsplash.com/photo-1588873280148-d30953931604?q=80&w=1800&auto=format&fit=crop')"
-        data-title="Discover Sikkim's Hidden Valleys"></div>
-      <div class="hero-slide"
-        style="background-image:url('https://images.unsplash.com/photo-1570220104815-5e042c341a7d?q=80&w=1800&auto=format&fit=crop')"
-        data-title="Experience Nagaland's Rich Heritage"></div>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -1012,23 +1034,8 @@
   </nav>
   <script src="js/hilligo.js"></script>
   <script>
-    // Hero heading updater
-    const slides = document.querySelectorAll('.hero-slide');
-    const heading = document.getElementById('hero-heading');
-    let cur = 0;
-    setInterval(() => {
-      heading.style.opacity = '0';
-      heading.style.transform = 'translateY(-16px)';
-      setTimeout(() => {
-        slides[cur].classList.remove('active');
-        cur = (cur + 1) % slides.length;
-        slides[cur].classList.add('active');
-        const titles = ['Wake Up to the <span>Himalayas</span>', "Sikkim's Hidden <span>Valleys</span>", "Nagaland's Rich <span>Heritage</span>"];
-        heading.innerHTML = titles[cur];
-        heading.style.opacity = '1';
-        heading.style.transform = 'translateY(0)';
-      }, 600);
-    }, 5000);
+    // Hero heading remains static with the first slide title
+    document.getElementById('hero-heading').innerHTML = 'Wake Up to the <span>Himalayas</span>';
 
     // Fav toggle
     document.querySelectorAll('.stay-fav').forEach(btn => {
@@ -1058,6 +1065,12 @@
     document.getElementById('sb-where')?.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') doHeroSearch();
     });
+    // Mobile Menu Toggle for Hillygo Navbar
+    function toggleMobileMenu() {
+      // For now, since it's just a demo, we'll alert or show a basic popup
+      // In a real app, this would toggle a sidebar or dropdown
+      alert("Mobile Menu coming soon!");
+    }
   </script>
 </body>
 
